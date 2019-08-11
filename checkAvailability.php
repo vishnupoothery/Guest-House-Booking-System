@@ -55,47 +55,21 @@ include_once 'functions.php';
            </div>
       </header>
 
-
-
-
-	<!-- Display event calendar -->
-
-
-
-
-<!-- w3-content defines a container for fixed size centered content,
-and is wrapped around the whole page content, except for the footer in this example -->
-<div class="w3-content" style="max-width:1600px">
-
-
-
-
-
-
-  <!-- Grid -->
-  <div class="w3-row w3-padding w3-border">
-
-    <!-- Blog entries -->
-    <div class="w3-col l12 s12">
-
-      <!-- Blog entry -->
-      <div class="w3-container w3-white w3-margin w3-padding-large">
-
-
-          <div id="calendar_div">
-
-              <?php echo getCalender(); ?>
-</div>
-
-
-
-      </div>
+<div class="row">
+      <div class="col-sm-6">
+        <div id="calendar_div">
+            <?php echo getCalender(); ?>
+        </div>
+    </div>
+    <div class="col-sm-6">
 
     </div>
-
-  </div>
-
 </div>
+
+
+
+
+
 
 </body>
 </html>

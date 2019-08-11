@@ -40,13 +40,15 @@ body{ font-family: monospace;}
 #calender_section_bot ul{ margin:0; padding:0; list-style-type:none;}
 #calender_section_bot ul li{ float:left; width:99px; height:80px; text-align:center; border-top:1px solid #ccc; border-right:1px solid #ccc; min-height:0; background:none; box-shadow:none; margin:0; padding:0; position:relative;}
 #calender_section_bot ul li span{ margin-top:7px; float:left; margin-left:7px; text-align:center;}
+.current{background-color: #d9b3ff !important;}
+.red{background-color: #ff8080 !important;}
+.yellow{background-color:  #ffff66 !important;}
+.green{background-color: #9fff80 !important;}
 
-.grey{ background-color:#DDDDDD !important;}
-.light_sky{ background-color:#B9FFFF !important;}
 
 /*========== Hover Popup ===============*/
 .date_cell { cursor: pointer; cursor: hand; }
-.date_cell:hover { background: #DDDDDD !important; }
+.date_cell:hover { background-color: #b3f0ff !important; }
 .date_popup_wrap {
 	position: absolute;
 	width: 143px;

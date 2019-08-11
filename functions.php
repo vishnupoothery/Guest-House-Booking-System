@@ -35,7 +35,7 @@ function getCalender($year = '',$month = '')
 			<select name="year_dropdown" class="year_dropdown dropdown"><?php echo getYearList($dateYear); ?></select>
             <a href="javascript:void(0);" onclick="getCalendar('calendar_div','<?php echo date("Y",strtotime($date.' + 1 Month')); ?>','<?php echo date("m",strtotime($date.' + 1 Month')); ?>');">&#8250</a>
         </h2>
-		<div id="event_list" class="none"></div>
+
 		<div id="calender_section_top">
 			<ul>
 				<li>Sun</li>
@@ -59,16 +59,26 @@ function getCalender($year = '',$month = '')
 						//Include db configuration file
 						include 'dbConfig.php';
 						//Get number of events based on the current date
-						//$result = $db->query("SELECT title FROM events WHERE date = '".$currentDate."' AND status = 1");
-						$eventNum = 1;// $result->num_rows;
+						$total = $db->query("SELECT *  FROM rooms")->num_rows;
+						$booked =$db->query("SELECT * FROM booked WHERE checkin <='".$currentDate."' AND checkout >='".$currentDate."'")->num_rows;
+                        $percent=($booked/$total)*100;
 						//Define date cell color
+
 						if(strtotime($currentDate) == strtotime(date("Y-m-d"))){
-							echo '<li date="'.$currentDate.'" class="grey date_cell">';
-						}elseif($eventNum > 0){
-							echo '<li date="'.$currentDate.'" class="light_sky date_cell">';
-						}else{
-							echo '<li date="'.$currentDate.'" class="date_cell">';
+							echo '<li date="'.$currentDate.'" class="current date_cell">';
 						}
+                        elseif(strtotime($currentDate)< strtotime(date("Y-m-d")))
+                        {
+                            echo '<li date="'.$currentDate.'" class="date_cell">';
+                        }
+                        elseif($percent >=80){
+							echo '<li date="'.$currentDate.'" class="red date_cell">';
+						}elseif($percent >=40 ){
+							echo '<li date="'.$currentDate.'" class="yellow date_cell">';
+						}
+                        else{
+                            echo '<li date="'.$currentDate.'" class="green date_cell">';
+                        }
 						//Date cell
 						echo '<span>';
 						echo $dayCount;
