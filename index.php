@@ -96,7 +96,7 @@
 
 
      <div class=".container-fluid">
-         <div style=" margin-top:25px;">
+         <div style=" margin-top:25px;" align="center">
          <a class="example_f" href="a.php" >
              <span align="center" style="width: 90%;">CHECK AVAILABILITY</span>
          </a>
