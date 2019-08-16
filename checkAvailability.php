@@ -20,8 +20,10 @@ include_once 'functions.php';
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js">
+    </script>
     <script src="js/jquery.min.js"></script>
+      <script src="js/myjs.js"></script>
 
       <script>
   $(function() {
@@ -56,12 +58,27 @@ include_once 'functions.php';
       </header>
 
 <div class="row">
-      <div class="col-sm-6">
+      <div class="col-sm-7" >
         <div id="calendar_div">
             <?php echo getCalender(); ?>
         </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-4" style="paddingRight:10px;">
+        <form action="/action_page.php" style="padding:120px 0;" onsubmit="return validateForm()" id="form">
+  <div class="form-group">
+    <label for="checkin">CHECK-IN</label>
+    <input type="date" class="form-control" id="checkin" required>
+  </div>
+  <div class="form-group">
+    <label for="checkout">CHECK-OUT</label>
+    <input type="date" class="form-control" id="checkout" required>
+  </div>
+  <div class="form-group">
+    <label for="number">Number of Guests</label>
+    <input type="number" class="form-control" id="num" required>
+  </div>
+  <button type="submit" class="btn btn-primary" >Submit</button>
+</form>
 
     </div>
 </div>

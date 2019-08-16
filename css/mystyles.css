@@ -1,4 +1,5 @@
-body{ font-family: monospace;}
+body{ font-family: sans-serif;}
+
 .none{ display:none;}
 .dropdown{  position: relative;
     width: 200px;

@@ -55,17 +55,18 @@ function getCalender($year = '',$month = '')
 					if(($cb >= $currentMonthFirstDay+1 || $currentMonthFirstDay == 7) && $cb <= ($totalDaysOfMonthDisplay)){
 						//Current date
 						$currentDate = $dateYear.'-'.$dateMonth.'-'.$dayCount;
-						$eventNum = 0;
+
 						//Include db configuration file
 						include 'dbConfig.php';
 						//Get number of events based on the current date
 						$total = $db->query("SELECT *  FROM rooms")->num_rows;
 						$booked =$db->query("SELECT * FROM booked WHERE checkin <='".$currentDate."' AND checkout >='".$currentDate."'")->num_rows;
+                        $free=$total-$booked;
                         $percent=($booked/$total)*100;
 						//Define date cell color
 
 						if(strtotime($currentDate) == strtotime(date("Y-m-d"))){
-							echo '<li date="'.$currentDate.'" class="current date_cell">';
+							echo '<li date="'.$currentDate.'" class="current date_cell" onclick="update(this)">'; //change hereeeeeeeeeeeeeeeeeeee
 						}
                         elseif(strtotime($currentDate)< strtotime(date("Y-m-d")))
                         {
@@ -85,18 +86,20 @@ function getCalender($year = '',$month = '')
 						echo '</span>';
 
 						//Hover event popup
-						echo '<div id="date_popup_'.$currentDate.'" class="date_popup_wrap none">';
+						echo  '<div id="date_popup_'.$currentDate.'" class="date_popup_wrap none">';
 						echo '<div class="date_window">';
-						echo '<div class="popup_event">Events ('.$eventNum.')</div>';
-						echo ($eventNum > 0)?'<a href="javascript:;" onclick="getEvents(\''.$currentDate.'\');">view events</a>':'';
-						echo '</div></div>';
+						echo (strtotime($currentDate)>strtotime(date("Y-m-d")))?'<div class="popup_event">Available:'.$free.' </div>':'';
+
 
 						echo '</li>';
 						$dayCount++;
 			?>
 			<?php }else{ ?>
 				<li><span>&nbsp;</span></li>
-			<?php } } ?>
+			<?php } }
+
+                ?>
+
 			</ul>
 		</div>
 	</div>
@@ -113,29 +116,8 @@ function getCalender($year = '',$month = '')
 			});
 		}
 
-		function getEvents(date){
-			$.ajax({
-				type:'POST',
-				url:'functions.php',
-				data:'func=getEvents&date='+date,
-				success:function(html){
-					$('#event_list').html(html);
-					$('#event_list').slideDown('slow');
-				}
-			});
-		}
 
-		function addEvent(date){
-			$.ajax({
-				type:'POST',
-				url:'functions.php',
-				data:'func=addEvent&date='+date,
-				success:function(html){
-					$('#event_list').html(html);
-					$('#event_list').slideDown('slow');
-				}
-			});
-		}
+
 
 		$(document).ready(function(){
 			$('.date_cell').mouseenter(function(){
@@ -179,7 +161,7 @@ function getAllMonths($selected = ''){
  */
 function getYearList($selected = ''){
 	$options = '';
-	for($i=2009;$i<=2029;$i++)
+	for($i=date('Y');$i<=date('Y')+10;$i++)
 	{
 		$selectedOpt = ($i == $selected)?'selected':'';
 		$options .= '<option value="'.$i.'" '.$selectedOpt.' >'.$i.'</option>';
@@ -187,24 +169,6 @@ function getYearList($selected = ''){
 	return $options;
 }
 
-/*
- * Get events by date
- */
-function getEvents($date = ''){
-	//Include db configuration file
-	include 'dbConfig.php';
-	$eventListHTML = '';
-	$date = $date?$date:date("Y-m-d");
-	//Get events based on the current date
-	$result = $db->query("SELECT title FROM events WHERE date = '".$date."' AND status = 1");
-	if($result->num_rows > 0){
-		$eventListHTML = '<h2>Events on '.date("l, d M Y",strtotime($date)).'</h2>';
-		$eventListHTML .= '<ul>';
-		while($row = $result->fetch_assoc()){
-            $eventListHTML .= '<li>'.$row['title'].'</li>';
-        }
-		$eventListHTML .= '</ul>';
-	}
-	echo $eventListHTML;
-}
+
+
 ?>
