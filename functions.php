@@ -66,19 +66,19 @@ function getCalender($year = '',$month = '')
 						//Define date cell color
 
 						if(strtotime($currentDate) == strtotime(date("Y-m-d"))){
-							echo '<li date="'.$currentDate.'" class="current date_cell" onclick="update(this)">'; //change hereeeeeeeeeeeeeeeeeeee
+							echo '<li date="'.$currentDate.'" class="current date_cell" onclick="update(this)"  >';
 						}
                         elseif(strtotime($currentDate)< strtotime(date("Y-m-d")))
                         {
                             echo '<li date="'.$currentDate.'" class="date_cell">';
                         }
                         elseif($percent >=80){
-							echo '<li date="'.$currentDate.'" class="red date_cell">';
+							echo '<li date="'.$currentDate.'" class="red date_cell" onclick="update(this)">';
 						}elseif($percent >=40 ){
-							echo '<li date="'.$currentDate.'" class="yellow date_cell">';
+							echo '<li date="'.$currentDate.'" class="yellow date_cell" onclick="update(this)">';
 						}
                         else{
-                            echo '<li date="'.$currentDate.'" class="green date_cell">';
+                            echo '<li date="'.$currentDate.'" class="green date_cell" onclick="update(this)">';
                         }
 						//Date cell
 						echo '<span>';
@@ -104,7 +104,67 @@ function getCalender($year = '',$month = '')
 		</div>
 	</div>
 
+
 	<script type="text/javascript">
+
+        function update(ele){
+        var date=new Date();
+        date=ele.getAttribute("date",0);
+        if(ele.classList.contains("selected"))
+            {
+                ele.classList.remove("selected");
+                update.selectedDates=update.selectedDates.filter(function(value, index, arr){return value.toJSON().slice(0, 10) != date;});
+
+                if (update.selectedDates.length==1)
+                    {
+                    document.getElementById("checkin").value=update.selectedDates[0].toJSON().slice(0, 10);
+                    document.getElementById("checkout").value=getNextday(update.selectedDates[0].toJSON().slice(0, 10));
+                    }
+                else if (update.selectedDates.length==0)
+                    {
+                     document.getElementById("checkin").value=null;
+                    document.getElementById("checkout").value=null;
+                    }
+                else
+                    {
+                        var min=new Date(Math.min.apply(null,update.selectedDates));
+                        var max=new Date(Math.max.apply(null,update.selectedDates))
+                        document.getElementById("checkin").value= min.toJSON().slice(0, 10);
+                        document.getElementById("checkout").value=max.toJSON().slice(0, 10);
+                    }
+
+
+            }
+       else
+           {ele.classList.add("selected");
+
+
+            if(typeof update.selectedDates == 'undefined' || update.selectedDates.length==0)
+                {
+                    update.selectedDates=[];
+                    document.getElementById("checkin").value=date;
+                    document.getElementById("checkout").value=getNextday(date);
+                    update.selectedDates.push(new Date(date));
+                }
+            else{
+                update.selectedDates.push(new Date(date));
+
+                var min=new Date(Math.min.apply(null,update.selectedDates));
+                var max=new Date(Math.max.apply(null,update.selectedDates))
+                document.getElementById("checkin").value= min.toJSON().slice(0, 10);
+                document.getElementById("checkout").value=max.toJSON().slice(0, 10);
+                 }
+
+
+
+           }
+    }
+        function getNextday(date)
+        {
+               var tomorrow = new Date(date);
+tomorrow.setDate(tomorrow.getDate() + 1);
+return tomorrow.toJSON().slice(0, 10);
+        }
 		function getCalendar(target_div,year,month){
 			$.ajax({
 				type:'POST',

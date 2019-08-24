@@ -32,12 +32,3 @@ var num=document.forms["form"]["num"].value;
 }
 
 
-function update(ele){
-
-
-    var date=ele.getAttribute("date",0);
-    //alert(date);
-    this.style.background="#b3f0ff";
-    document.getElementById("checkin").value=date;
-
-} //change here
