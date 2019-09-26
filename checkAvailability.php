@@ -33,6 +33,8 @@ include_once 'functions.php';
       source: 'search.php'
     });
   });
+
+
   </script>
     <?php include_once('functions.php'); ?>
 
@@ -75,8 +77,11 @@ include_once 'functions.php';
 
 if(isset($_POST['book_now']))
 {
+    $_SESSION['guestsno']=$_POST['guestsno'];
+     $_SESSION['checkin']=$_POST['checkin'];
+     $_SESSION['checkout']=$_POST['checkout'];
    ?>
-        <form action="">
+        <form action="book.php" id="guests_form" method="post">
   <div class="tab form-tab">
 
    <div class="form-group">
@@ -102,19 +107,19 @@ if(isset($_POST['book_now']))
 </div>
 </div>
             <?php  for($i=0;$i< $_POST['guestsno'];$i++) { ?>
-<div class ="tab form-tab">
+<div class ="tab form-tab guests">
     <h3> Guest <?php echo $i +1 ?></h3>
          <div class="form-group">
     <label for="name">Name</label>
-    <input type="text" class="form-control" name="name"+<?php echo $i; ?> required>
+    <input type="text" class="form-control" name="name" required>
   </div>
                      <div class="form-group">
     <label for="rel">Relationship with Applicant</label>
-    <input type="text" class="form-control" name="rel"+<?php echo $i; ?> required>
+    <input type="text" class="form-control" name="rel" required>
   </div>
                      <div class="form-group">
     <label for="contact">Contact</label>
-    <input type="text" class="form-control" name="contact"+<?php echo $i; ?> required>
+    <input type="text" class="form-control" name="contact" required>
   </div>
         </div> <?php } ?>
   <div style="overflow:auto;">
@@ -130,6 +135,8 @@ if(isset($_POST['book_now']))
   </div>
 
 <script>
+
+
 var currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab);
 function nextPrev(n) {
@@ -147,7 +154,7 @@ function nextPrev(n) {
   if (currentTab >= x.length) {
     // ... the form gets submitted:
   //  document.getElementById("book_form").submit();
-    confirmBook();
+    confirmBook(<?php echo $_POST['guestsno'] ?>);
 currentTab=currentTab-n;
   }
   // Otherwise, display the correct tab:
@@ -162,13 +169,16 @@ currentTab=currentTab-n;
       <div class="modal-content">
         <div class="modal-header">
        <span onclick="document.getElementById('confirm_modal').style.display='none'" class="close" title="Close Modal">&times;</span>
-          <h4 class="modal-title">Booking for <?php echo $_POST['checkin']; ?></h4>
+          <h4 class="modal-title">Booking for <?php echo $_POST['checkin']; ?> to  <?php echo $_POST['checkout']; ?></h4>
         </div>
         <div class="modal-body">
-          <p>ok</p>
+
+          <div id="guests_info"> </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" onclick="document.getElementById('confirm_modal').style.display='none'" >Edit</button>
+          <button type="button" class="btn btn-default" onclick="document.getElementById('confirm_modal').style.display='none'" style="float:left;" >Edit</button>
+            <button class="btn btn-default" onclick="document.getElementById('guests_form').submit();
+" style="float:right"> Confirm</button>
         </div>
       </div>
 
@@ -237,6 +247,7 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+
 </script>
 
 </body>

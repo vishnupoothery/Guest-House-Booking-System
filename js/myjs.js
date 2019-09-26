@@ -92,8 +92,13 @@ function fixStepIndicator(n) {
   x[n].className += " active";
 }
 
-function confirmBook()
-{
+function confirmBook(n)
+{ var details="<table class='table'> ";
 
-   document.getElementById('confirm_modal').style.display='block';
+ var i;
+
+ for( i=0; i<n; ++i)
+     {details= details + "<tr> " + "<td> " + document.getElementsByName("name")[i].value + "</td> " +"<td> " + document.getElementsByName("rel")[i].value + "</td> " + "<td> " + document.getElementsByName("contact")[i].value + "</td> "  +"</tr> " ;}
+ document.getElementById("guests_info").innerHTML=details + "</table>";
+document.getElementById('confirm_modal').style.display='block';
 }
