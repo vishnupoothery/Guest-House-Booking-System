@@ -1,5 +1,28 @@
 body{ font-family: sans-serif;}
+.form-tab
+{display: none;}
+input.invalid {
+  background-color: #ffdddd;
+}
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
 
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: #4CAF50;
+}
 .admin_login {
  background: transparent;
 border: none;
@@ -125,7 +148,7 @@ input[type=text], input[type=password] {
 
 /*--------------Booking Page------------*/
 .none{ display:none;}
-.dropdown{  position: relative;
+.dropdown_calendar{  position: relative;
     width: 200px;
     margin: 0 auto;
     padding: 10px;
@@ -141,7 +164,7 @@ input[type=text], input[type=password] {
     /* Font settings */
     font-weight: bold;
     color: #23aacc;}
-.dropdown:after {
+.dropdown_calendar:after {
     content: "";
     width: 0;
     height: 0;
@@ -239,7 +262,7 @@ a:hover {color: #181919;text-decoration: underline;}
 /*---------index page----------------*/
 .example_f {
 
-background: #23aacc;
+background:#23aacc;
    border: none;
    color: #FFFFFF;
    text-align: center;
