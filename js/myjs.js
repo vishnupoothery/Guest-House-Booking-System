@@ -1,5 +1,38 @@
+function display_subdropdown()
+    {
+
+        var select = document.getElementById("rooms_dropdown");
+        var select_sub=document.getElementById("rooms_subdropdown");
+        for ( var i = 0; i < select_sub.options.length;)
+                    select_sub.options[i] = null;
+
+        if (select.options[select.selectedIndex].value=="type")
+            {
+                select_sub.options[0] = new Option('Deluxe', 'deluxe');
+                select_sub.options[1] = new Option('Super Deluxe', 'super deluxe');
+                 select_sub.options[2] = new Option('VIP', 'vip');
+            }
+           else  if (select.options[select.selectedIndex].value=="ac")
+            {
+                select_sub.options[0] = new Option('AC', 'ac');
+                select_sub.options[1] = new Option('Non AC', 'nonac');
+
+            }
+        else if
+            (select.options[select.selectedIndex].value=="capacity")
+            {
+
+                select_sub.options[0] = new Option('1','1');
+                select_sub.options[1] = new Option('2','2');
+                select_sub.options[2] = new Option('3','3');
+
+            }
 
 
+
+
+
+    }
 function validateForm(currentTab) {
 
    var x, y, i, valid = true;

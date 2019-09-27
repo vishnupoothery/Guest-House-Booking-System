@@ -1,5 +1,9 @@
 <?php
    include('session.php');
+
+    include('header.php');
+
+
 ?>
 
 <!doctype html>
@@ -15,37 +19,19 @@
    <link rel="stylesheet" href="css/mystyles.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+      <script src="js/myjs.js"></script>
 
     <title>NITC GH</title>
   </head>
 <body class="w3-light-grey">
-    <header class="page-header" id="header">
-      <div class="container-fluid" >
-
-          <div class="row">
-    <div class="col-sm-6">
-     <img  src="images/logo.jpg">
-    </div>
-    <div class="col-sm-6"  >
-
-
-
-      <div class="row"> <h3 style="color:#23aacc; float:right;">GUEST HOUSE BOOKING PORTAL</h3></div>
-
-
-    </div>
-  </div>
-
-           </div>
-      </header>
+  <?php echo display_header(); ?>
 
   <div class="container" style="margin=0px;">
-
-  <ul class="nav nav-tabs">
-    <li class="active"><a  href="admin.php">HOME</a></li>
-    <li><a  href="#menu1">UPCOMING BOOKINGS</a></li>
-    <li><a  href="#menu2">PAST BOOKINGS</a></li>
-    <li><a  href="rooms.php">ROOMS</a></li>
+<ul class="nav nav-tabs">
+    <li><a  href="admin.php">HOME</a></li>
+    <li><a   href="#menu1">UPCOMING BOOKINGS</a></li>
+    <li><a   href="#menu2">PAST BOOKINGS</a></li>
+    <li><a class="active" data-toggle="tab"  href="rooms.php">ROOMS</a></li>
        <li><div class="dropdown"><a class="dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
    <span class= "glyphicon glyphicon-user" style="color:blue;"></span>
   </a>
@@ -55,23 +41,32 @@
     <a class="dropdown-item" href="logout.php">Sign Out</a>
   </div></div> </li>
   </ul>
+<br>
+ <div class="tab-content">
+    <div  class="tab-pane fade in active">
 
+        <?php
+        if (isset($_POST['changepassword_button']))
+        {
+           /*-----------------------------*/
+        }
 
-  <div class="tab-content">
-    <div id="home" class="tab-pane fade in active">
-     <div class="row">
+        ?>
 
-        <div id="calendar_div">
-            <?php
-            include_once("functions.php");
-            echo getCalender(); ?>
-        </div>
+          <form method="post" action="adminprofile.php">
+        <div class="container" >
+      <label><b>Current Password</b></label>
+      <input type="password"  name="current" required>
 
-
-</div>
+      <label><b>New Password</b></label>
+      <input type="password" name="password1" required>
+        <label ><b>Confirm New Password</b></label><br>
+        <input type="password"  name="password2" required><br> <br>
+            <button type="submit" name="changepassword_button" class="btn btn-primary">Add</button>
+            </div>
+        </form>
+         </div>
+      </div>
     </div>
-
-  </div>
-</div>
     </body>
 </html>
