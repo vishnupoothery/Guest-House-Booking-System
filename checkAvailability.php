@@ -2,6 +2,7 @@
 <?php
 // Include calendar helper functions
 include_once 'functions.php';
+include('header.php');
 ?>
 <!doctype html>
 <html lang="en">
@@ -46,42 +47,31 @@ include_once 'functions.php';
 
   </head>
   <body class="w3-light-grey">
-    <header class="page-header" id="header">
-      <div class="container-fluid" style="padding-top: 0px">
-
-          <div class="row">
-    <div class="col-sm-6">
-     <img  src="images/logo.jpg">
-    </div>
-    <div class="col-sm-6" >
-      <h3 style="color:#23aacc; float:right;"><a href=index.php style="text-decoration:none;">GUEST HOUSE BOOKING PORTAL</a></h3>
-    </div>
-  </div>
-     </div>
-
+ <?php echo display_header(); ?>
 
 <nav class="navbar navbar-default"><ul class="nav nav-bar">
-    <li class="active"><a data-toggle="tab" href="#home">HOME</a></li>
-    <li><a data-toggle="tab" href="#menu1">UPCOMING BOOKINGS</a></li>
-    <li><a data-toggle="tab" href="#menu2">PAST BOOKINGS</a></li>
-    <li><a data-toggle="tab" href="#menu3">GUIDELINES</a></li>
+    <li class="active"><a
+              href="checkAvailability.php">HOME</a></li>
+    <li><a href="upcomingbookings_user.php">UPCOMING BOOKINGS</a></li>
+    <li><a href="#menu2">PAST BOOKINGS</a></li>
+    <li><a href="#menu3">GUIDELINES</a></li>
   </ul>
         </nav>
 
-  </header>
+
 <div>
        <div class="tab-content">
 
-    <div id="home" class="tab-pane fade in active">
+    <div id="home" class="tab-pane fade in active" >
         <?php
 
 if(isset($_POST['book_now']))
 {
-    $_SESSION['guestsno']=$_POST['guestsno'];
-     $_SESSION['checkin']=$_POST['checkin'];
-     $_SESSION['checkout']=$_POST['checkout'];
+
    ?>
         <form action="book.php" id="guests_form" method="post">
+        ?> <div style="width:25%; margin:auto;">
+           <form action="book.php?guestsno=<?php echo $_POST['guestsno']; ?>&checkin=<?php echo $_POST['checkin'];?>&checkout=<?php echo $_POST['checkout'];?>" id="guests_form" method="post">
   <div class="tab form-tab">
 
    <div class="form-group">
@@ -162,6 +152,9 @@ currentTab=currentTab-n;
   showTab(currentTab);
 }</script>
         </form>
+
+        </div>
+
           <div class="modal" id="confirm_modal">
     <div class="modal-dialog">
 

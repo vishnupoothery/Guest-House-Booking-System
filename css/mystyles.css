@@ -14,7 +14,10 @@ input.invalid {
   display: inline-block;
   opacity: 0.5;
 }
-
+.active
+{
+  background: white;
+}
 .step.active {
   opacity: 1;
 }

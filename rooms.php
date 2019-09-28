@@ -103,7 +103,7 @@ if (mysqli_query($db,$sql) == TRUE) {
 
     $result = mysqli_query($db,$sql);
     echo "<table align='center' class='table table-hover'>";
-echo "<tr><th>LOCATION</th><th>ROOM NUM</th><th>AC</th><th>TYPE</th><th>RENT</th><th>CAPACITY</th><th>Delete</th></tr> ";
+echo "<tr><th>LOCATION</th><th>ROOM NUM</th><th>AC</th><th>TYPE</th><th>RENT</th><th>CAPACITY</th><th>Edit</th><th>Delete</th></tr> ";
     if($result){
          while($rr=mysqli_fetch_array($result))
 		{
@@ -119,9 +119,10 @@ echo "<tr><th>LOCATION</th><th>ROOM NUM</th><th>AC</th><th>TYPE</th><th>RENT</th
 		echo $rr['rent'];
         echo "</td><td>";
 		echo $rr['capacity'];
+        echo "</td><td><a><span class='glyphicon glyphicon-edit'></span></a>";
         echo "</td><td><a href='deleteroom.php?room_id=";
         echo $rr['room_id'];
-        echo "'> <span class='glyphicon glyphicon-remove'></span></a>";
+        echo "' onclick='confirm('Are you sure you want to delete?');'> <span class='glyphicon glyphicon-remove'></span></a>";
 		echo "</td></tr>";
 		}
     }

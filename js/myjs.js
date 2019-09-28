@@ -1,3 +1,9 @@
+function confirm_delete_modal()
+{
+    document.getElementById('confirm').style.display='block';
+
+}
+
 function display_subdropdown()
     {
 
