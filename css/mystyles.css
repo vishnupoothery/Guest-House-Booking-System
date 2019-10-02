@@ -14,17 +14,22 @@ input.invalid {
   display: inline-block;
   opacity: 0.5;
 }
+.btn-primary
+{
+    background-color: #23accc;
+}
 .active
 {
   background: white;
 }
 .step.active {
   opacity: 1;
+ background-color: #23accc;
 }
 
 /* Mark the steps that are finished and valid: */
 .step.finish {
-  background-color: #4CAF50;
+  background-color:#23accc;
 }
 .admin_login {
  background: transparent;

@@ -50,7 +50,7 @@ include('header.php');
  <?php echo display_header(); ?>
 
 <nav class="navbar navbar-default"><ul class="nav nav-bar">
-    <li ><a href="checkAvailability.php">HOME</a></li>
+    <li ><a href="user.php">HOME</a></li>
     <li><a class="active" href="upcomingbookings_user.php">UPCOMING BOOKINGS</a></li>
     <li><a href="#menu2">PAST BOOKINGS</a></li>
     <li><a href="#menu3">GUIDELINES</a></li>

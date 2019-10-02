@@ -1,3 +1,9 @@
+<?php
+// Include calendar helper functions
+include_once 'functions.php';
+
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -80,7 +86,7 @@
 
      <div class=".container-fluid">
          <div style=" margin-top:25px;" align="center">
-         <a class="example_f" href="checkAvailability.php" >
+         <a class="example_f" href="#displaycalendar" >
              <span align="center" style="width: 90%;">CHECK AVAILABILITY</span>
          </a>
          </div>
@@ -89,6 +95,20 @@
 
           </div>
 
+      <div class="row" id="displaycalendar">
+
+          <?php
+
+          echo getCalender(); ?>
+
+      </div>
+<div class=".container-fluid">
+         <div style=" margin-top:25px;" align="center">            <a class="example_f" href="user.php" >
+             <span align="center" style="width: 90%;">BOOK NOW</span>
+          </a>
+         </div>
+
+    </div>
       <!----------------------Admin Login---------------------->
       <?php
    include("dbConfig.php");

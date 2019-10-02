@@ -51,7 +51,7 @@ include('header.php');
 
 <nav class="navbar navbar-default"><ul class="nav nav-bar">
     <li class="active"><a
-              href="checkAvailability.php">HOME</a></li>
+              href="user.php">HOME</a></li>
     <li><a href="upcomingbookings_user.php">UPCOMING BOOKINGS</a></li>
     <li><a href="#menu2">PAST BOOKINGS</a></li>
     <li><a href="#menu3">GUIDELINES</a></li>
@@ -69,8 +69,7 @@ if(isset($_POST['book_now']))
 {
 
    ?>
-        <form action="book.php" id="guests_form" method="post">
-        ?> <div style="width:25%; margin:auto;">
+ <div style="width:25%; margin:auto;">
            <form action="book.php?guestsno=<?php echo $_POST['guestsno']; ?>&checkin=<?php echo $_POST['checkin'];?>&checkout=<?php echo $_POST['checkout'];?>" id="guests_form" method="post">
   <div class="tab form-tab">
 
@@ -101,15 +100,15 @@ if(isset($_POST['book_now']))
     <h3> Guest <?php echo $i +1 ?></h3>
          <div class="form-group">
     <label for="name">Name</label>
-    <input type="text" class="form-control" name="name" required>
+    <input type="text" class="form-control" name="name[]" required>
   </div>
                      <div class="form-group">
     <label for="rel">Relationship with Applicant</label>
-    <input type="text" class="form-control" name="rel" required>
+    <input type="text" class="form-control" name="rel[]" required>
   </div>
                      <div class="form-group">
     <label for="contact">Contact</label>
-    <input type="text" class="form-control" name="contact" required>
+    <input type="text" class="form-control" name="contact[]" required>
   </div>
         </div> <?php } ?>
   <div style="overflow:auto;">
@@ -144,6 +143,7 @@ function nextPrev(n) {
   if (currentTab >= x.length) {
     // ... the form gets submitted:
   //  document.getElementById("book_form").submit();
+
     confirmBook(<?php echo $_POST['guestsno'] ?>);
 currentTab=currentTab-n;
   }
@@ -189,7 +189,7 @@ else {
         </div>
     </div>
     <div class="col-sm-4" >
-        <form action="checkAvailability.php" style="padding:120px 0;" onsubmit="validateDates();"  id="book_form" method="post" >
+        <form action="user.php" style="padding:120px 0;" onsubmit="validateDates();"  id="book_form" method="post" >
 
             <div class="form-group">
     <label for="checkin">CHECK-IN</label>

@@ -63,9 +63,14 @@
     </div>
     <div class="col-sm-2"> <button type="submit" class="btn btn-primary" name="table_filter">Go</button></div>
 
-             <div class="col-sm-2" style="float:right;"> <span  class="glyphicon glyphicon-plus-sign"  onclick="document.getElementById('addroom_modal').style.display='block'"> Add Room</span></div>
+             <div class="col-sm-2 "> <span  class="glyphicon glyphicon-plus-sign"  onclick="document.getElementById('addroom_modal').style.display='block'"> Add Room</span></div>
        </div>
      </form>
+        <div class="row">
+            <div class="col-sm-10"></div>
+            <div class="col-sm-2">
+         <span  onclick="document.getElementById('editroom_modal').style.display='block'"class='glyphicon glyphicon-edit'> Edit Room</span></div>
+        </div>
     <br>
 
 
@@ -103,7 +108,7 @@ if (mysqli_query($db,$sql) == TRUE) {
 
     $result = mysqli_query($db,$sql);
     echo "<table align='center' class='table table-hover'>";
-echo "<tr><th>LOCATION</th><th>ROOM NUM</th><th>AC</th><th>TYPE</th><th>RENT</th><th>CAPACITY</th><th>Edit</th><th>Delete</th></tr> ";
+echo "<tr><th>LOCATION</th><th>ROOM NUM</th><th>AC</th><th>TYPE</th><th>RENT</th><th>CAPACITY</th><th>Delete</th></tr> ";
     if($result){
          while($rr=mysqli_fetch_array($result))
 		{
@@ -119,10 +124,10 @@ echo "<tr><th>LOCATION</th><th>ROOM NUM</th><th>AC</th><th>TYPE</th><th>RENT</th
 		echo $rr['rent'];
         echo "</td><td>";
 		echo $rr['capacity'];
-        echo "</td><td><a><span class='glyphicon glyphicon-edit'></span></a>";
-        echo "</td><td><a href='deleteroom.php?room_id=";
+
+        echo "</td><td><a  onclick=\"return confirm('Are you sure you want to delete?');\" href='deleteroom.php?room_id=";
         echo $rr['room_id'];
-        echo "' onclick='confirm('Are you sure you want to delete?');'> <span class='glyphicon glyphicon-remove'></span></a>";
+        echo "'> <span class='glyphicon glyphicon-remove'></span></a>";
 		echo "</td></tr>";
 		}
     }
@@ -185,5 +190,73 @@ echo "<tr><th>LOCATION</th><th>ROOM NUM</th><th>AC</th><th>TYPE</th><th>RENT</th
   </form>
 </div>
 
+    <!---------------EDIT ROOM----------->
+  <div id="editroom_modal" class="modal">
+
+  <form class="modal-content animate"  method="post" action="editrooms.php">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('editroom_modal').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <img src="images/admin.jpeg" alt="Avatar" class="avatar">
+    </div>
+
+    <div class="container" >
+        <div class="form-group">
+         <label><b>Edit Rooms where</b></label><br>
+
+     <select class="form-control" id="selection-criteria" name="selection-criteria" onchange="display_editroom_options(0);">
+        <option value="type">Type</option>
+        <option value="capacity">Capacity</option>
+         <option value="location">Location</option>
+         <option value="rent">Rent</option>
+              <option value="room_num">Room Number</option>
+        </select>
+
+        </div>
+
+              <div class="form-group">
+         <label><b>Is</b></label><br>
+
+<input name="selected-value" required >
+
+
+        </div>
+
+     <div class="form-group">
+         <label><b>Change</b></label><br>
+
+     <select class="form-control" name="change-criteria" id="change-criteria">
+        <option value="type">Type</option>
+        <option value="capacity">Capacity</option>
+         <option value="location">Location</option>
+         <option value="rent">Rent</option>
+        <option value="room_num">Room Number</option>
+        </select>
+
+        </div>
+          <div class="form-group">
+         <label><b>To</b></label><br>
+
+   <input name="changed-value" required>
+
+
+
+
+
+        </div>
+
+
+      <div class="form-group">
+            <button type="submit" class="btn btn-primary"> Edit</button>
+</div>
+
+
+    </div>
+
+
+
+
+
+  </form>
+</div>
     </body>
 </html>

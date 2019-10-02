@@ -4,6 +4,41 @@ function confirm_delete_modal()
 
 }
 
+function display_editroom_options(op)
+{
+    var select,select_sub;
+
+    if(!op)
+        {
+   select = document.getElementById("selection-criteria");
+    select_sub=document.getElementById("selected-value");}
+    else
+        {
+              select = document.getElementById("change-criteria");
+            select_sub=document.getElementById("changed-value");
+        }
+for ( var i = 0; i < select_sub.options.length;)
+                    select_sub.options[i] = null;
+
+       if (select.options[select.selectedIndex].value=="type")
+           {
+               select_sub.options[0] = new Option('Deluxe', 'deluxe');
+                select_sub.options[1] = new Option('Super Deluxe', 'super deluxe');
+                 select_sub.options[2] = new Option('VIP', 'vip');
+           }
+       else if (select.options[select.selectedIndex].value=="location")
+
+
+   {
+        select_sub.options[0] = new Option('GH', 'GH');
+                select_sub.options[1] = new Option('Other', 'other');
+   }
+
+
+
+
+}
+
 function display_subdropdown()
     {
 
@@ -59,7 +94,9 @@ function validateForm(currentTab) {
   // If the valid status is true, mark the step as finished and valid:
 
 
-
+ if (valid) {
+    document.getElementsByClassName("step")[currentTab].className += " finish";
+  }
 
   return valid;
     // return the valid status
@@ -137,7 +174,7 @@ function confirmBook(n)
  var i;
 
  for( i=0; i<n; ++i)
-     {details= details + "<tr> " + "<td> " + document.getElementsByName("name")[i].value + "</td> " +"<td> " + document.getElementsByName("rel")[i].value + "</td> " + "<td> " + document.getElementsByName("contact")[i].value + "</td> "  +"</tr> " ;}
+     {details= details + "<tr> " + "<td> " + document.getElementsByName("name[]")[i].value + "</td> " +"<td> " + document.getElementsByName("rel[]")[i].value + "</td> " + "<td> " + document.getElementsByName("contact[]")[i].value + "</td> "  +"</tr> " ;}
  document.getElementById("guests_info").innerHTML=details + "</table>";
 document.getElementById('confirm_modal').style.display='block';
 }
