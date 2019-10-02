@@ -1,8 +1,11 @@
-
 <?php
+   include('session.php');
 
-include('header.php');
+    include('header.php');
+
+
 ?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -11,55 +14,39 @@ include('header.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-      <link rel="stylesheet" href="css/mystyles.css">
-
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+   <link rel="stylesheet" href="css/mystyles.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open Sans">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"> </script>
-    <script src="js/jquery.min.js"></script>
       <script src="js/myjs.js"></script>
 
-      <script>
-  $(function() {
-    $( "#skills" ).autocomplete({
-      source: 'search.php'
-    });
-  });
-
-
-  </script>
-    <?php include_once('functions.php'); ?>
-
-
-
     <title>NITC GH</title>
-
-
-
   </head>
-  <body class="w3-light-grey">
- <?php echo display_header(); ?>
+<body class="w3-light-grey">
+  <?php echo display_header(); ?>
 
-<nav class="navbar navbar-default"><ul class="nav nav-bar">
-    <li ><a href="user.php">HOME</a></li>
-    <li><a class="active" href="upcomingbookings_user.php">UPCOMING BOOKINGS</a></li>
-    <li><a href="past_bookings.php">PAST BOOKINGS</a></li>
-    <li><a href="#menu3">GUIDELINES</a></li>
+  <div class="container" style="margin=0px;">
+<ul class="nav nav-tabs">
+    <li><a  href="admin.php">HOME</a></li>
+    <li><a   href="upcomingbookings_admin.php">UPCOMING BOOKINGS</a></li>
+    <li><a class="active"   href="past_bookings_admin.php">PAST BOOKINGS</a></li>
+    <li><a data-toggle="tab"  href="rooms.php">ROOMS</a></li>
+       <li><div class="dropdown"><a class="dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   <span class= "glyphicon glyphicon-user" style="color:blue;"></span>
+  </a>
+  <div  class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="adminprofile.php">My Profile</a>
+    <a class="dropdown-item" href="addadmin.php">Add Admin</a>
+    <a class="dropdown-item" href="logout.php">Sign Out</a>
+  </div></div> </li>
   </ul>
-        </nav>
 
-      <?php
+
+       <?php
 
       include('dbConfig.php');
-      $sql="SELECT DISTINCT `booking_id` FROM guests WHERE checkin>DATE_FORMAT(now(),'%Y%c%d')
+      $sql="SELECT DISTINCT `booking_id` FROM guests WHERE checkout<DATE_FORMAT(now(),'%Y%c%d')
 ";// and booked_by=user_id;
 
       $result = mysqli_query($db,$sql);
@@ -99,16 +86,18 @@ include('header.php');
                  echo $guest_data['relation'];
                  echo "</td><td>";
                  echo $guest_data['contact'];
-                 echo "</td></tr>";
+                 echo "</td><td>";
+                 $get_room_data="SELECT room_num FROM rooms where room_id=".$guest_data['room_id']."";
+                 $room_data_res=mysqli_query($db,$get_room_data);
+                 $room_data=mysqli_fetch_assoc($room_data_res);
+                 echo $room_data['room_num'];
+                 echo "</td><td></tr>";
 
              }
 
 
              echo "</table>";
-            if ($booking_data['booking_status']!='CANCELLED')
-            { echo "<a style='float:right;' onclick=\"return confirm('Are you sure you want to cancel');\" href='cancel_booking.php?booking_id=";
-             echo $rr['booking_id'];
-             echo "'>Cancel Booking</a>";}
+
 
              echo "</td></tr>";
 
@@ -120,6 +109,6 @@ include('header.php');
 
 
 ?>
-
+    </div>
     </body>
 </html>

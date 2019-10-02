@@ -1,4 +1,12 @@
 body{ font-family: sans-serif;}
+.collapserow:hover
+{
+    cursor: pointer;
+}
+.collapse
+{
+    background-color: none;
+}
 .form-tab
 {display: none;}
 input.invalid {

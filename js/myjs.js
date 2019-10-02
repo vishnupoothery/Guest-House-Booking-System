@@ -1,44 +1,17 @@
-function confirm_delete_modal()
-{
-    document.getElementById('confirm').style.display='block';
+function toggle_collapse(op)
+          { var ele=document.getElementById("collapse"+op);
+              if (ele.classList.contains('out'))
+                  {
+                      ele.classList.add('in');
+                      ele.classList.remove('out');
+                  }
+            else
+                {
+                    ele.classList.add('out');
+                    ele.classList.remove('in');
+                }
 
-}
-
-function display_editroom_options(op)
-{
-    var select,select_sub;
-
-    if(!op)
-        {
-   select = document.getElementById("selection-criteria");
-    select_sub=document.getElementById("selected-value");}
-    else
-        {
-              select = document.getElementById("change-criteria");
-            select_sub=document.getElementById("changed-value");
-        }
-for ( var i = 0; i < select_sub.options.length;)
-                    select_sub.options[i] = null;
-
-       if (select.options[select.selectedIndex].value=="type")
-           {
-               select_sub.options[0] = new Option('Deluxe', 'deluxe');
-                select_sub.options[1] = new Option('Super Deluxe', 'super deluxe');
-                 select_sub.options[2] = new Option('VIP', 'vip');
-           }
-       else if (select.options[select.selectedIndex].value=="location")
-
-
-   {
-        select_sub.options[0] = new Option('GH', 'GH');
-                select_sub.options[1] = new Option('Other', 'other');
-   }
-
-
-
-
-}
-
+          }
 function display_subdropdown()
     {
 

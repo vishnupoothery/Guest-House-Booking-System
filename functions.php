@@ -65,7 +65,7 @@ function getCalender($year = '',$month = '')
 						//Get number of events based on the current date
 						$total = $db->query("SELECT *  FROM rooms")->num_rows;
 
-						$booked =$db->query("SELECT * FROM guests WHERE checkin <='".$currentDate."' AND checkout >='".$currentDate."'")->num_rows;
+						$booked =$db->query("SELECT DISTINCT room_id FROM guests WHERE checkin <='".$currentDate."' AND checkout >='".$currentDate."'")->num_rows;
                         $free=$total-$booked;
                         $percent=($booked/$total)*100;
 						//Define date cell color

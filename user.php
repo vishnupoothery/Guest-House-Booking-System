@@ -53,7 +53,7 @@ include('header.php');
     <li class="active"><a
               href="user.php">HOME</a></li>
     <li><a href="upcomingbookings_user.php">UPCOMING BOOKINGS</a></li>
-    <li><a href="#menu2">PAST BOOKINGS</a></li>
+    <li><a href="past_bookings.php">PAST BOOKINGS</a></li>
     <li><a href="#menu3">GUIDELINES</a></li>
   </ul>
         </nav>

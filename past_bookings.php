@@ -50,8 +50,8 @@ include('header.php');
 
 <nav class="navbar navbar-default"><ul class="nav nav-bar">
     <li ><a href="user.php">HOME</a></li>
-    <li><a class="active" href="upcomingbookings_user.php">UPCOMING BOOKINGS</a></li>
-    <li><a href="past_bookings.php">PAST BOOKINGS</a></li>
+    <li><a href="upcomingbookings_user.php">UPCOMING BOOKINGS</a></li>
+    <li><a  class="active" href="past_bookings.php">PAST BOOKINGS</a></li>
     <li><a href="#menu3">GUIDELINES</a></li>
   </ul>
         </nav>
@@ -59,7 +59,7 @@ include('header.php');
       <?php
 
       include('dbConfig.php');
-      $sql="SELECT DISTINCT `booking_id` FROM guests WHERE checkin>DATE_FORMAT(now(),'%Y%c%d')
+      $sql="SELECT DISTINCT `booking_id` FROM guests WHERE checkout<DATE_FORMAT(now(),'%Y%c%d')
 ";// and booked_by=user_id;
 
       $result = mysqli_query($db,$sql);
@@ -99,16 +99,13 @@ include('header.php');
                  echo $guest_data['relation'];
                  echo "</td><td>";
                  echo $guest_data['contact'];
-                 echo "</td></tr>";
+                 echo "</td><td></tr>";
 
              }
 
 
              echo "</table>";
-            if ($booking_data['booking_status']!='CANCELLED')
-            { echo "<a style='float:right;' onclick=\"return confirm('Are you sure you want to cancel');\" href='cancel_booking.php?booking_id=";
-             echo $rr['booking_id'];
-             echo "'>Cancel Booking</a>";}
+
 
              echo "</td></tr>";
 

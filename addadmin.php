@@ -29,8 +29,8 @@
   <div class="container" style="margin=0px;">
 <ul class="nav nav-tabs">
     <li><a  href="admin.php">HOME</a></li>
-    <li><a   href="#menu1">UPCOMING BOOKINGS</a></li>
-    <li><a   href="#menu2">PAST BOOKINGS</a></li>
+    <li><a   href="upcomingbookings_admin.php">UPCOMING BOOKINGS</a></li>
+    <li><a   href="past_bookings_admin.php">PAST BOOKINGS</a></li>
     <li><a class="active" data-toggle="tab"  href="rooms.php">ROOMS</a></li>
        <li><div class="dropdown"><a class="dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
    <span class= "glyphicon glyphicon-user" style="color:blue;"></span>

@@ -45,6 +45,80 @@ include_once 'functions.php';
            </div>
       </header>
 
+ <!----------------------Admin Login---------------------->
+      <?php
+
+
+   { include("dbConfig.php");
+
+   session_start();
+   if($_SERVER["REQUEST_METHOD"] == "POST") {
+      // username and password sent from form
+
+      $myusername = mysqli_real_escape_string($db,$_POST['username']);
+      $mypassword = mysqli_real_escape_string($db,$_POST['password']);
+
+      $sql = "SELECT id FROM admin WHERE username = '$myusername' and password = '$mypassword'";
+      $result = mysqli_query($db,$sql);
+      $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+
+      $count = mysqli_num_rows($result);
+
+      // If result matched $myusername and $mypassword, table row must be 1 row
+
+      if($count == 1) {
+
+         $_SESSION['login_user'] = $myusername;
+
+         header("location: admin.php");
+      }else {
+          $_SESSION["error"] = "Wrong Username/Password";
+      }
+   }}
+?>
+      <div id="login_modal" class="modal">
+
+  <form class="modal-content animate"  method="post">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('login_modal').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <img src="images/admin.jpeg" alt="Avatar" class="avatar">
+    </div>
+
+    <div class="container" >
+      <label for="uname"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="username" required>
+
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="password" required>
+        <?php
+                    if(isset($_SESSION["error"])){
+                        $error = $_SESSION["error"];
+                        echo '<span style="color:red;">';echo $error; echo '</span>';
+                        unset($_SESSION["error"]);
+                    }
+                ?>
+      <button type="submit" id="adminloginbtn" class="login_button">Login</button>
+
+
+    </div>
+
+    <div class="container" >
+
+      <span class="psw"> <a href="#"> Forgot password?</a></span>
+    </div>
+  </form>
+</div>
+<script>
+// Get the modal
+var modal = document.getElementById('login_modal');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
 
 
       <div id="main">
@@ -109,78 +183,6 @@ include_once 'functions.php';
          </div>
 
     </div>
-      <!----------------------Admin Login---------------------->
-      <?php
-   include("dbConfig.php");
-   session_start();
-
-   if($_SERVER["REQUEST_METHOD"] == "POST") {
-      // username and password sent from form
-
-      $myusername = mysqli_real_escape_string($db,$_POST['username']);
-      $mypassword = mysqli_real_escape_string($db,$_POST['password']);
-
-      $sql = "SELECT id FROM admin WHERE username = '$myusername' and password = '$mypassword'";
-      $result = mysqli_query($db,$sql);
-      $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-
-      $count = mysqli_num_rows($result);
-
-      // If result matched $myusername and $mypassword, table row must be 1 row
-
-      if($count == 1) {
-
-         $_SESSION['login_user'] = $myusername;
-
-         header("location: admin.php");
-      }else {
-          $_SESSION["error"] = "Wrong Username/Password";
-      }
-   }
-?>
-      <div id="login_modal" class="modal">
-
-  <form class="modal-content animate"  method="post">
-    <div class="imgcontainer">
-      <span onclick="document.getElementById('login_modal').style.display='none'" class="close" title="Close Modal">&times;</span>
-      <img src="images/admin.jpeg" alt="Avatar" class="avatar">
-    </div>
-
-    <div class="container" >
-      <label for="uname"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="username" required>
-
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="password" required>
-        <?php
-                    if(isset($_SESSION["error"])){
-                        $error = $_SESSION["error"];
-                        echo '<span style="color:red;">';echo $error; echo '</span>';
-                        unset($_SESSION["error"]);
-                    }
-                ?>
-      <button type="submit" class="login_button">Login</button>
-
-
-    </div>
-
-    <div class="container" >
-
-      <span class="psw"> <a href="#"> Forgot password?</a></span>
-    </div>
-  </form>
-</div>
-<script>
-// Get the modal
-var modal = document.getElementById('login_modal');
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-</script>
 
 
   </body>
