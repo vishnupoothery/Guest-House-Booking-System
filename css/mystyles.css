@@ -1,16 +1,60 @@
 body{ font-family: sans-serif;
  }
 
+.guest-details{
 
+    width: 75%;
+
+}
+.table{
+    border-collapse: collapse;
+}
+.status{
+
+    font-size: 25px;
+    font-weight:  bold;
+    text-align: center;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+
+
+}
+.status.approved{
+    color: #00c434;
+    border-style: dashed;
+    border-color: #00c434;
+}
+.status.awaiting{
+    color:#faee05;
+    border-style: dashed;
+    border-color:#faee05;
+}
+.status.cancelled{
+    color: #eb4802;
+    border-style: dashed;
+    border-color: #eb4802;
+}
+
+.booking-details{
+    width: 50%;
+
+}
+.status-container{
+    height: 100px;
+   width: 25%;
+
+}
 .navbar{
   background-color: #23accc;
 
 }
 
-.navtab.active{
+.navtab.active,.navtab:hover{
 
     font-size: 20px;
     font-weight: bolder;
+    background-color: #23accc !important;
 }
 
 .navtab{

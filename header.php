@@ -52,6 +52,8 @@ function display_admin_navbar()
     </ul><ul class="nav navbar-right">
     <li><div class="dropdown"><a  class="navtab" class="dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
    <span class= "glyphicon glyphicon-user" style="color:white;"></span>
+ <span class= "glyphicon glyphicon-menu-down" style="color:white;"></span>
+
   </a>
   <div  class="dropdown-menu" aria-labelledby="dropdownMenuButton">
     <a class="dropdown-item" href="adminprofile.php">My Profile</a>

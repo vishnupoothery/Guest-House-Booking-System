@@ -91,7 +91,7 @@
 
              if($booking_data['booking_status']=='WAITING APPROVAL')
              {
-                 echo "<div class='row'><div class='col-sm-4'></div><div class='col-sm-2'><button class='btn btn-primary' onclick=\"document.getElementById('allotrooms";
+                 echo "<div class='row'><div class='col-sm-4'></div><div class='col-sm-2'><button class='btn btn-prim' onclick=\"document.getElementById('allotrooms";
                  echo $rr['booking_id'];
                  echo "').style.display='block';this.style.display='none';\">Allot Rooms </button></div>";
 
@@ -116,12 +116,24 @@
                  }
 
 
-                echo "</select></div><div class='col-sm-1'><button class='btn btn-primary' type='submit'>Allot</button></div></form></div>";
+                echo "</select></div><div class='col-sm-1'><button class='btn btn-prim' type='submit'>Allot</button></div></form></div>";
              }
              if ($booking_data['booking_status']!='CANCELLED')
-            { echo "<a style='float:right;' onclick=\"return confirm('Are you sure you want to cancel');\" href='cancel_booking.php?booking_id=";
+            { echo "<button style='float:right;' type='button' class='btn btn-prim'><a style='color:white;text-decoration:none;' onclick=\"return confirm('Are you sure you want to cancel');\" href='cancel_booking.php?booking_id=";
              echo $rr['booking_id'];
-             echo "&booking_status=REJECTED'>Cancel Booking</a>";}
+             echo "&booking_status=REJECTED'>Cancel Booking</a></button>";}
+
+             if (strpos($booking_data['booking_status'],'ALLOTED')!==false )
+             {
+               $get_room_data="SELECT room_num FROM rooms WHERE room_id IN (SELECT room_id FROM guests WHERE booking_id=".$rr['booking_id'].")";
+              $room_data_res=mysqli_query($db,$get_room_data);
+                 echo "The alloted room(s) are: ";
+                 while($room_data=mysqli_fetch_array($room_data_res))
+                 {
+                     echo $room_data['room_num'];
+
+                 }
+             }
 
              echo "</td></tr>";
 
