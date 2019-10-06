@@ -1,5 +1,105 @@
-body{ font-family: sans-serif;}
+body{ font-family: sans-serif;
+ }
 
+.guest-details{
+
+    width: 75%;
+
+}
+.table{
+    border-collapse: collapse;
+}
+.status{
+
+    font-size: 25px;
+    font-weight:  bold;
+    text-align: center;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+
+
+}
+.status.approved{
+    color: #00c434;
+    border-style: dashed;
+    border-color: #00c434;
+}
+.status.awaiting{
+    color:#faee05;
+    border-style: dashed;
+    border-color:#faee05;
+}
+.status.cancelled{
+    color: #eb4802;
+    border-style: dashed;
+    border-color: #eb4802;
+}
+
+.booking-details{
+    width: 50%;
+
+}
+.status-container{
+    height: 100px;
+   width: 25%;
+
+}
+.navbar{
+  background-color: #23accc;
+
+}
+
+.navtab.active,.navtab:hover{
+
+    font-size: 20px;
+    font-weight: bolder;
+    background-color: #23accc !important;
+}
+
+.navtab{
+    color:white;
+}
+
+.collapserow:hover
+{
+    cursor: pointer;
+}
+.collapse
+{
+    background-color: none;
+}
+.form-tab
+{display: none;}
+input.invalid {
+  background-color: #ffdddd;
+}
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+.btn-prim
+{
+    background-color: #23accc;
+    color: white;
+}
+
+
+.step.active {
+  opacity: 1;
+ background-color: #23accc;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color:#23accc;
+}
 .admin_login {
  background: transparent;
 border: none;
@@ -125,7 +225,7 @@ input[type=text], input[type=password] {
 
 /*--------------Booking Page------------*/
 .none{ display:none;}
-.dropdown{  position: relative;
+.dropdown_calendar{  position: relative;
     width: 200px;
     margin: 0 auto;
     padding: 10px;
@@ -141,7 +241,7 @@ input[type=text], input[type=password] {
     /* Font settings */
     font-weight: bold;
     color: #23aacc;}
-.dropdown:after {
+.dropdown_calendar:after {
     content: "";
     width: 0;
     height: 0;
@@ -239,7 +339,7 @@ a:hover {color: #181919;text-decoration: underline;}
 /*---------index page----------------*/
 .example_f {
 
-background: #23aacc;
+background:#23aacc;
    border: none;
    color: #FFFFFF;
    text-align: center;

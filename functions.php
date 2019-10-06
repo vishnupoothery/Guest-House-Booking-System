@@ -15,6 +15,10 @@ if(isset($_POST['func']) && !empty($_POST['func'])){
 	}
 }
 
+
+
+
+
 /*
  * Get calendar full HTML
  */
@@ -31,8 +35,8 @@ function getCalender($year = '',$month = '')
 	<div id="calender_section">
 		<h2>
         	<a href="javascript:void(0);" onclick="getCalendar('calendar_div','<?php echo date("Y",strtotime($date.' - 1 Month')); ?>','<?php echo date("m",strtotime($date.' - 1 Month')); ?>');">&#8249</a>
-            <select name="month_dropdown" class="month_dropdown dropdown"><?php echo getAllMonths($dateMonth); ?></select>
-			<select name="year_dropdown" class="year_dropdown dropdown"><?php echo getYearList($dateYear); ?></select>
+            <select name="month_dropdown" class="month_dropdown dropdown_calendar"><?php echo getAllMonths($dateMonth); ?></select>
+			<select name="year_dropdown" class="year_dropdown dropdown_calendar"><?php echo getYearList($dateYear); ?></select>
             <a href="javascript:void(0);" onclick="getCalendar('calendar_div','<?php echo date("Y",strtotime($date.' + 1 Month')); ?>','<?php echo date("m",strtotime($date.' + 1 Month')); ?>');">&#8250</a>
         </h2>
 
@@ -60,7 +64,8 @@ function getCalender($year = '',$month = '')
 						include 'dbConfig.php';
 						//Get number of events based on the current date
 						$total = $db->query("SELECT *  FROM rooms")->num_rows;
-						$booked =$db->query("SELECT * FROM booked WHERE checkin <='".$currentDate."' AND checkout >='".$currentDate."'")->num_rows;
+
+						$booked =$db->query("SELECT DISTINCT room_id FROM guests WHERE room_id>0 AND checkin <='".$currentDate."' AND checkout >='".$currentDate."'")->num_rows;
                         $free=$total-$booked;
                         $percent=($booked/$total)*100;
 						//Define date cell color

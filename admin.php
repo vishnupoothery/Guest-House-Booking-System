@@ -1,4 +1,7 @@
-
+<?php
+   include('session.php');
+ include ('header.php')
+?>
 
 <!doctype html>
 <html lang="en">
@@ -13,23 +16,31 @@
    <link rel="stylesheet" href="css/mystyles.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
+   <script src="js/myjs.js"></script>
     <title>NITC GH</title>
   </head>
 <body class="w3-light-grey">
-    <header class="page-header" id="header">
-      <div class="container-fluid" >
+<?php echo display_header();
+      echo display_admin_navbar(); ?>
 
-          <div class="row">
-    <div class="col-sm-6">
-     <img  src="images/logo.jpg">
+<script>activateTab('home');</script>
+
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+     <div class="row">
+  <div class='col-sm-2'></div>
+
+        <div id="calendar_div">
+            <?php
+            include_once("functions.php");
+            echo getCalender(); ?>
+        </div>
+
+
+</div>
     </div>
-    <div class="col-sm-6" >
-      <h3 style="color:#23aacc; float:right;">GUEST HOUSE BOOKING PORTAL</h3>
-    </div>
+
   </div>
-
-           </div>
-      </header>
-
-
+</div>
+    </body>
+</html>
