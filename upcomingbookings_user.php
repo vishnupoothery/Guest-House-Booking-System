@@ -59,7 +59,7 @@ include('header.php');
       <?php
 
       include('dbConfig.php');
-      $sql="SELECT DISTINCT `booking_id` FROM guests WHERE checkin>DATE_FORMAT(now(),'%Y%c%d')
+      $sql="SELECT DISTINCT `booking_id` FROM guests WHERE checkin>DATE_FORMAT(now(),'%Y%c%d') AND room_id!=-1
 ";// and booked_by=user_id;
 
       $result = mysqli_query($db,$sql);
@@ -108,7 +108,7 @@ include('header.php');
             if ($booking_data['booking_status']!='CANCELLED')
             { echo "<a style='float:right;' onclick=\"return confirm('Are you sure you want to cancel');\" href='cancel_booking.php?booking_id=";
              echo $rr['booking_id'];
-             echo "'>Cancel Booking</a>";}
+             echo "&booking_status=CANCELLED'>Cancel Booking</a>";}
 
              echo "</td></tr>";
 

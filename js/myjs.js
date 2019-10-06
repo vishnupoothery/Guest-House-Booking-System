@@ -49,6 +49,17 @@ function display_subdropdown()
     }
 function validateForm(currentTab) {
 
+    if(!currentTab)
+        {
+          var rooms=  document.getElementsByName("roomsno")[0].value;
+
+            var guests=document.getElementsByClassName("step").length-1;
+
+            if(guests/rooms >2 || guests/rooms<1)
+                {
+                 document.getElementById('roomnumwarning').style.display='block';
+                    return false;}
+        }
    var x, y, i, valid = true;
   x = document.getElementsByClassName("form-tab");
   y = x[currentTab].getElementsByTagName("input");
@@ -56,10 +67,13 @@ function validateForm(currentTab) {
 
 
   for (i = 0; i < y.length; i++) {
+
     // If a field is empty...
     if (y[i].value == "") {
+        if(!currentTab && document.getElementsByName('purpose')[0].value=="Personal" && y[i].id=='purpose-desc')
+            continue;
       // add an "invalid" class to the field:
-      y[i].className += " invalid";
+         y[i].className += " invalid";
       // and set the current valid status to false
       valid = false;
     }

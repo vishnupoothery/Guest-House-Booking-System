@@ -31,7 +31,7 @@
     <li><a  href="admin.php">HOME</a></li>
     <li><a  class="active"  href="upcomingbookings_admin.php">UPCOMING BOOKINGS</a></li>
     <li><a   href="past_bookings_admin.php">PAST BOOKINGS</a></li>
-    <li><a data-toggle="tab"  href="rooms.php">ROOMS</a></li>
+    <li><a  href="rooms.php">ROOMS</a></li>
        <li><div class="dropdown"><a class="dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
    <span class= "glyphicon glyphicon-user" style="color:blue;"></span>
   </a>
@@ -45,15 +45,15 @@
        <?php
 
       include('dbConfig.php');
-      $sql="SELECT DISTINCT `booking_id` FROM guests WHERE checkin>DATE_FORMAT(now(),'%Y%c%d')
+      $sql="SELECT DISTINCT `booking_id` FROM guests WHERE checkin>DATE_FORMAT(now(),'%Y%c%d') AND room_id!=-1
 ";
 
       $result = mysqli_query($db,$sql);
-      echo "<table class='table table-hover'> <tr><th>BOOKING DATE </th><th>CHECKIN</th><th>CHECKOUT</th><th>  BOOKING STATUS</th><th></th></tr>";
+      echo "<table class='table table-hover'> <tr><th>BOOKING DATE </th><th>BOOKED BY</th><th>CHECKIN</th><th>CHECKOUT</th><th>PURPOSE</th><th>  BOOKING STATUS</th><th></th></tr>";
        if($result)
        {
             while($rr=mysqli_fetch_array($result))
-            {   $get_booking_data="SELECT booked_by,DATE_FORMAT(booking_date,'%d-%m-%y') as booking_date,booking_status,no_guests,no_rooms FROM booked WHERE booking_id=".$rr['booking_id']."";
+            {   $get_booking_data="SELECT booked_by,DATE_FORMAT(booking_date,'%d-%m-%y') as booking_date,booked_by,purpose,booking_status,no_guests,no_rooms FROM booked WHERE booking_id=".$rr['booking_id']."";
                 $booking_data_res= mysqli_query($db,$get_booking_data);
                 $booking_data=mysqli_fetch_assoc($booking_data_res);
              $get_guest_data="SELECT DATE_FORMAT(checkin,'%d-%m-%y') as checkin,DATE_FORMAT(checkout,'%d-%m-%y') as checkout FROM guests WHERE booking_id=".$rr['booking_id']."";
@@ -64,12 +64,16 @@
                 echo ")'><td>";
                 echo $booking_data['booking_date'];
              echo "</td><td>";
+            echo $booking_data['booked_by'];
+             echo "</td><td>";
              echo $guest_data['checkin'];
              echo "</td><td>";
              echo $guest_data['checkout'];
              echo "</td><td>";
+              echo $booking_data['purpose'];
+             echo "</td><td>";
              echo $booking_data['booking_status'];
-             echo "</td></tr><tr id='collapse";
+                          echo "</td></tr><tr id='collapse";
              echo $rr['booking_id'];
              echo "' class='collapse out'><td colspan=4>";
 
@@ -129,6 +133,10 @@
 
                 echo "</select></div><div class='col-sm-1'><button class='btn btn-primary' type='submit'>Allot</button></div></form></div>";
              }
+             if ($booking_data['booking_status']!='CANCELLED')
+            { echo "<a style='float:right;' onclick=\"return confirm('Are you sure you want to cancel');\" href='cancel_booking.php?booking_id=";
+             echo $rr['booking_id'];
+             echo "&booking_status=REJECTED'>Cancel Booking</a>";}
 
              echo "</td></tr>";
 

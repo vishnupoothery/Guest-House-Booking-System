@@ -31,7 +31,7 @@
     <li><a  href="admin.php">HOME</a></li>
     <li><a   href="upcomingbookings_admin.php">UPCOMING BOOKINGS</a></li>
     <li><a   href="past_bookings_admin.php">PAST BOOKINGS</a></li>
-    <li><a class="active" data-toggle="tab"  href="rooms.php">ROOMS</a></li>
+    <li><a class="active"  href="rooms.php">ROOMS</a></li>
        <li><div class="dropdown"><a class="dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
    <span class= "glyphicon glyphicon-user" style="color:blue;"></span>
   </a>
@@ -48,21 +48,48 @@
         <?php
         if (isset($_POST['changepassword_button']))
         {
-           /*-----------------------------*/
-        }
 
+        include 'dbConfig.php';
+        $username=$_SESSION['login_user'];
+        $password = $_POST['password'];
+        $newpassword = $_POST['newpassword'];
+        $confirmnewpassword = $_POST['confirmnewpassword'];
+        $result = mysqli_query($db,"SELECT password FROM admin WHERE
+username='".$username."'");
+
+        if(!$result)
+            echo "The username you entered does not exist";
+        else
+        {
+         $res= mysqli_fetch_assoc($result);
+        if ($password != $res['password'])
+            echo "You entered an incorrect password";
+
+        else if($newpassword=$confirmnewpassword)
+        {
+            $sql=mysqli_query($db,"UPDATE admin SET password='$newpassword' where
+            username='$username'");
+            if($sql)
+                echo "Congratulations You have successfully changed your password";
+
+        }
+       else
+        echo "Passwords do not match";
+
+        }
+        }
         ?>
 
           <form method="post" action="adminprofile.php">
         <div class="container" >
       <label><b>Current Password</b></label>
-      <input type="password"  name="current" required>
+      <input type="password"  name="password" required>
 
       <label><b>New Password</b></label>
-      <input type="password" name="password1" required>
+      <input type="password" name="newpassword" required>
         <label ><b>Confirm New Password</b></label><br>
-        <input type="password"  name="password2" required><br> <br>
-            <button type="submit" name="changepassword_button" class="btn btn-primary">Add</button>
+        <input type="password"  name="confirmnewpassword" required><br> <br>
+            <button type="submit" name="changepassword_button" class="btn btn-primary">Change</button>
             </div>
         </form>
          </div>

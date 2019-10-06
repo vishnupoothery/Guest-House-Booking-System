@@ -3,7 +3,7 @@
 include('dbConfig.php');
 $sql = "INSERT INTO booked (purpose,booking_status,	payment_status,	no_guests,	no_rooms	,no_groups
 )
-VALUES ('".$_POST['purpose']."','WAITING APPROVAL','".$_POST['payment']."', '".$_GET['guestsno']."','".$_POST['roomsno']."','1')";
+VALUES ('".$_POST['purpose']." - ".$_POST['purpose-desc']."','WAITING APPROVAL','".$_POST['payment']."', '".$_GET['guestsno']."','".$_POST['roomsno']."','1')";
 
 
 

@@ -59,7 +59,7 @@ include('header.php');
       <?php
 
       include('dbConfig.php');
-      $sql="SELECT DISTINCT `booking_id` FROM guests WHERE checkout<DATE_FORMAT(now(),'%Y%c%d')
+      $sql="SELECT DISTINCT `booking_id` FROM guests WHERE checkout<DATE_FORMAT(now(),'%Y%c%d') OR room_id=-1
 ";// and booked_by=user_id;
 
       $result = mysqli_query($db,$sql);

@@ -76,6 +76,7 @@ if(isset($_POST['book_now']))
    <div class="form-group">
     <label for="roomsno">Number of Rooms Required</label>
     <input type="number" class="form-control" min="1" max="5" name="roomsno" required>
+       <h5 id='roomnumwarning' style="color:red;display:none">Insuffient/Excess rooms </h5>
   </div>
 <div class="form-group">
   <label for="purpose">Purpose</label>
@@ -85,6 +86,9 @@ if(isset($_POST['book_now']))
 
   </select>
 </div>
+      <div class='form-group'  id='official-purpose'>
+      <input type="text" name="purpose-desc" id="purpose-desc" placeholder="If Official, specify ">
+      </div>
 <div class="form-group">
   <label for="payment">Payment Method</label>
   <select class="form-control" name="payment">
@@ -202,6 +206,7 @@ else {
                <div class="form-group">
     <label for="guestsno">Number of Guests</label>
     <input type="number" min="1" class="form-control" name="guestsno" required>
+    <h5 style="opacity:0.7;">Children above 12 years should be included </h5>
   </div>
     <button type="submit"  name="book_now" class="btn btn-primary">Book Now </button>
 </form>

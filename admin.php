@@ -60,6 +60,7 @@
   <div class="tab-content">
     <div id="home" class="tab-pane fade in active">
      <div class="row">
+  <div class='col-sm-2'></div>
 
         <div id="calendar_div">
             <?php

@@ -1,14 +1,15 @@
-<?php
+          <?php
 // Include calendar helper functions
 include_once 'functions.php';
 
 ?>
 
+
 <!doctype html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
+     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
@@ -17,17 +18,11 @@ include_once 'functions.php';
    <link rel="stylesheet" href="css/mystyles.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
     <title>NITC GH</title>
   </head>
   <body>
 
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
       <header class="page-header" id="header">
       <div class="container-fluid" >
@@ -45,13 +40,14 @@ include_once 'functions.php';
            </div>
       </header>
 
+
+
  <!----------------------Admin Login---------------------->
       <?php
 
 
    { include("dbConfig.php");
 
-   session_start();
    if($_SERVER["REQUEST_METHOD"] == "POST") {
       // username and password sent from form
 
@@ -66,6 +62,7 @@ include_once 'functions.php';
 
       // If result matched $myusername and $mypassword, table row must be 1 row
 
+   session_start();
       if($count == 1) {
 
          $_SESSION['login_user'] = $myusername;
@@ -73,6 +70,9 @@ include_once 'functions.php';
          header("location: admin.php");
       }else {
           $_SESSION["error"] = "Wrong Username/Password";
+      ?> <script>$(window).on('load',function(){
+        $('#login_modal').css('display','block');
+    });</script> <?php
       }
    }}
 ?>
@@ -121,6 +121,8 @@ window.onclick = function(event) {
 </script>
 
 
+
+
       <div id="main">
        <div id="myCarousel" class="carousel slide" data-ride="carousel">
   <!-- Indicators -->
@@ -160,7 +162,7 @@ window.onclick = function(event) {
 
      <div class=".container-fluid">
          <div style=" margin-top:25px;" align="center">
-         <a class="example_f" href="#displaycalendar" >
+         <a class="example_f" href="#showavailability" >
              <span align="center" style="width: 90%;">CHECK AVAILABILITY</span>
          </a>
          </div>
@@ -168,12 +170,13 @@ window.onclick = function(event) {
     </div>
 
           </div>
+<br>
+      <div class="row" id="showavailability">
+          <div class='col-sm-3'></div>
 
-      <div class="row" id="displaycalendar">
-
-          <?php
-
-          echo getCalender(); ?>
+     <div id="calendar_div" class="col-sm-6"  >
+            <?php echo getCalender(); ?>
+        </div>
 
       </div>
 <div class=".container-fluid">
