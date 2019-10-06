@@ -27,16 +27,9 @@ include('header.php');
     <script src="js/jquery.min.js"></script>
       <script src="js/myjs.js"></script>
 
-      <script>
-  $(function() {
-    $( "#skills" ).autocomplete({
-      source: 'search.php'
-    });
-  });
 
 
-  </script>
-    <?php include_once('functions.php'); ?>
+
 
 
 
@@ -46,16 +39,9 @@ include('header.php');
 
   </head>
   <body class="w3-light-grey">
- <?php echo display_header(); ?>
-
-<nav class="navbar navbar-default"><ul class="nav nav-bar">
-    <li ><a href="user.php">HOME</a></li>
-    <li><a href="upcomingbookings_user.php">UPCOMING BOOKINGS</a></li>
-    <li><a  class="active" href="past_bookings.php">PAST BOOKINGS</a></li>
-    <li><a href="#menu3">GUIDELINES</a></li>
-  </ul>
-        </nav>
-
+ <?php echo display_header();
+       echo display_user_navbar();?>
+         <script>activateTab('past');</script>
       <?php
 
       include('dbConfig.php');

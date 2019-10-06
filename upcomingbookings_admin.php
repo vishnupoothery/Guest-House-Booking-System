@@ -19,31 +19,16 @@
    <link rel="stylesheet" href="css/mystyles.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-      <script src="js/myjs.js"></script>
-
+    <script src="js/myjs.js"></script>
     <title>NITC GH</title>
   </head>
 <body class="w3-light-grey">
-  <?php echo display_header(); ?>
+<?php echo display_header();
+      echo display_admin_navbar(); ?>
 
-  <div class="container" style="margin=0px;">
-<ul class="nav nav-tabs">
-    <li><a  href="admin.php">HOME</a></li>
-    <li><a  class="active"  href="upcomingbookings_admin.php">UPCOMING BOOKINGS</a></li>
-    <li><a   href="past_bookings_admin.php">PAST BOOKINGS</a></li>
-    <li><a  href="rooms.php">ROOMS</a></li>
-       <li><div class="dropdown"><a class="dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-   <span class= "glyphicon glyphicon-user" style="color:blue;"></span>
-  </a>
-  <div  class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="adminprofile.php">My Profile</a>
-    <a class="dropdown-item" href="addadmin.php">Add Admin</a>
-    <a class="dropdown-item" href="logout.php">Sign Out</a>
-  </div></div> </li>
-  </ul>
+<script>activateTab('upcoming');</script>
 
-       <?php
-
+    <?php
       include('dbConfig.php');
       $sql="SELECT DISTINCT `booking_id` FROM guests WHERE checkin>DATE_FORMAT(now(),'%Y%c%d') AND room_id!=-1
 ";

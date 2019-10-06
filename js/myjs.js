@@ -47,6 +47,18 @@ function display_subdropdown()
 
 
     }
+function activateTab(current){
+
+    var all=document.getElementsByClassName("navtab");
+    for(var i=0;i<all.length;++i)
+        {  if(all[i].classList.contains('active'))
+            all[i].classList.remove('active');
+        if(all[i].id==current)
+            all[i].classList.add("active");}
+
+
+}
+
 function validateForm(currentTab) {
 
     if(!currentTab)
@@ -156,7 +168,7 @@ function fixStepIndicator(n) {
 }
 
 function confirmBook(n)
-{ var details="<table class='table'> ";
+{ var details="<table class='table'><tr><td><b>Number of rooms required: </b>"+document.getElementsByName('roomsno')[0].value+" </td><td><b>  Purpose: </b>"+document.getElementsByName('purpose')[0].value+" </td><td><b>   Payment Method: </b>"+document.getElementsByName('payment')[0].value+"</td></tr><tr><td  colspan=3 align='center'><b>GUESTS</b></td></tr>";
 
  var i;
 

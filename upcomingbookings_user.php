@@ -6,7 +6,7 @@ include('header.php');
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
+<!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -27,18 +27,6 @@ include('header.php');
     <script src="js/jquery.min.js"></script>
       <script src="js/myjs.js"></script>
 
-      <script>
-  $(function() {
-    $( "#skills" ).autocomplete({
-      source: 'search.php'
-    });
-  });
-
-
-  </script>
-    <?php include_once('functions.php'); ?>
-
-
 
     <title>NITC GH</title>
 
@@ -46,16 +34,9 @@ include('header.php');
 
   </head>
   <body class="w3-light-grey">
- <?php echo display_header(); ?>
-
-<nav class="navbar navbar-default"><ul class="nav nav-bar">
-    <li ><a href="user.php">HOME</a></li>
-    <li><a class="active" href="upcomingbookings_user.php">UPCOMING BOOKINGS</a></li>
-    <li><a href="past_bookings.php">PAST BOOKINGS</a></li>
-    <li><a href="#menu3">GUIDELINES</a></li>
-  </ul>
-        </nav>
-
+ <?php echo display_header();
+       echo display_user_navbar();?>
+         <script>activateTab('upcoming');</script>
       <?php
 
       include('dbConfig.php');

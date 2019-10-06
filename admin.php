@@ -1,5 +1,6 @@
 <?php
    include('session.php');
+ include ('header.php')
 ?>
 
 <!doctype html>
@@ -15,47 +16,14 @@
    <link rel="stylesheet" href="css/mystyles.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
+   <script src="js/myjs.js"></script>
     <title>NITC GH</title>
   </head>
 <body class="w3-light-grey">
-    <header class="page-header" id="header">
-      <div class="container-fluid" >
+<?php echo display_header();
+      echo display_admin_navbar(); ?>
 
-          <div class="row">
-    <div class="col-sm-6">
-     <img  src="images/logo.jpg">
-    </div>
-    <div class="col-sm-6"  >
-
-
-
-      <div class="row"> <h3 style="color:#23aacc; float:right;">GUEST HOUSE BOOKING PORTAL</h3></div>
-
-
-    </div>
-  </div>
-
-           </div>
-      </header>
-
-  <div class="container" style="margin=0px;">
-
-  <ul class="nav nav-tabs">
-    <li class="active"><a  href="admin.php">HOME</a></li>
-    <li><a  href="upcomingbookings_admin.php">UPCOMING BOOKINGS</a></li>
-    <li><a  href="past_bookings_admin.php">PAST BOOKINGS</a></li>
-    <li><a  href="rooms.php">ROOMS</a></li>
-       <li><div class="dropdown"><a class="dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-   <span class= "glyphicon glyphicon-user" style="color:blue;"></span>
-  </a>
-  <div  class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="adminprofile.php">My Profile</a>
-    <a class="dropdown-item" href="addadmin.php">Add Admin</a>
-    <a class="dropdown-item" href="logout.php">Sign Out</a>
-  </div></div> </li>
-  </ul>
-
+<script>activateTab('home');</script>
 
   <div class="tab-content">
     <div id="home" class="tab-pane fade in active">

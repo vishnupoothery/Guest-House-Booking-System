@@ -7,7 +7,7 @@ include('header.php');
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
+       <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -28,35 +28,16 @@ include('header.php');
     <script src="js/jquery.min.js"></script>
       <script src="js/myjs.js"></script>
 
-      <script>
-  $(function() {
-    $( "#skills" ).autocomplete({
-      source: 'search.php'
-    });
-  });
-
-
-  </script>
-    <?php include_once('functions.php'); ?>
-
-
-
     <title>NITC GH</title>
 
 
 
   </head>
-  <body class="w3-light-grey">
- <?php echo display_header(); ?>
+  <body >
+ <?php echo display_header();
+      echo display_user_navbar(); ?>
 
-<nav class="navbar navbar-default"><ul class="nav nav-bar">
-    <li class="active"><a
-              href="user.php">HOME</a></li>
-    <li><a href="upcomingbookings_user.php">UPCOMING BOOKINGS</a></li>
-    <li><a href="past_bookings.php">PAST BOOKINGS</a></li>
-    <li><a href="#menu3">GUIDELINES</a></li>
-  </ul>
-        </nav>
+      <script>activateTab('home');</script>
 
 
 <div>
@@ -74,6 +55,8 @@ if(isset($_POST['book_now']))
   <div class="tab form-tab">
 
    <div class="form-group">
+
+
     <label for="roomsno">Number of Rooms Required</label>
     <input type="number" class="form-control" min="1" max="5" name="roomsno" required>
        <h5 id='roomnumwarning' style="color:red;display:none">Insuffient/Excess rooms </h5>
@@ -117,8 +100,8 @@ if(isset($_POST['book_now']))
         </div> <?php } ?>
   <div style="overflow:auto;">
     <div style="float:right;">
-      <button type="button" id="prevBtn"  class="btn btn-primary" onclick="nextPrev(-1)">Previous</button>
-      <button type="button" id="nextBtn"  class="btn btn-primary" onclick="nextPrev(1)">Next</button>
+      <button type="button" id="prevBtn"  class="btn btn-prim" onclick="nextPrev(-1)">Previous</button>
+      <button type="button" id="nextBtn"  class="btn btn-prim" onclick="nextPrev(1)">Next</button>
     </div>
   </div>
 <div style="text-align:center;margin-top:40px;">
@@ -160,26 +143,29 @@ currentTab=currentTab-n;
         </div>
 
           <div class="modal" id="confirm_modal">
-    <div class="modal-dialog">
+
 
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
        <span onclick="document.getElementById('confirm_modal').style.display='none'" class="close" title="Close Modal">&times;</span>
-          <h4 class="modal-title">Booking for <?php echo $_POST['checkin']; ?> to  <?php echo $_POST['checkout']; ?></h4>
+          <h4 class="modal-title">Booking for <?php echo date('F jS Y',strtotime($_POST['checkin'])); ?> to  <?php echo date('F jS Y',strtotime($_POST['checkout'])); ?></h4>
         </div>
+
         <div class="modal-body">
 
           <div id="guests_info"> </div>
         </div>
+
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" onclick="document.getElementById('confirm_modal').style.display='none'" style="float:left;" >Edit</button>
-            <button class="btn btn-default" onclick="document.getElementById('guests_form').submit();
+          <button type="button" class="btn btn-prim" onclick="document.getElementById('confirm_modal').style.display='none'" style="float:left;" >Edit</button>
+            <button type="button"  class="btn btn-prim" onclick="document.getElementById('guests_form').submit();
 " style="float:right"> Confirm</button>
         </div>
+
       </div>
 
-    </div>
+
   </div><?php
 }
 else {
@@ -208,7 +194,7 @@ else {
     <input type="number" min="1" class="form-control" name="guestsno" required>
     <h5 style="opacity:0.7;">Children above 12 years should be included </h5>
   </div>
-    <button type="submit"  name="book_now" class="btn btn-primary">Book Now </button>
+    <button type="submit"  name="book_now" class="btn btn-prim">Book Now </button>
 </form>
 
     </div>
@@ -222,16 +208,6 @@ else {
     </div>
 
 
-    <div id="menu1" class="tab-pane fade">
-      <h3>Upcoming</h3>
-    </div>
-    <div id="menu2" class="tab-pane fade">
-      <h3>Past</h3>
-    </div>
-    <div id="menu3" class="tab-pane fade">
-      <h3>FAQ</h3>
-    </div>
-=
 
     </div></div>
 

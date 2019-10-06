@@ -1,6 +1,7 @@
           <?php
 // Include calendar helper functions
 include_once 'functions.php';
+include 'header.php';
 
 ?>
 
@@ -21,24 +22,9 @@ include_once 'functions.php';
     <title>NITC GH</title>
   </head>
   <body>
+<?php echo display_header();
+      ?>
 
-
-
-      <header class="page-header" id="header">
-      <div class="container-fluid" >
- <a class="admin_login"  onclick="document.getElementById('login_modal').style.display='block'" style="float:right;">Admin Login</a>
-          <div class="row">
-    <div class="col-sm-6">
-     <img  src="images/logo.jpg">
-    </div>
-    <div class="col-sm-6" >
-
-      <h3 style="color:#23aacc; float:right;">GUEST HOUSE BOOKING PORTAL</h3>
-    </div>
-  </div>
-
-           </div>
-      </header>
 
 
 
