@@ -16,9 +16,6 @@ if(isset($_POST['func']) && !empty($_POST['func'])){
 }
 
 
-
-
-
 /*
  * Get calendar full HTML
  */

@@ -1,0 +1,35 @@
+html, body {
+    height: 100%;
+    background-color: #647973;
+}
+
+.full-page {
+    height: 100vh;
+    width: 100vw;
+}
+
+.login-box {
+    padding: 20px;
+    background-color: #f7f7f7;
+    color: #314247;
+}
+
+.btn-login{
+    color: #314247;
+    border-radius: 0;
+    text-transform: uppercase;
+}
+
+.btn-login:hover{
+    background-color: #314247;
+    color: #f7f7f7;
+    border-radius: 0;
+}
+
+.login-email{
+    border-radius: 0;
+}
+
+.login-email:focus{
+    box-shadow: 0 0 0 0.1rem rgba(49,66,71, 0.2);
+}

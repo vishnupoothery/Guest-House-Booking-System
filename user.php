@@ -1,5 +1,6 @@
 
 <?php
+include 'checkLogin.php';
 // Include calendar helper functions
 include_once 'functions.php';
 include('header.php');

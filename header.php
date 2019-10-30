@@ -77,7 +77,7 @@ function display_user_navbar()
 
   </ul>
       <ul class="nav navbar-right">
-              <li><a class="navtab" href="#menu4">SIGN OUT</a></li>
+              <li><a class="navtab" href="logout.php">SIGN OUT</a></li>
       </ul>
     </nav>
 

@@ -1,5 +1,6 @@
 
 <?php
+include 'checkLogin.php';
 
 include('header.php');
 ?>
@@ -40,8 +41,8 @@ include('header.php');
       <?php
 
       include('dbConfig.php');
-      $sql="SELECT DISTINCT `booking_id` FROM guests WHERE checkin>DATE_FORMAT(now(),'%Y%c%d') AND room_id!=-1
-";// and booked_by=user_id;
+      $user_id = $_SESSION['email'];
+      $sql="SELECT DISTINCT A.booking_id FROM guests A, booked B WHERE A.checkin>DATE_FORMAT(now(),'%Y%c%d') AND B.booked_by = '$user_id' AND A.room_id!=-1 AND A.booking_id=B.booking_id";// and booked_by=user_id;
 
       $result = mysqli_query($db,$sql);
       echo "<table class='table table-hover'>";
