@@ -9,6 +9,9 @@ body{ font-family: sans-serif;
 .table{
     border-collapse: collapse;
 }
+.borderless {
+border: none;
+}
 .status{
 
     font-size: 25px;
@@ -52,8 +55,8 @@ body{ font-family: sans-serif;
 
 .navtab.active,.navtab:hover{
 
-    font-size: 20px;
-    font-weight: bolder;
+  
+    font-weight: bold;
     background-color: #23accc !important;
 }
 
@@ -276,13 +279,12 @@ input[type=text], input[type=password] {
 .date_cell:hover { background-color: #b3f0ff !important; }
 .date_popup_wrap {
 	position: absolute;
-	width: 143px;
-	height: 115px;
+	width: 50px;
+	height: 20px;
 	z-index: 9999;
-	top: -115px;
-	left:-55px;
-	background: transparent url(add-new-event.png) no-repeat top left;
-	color: #666 !important;
+
+	background:transparent;
+	color: Black !important;
 }
 .events_window {
 	overflow: hidden;
@@ -307,10 +309,10 @@ input[type=text], input[type=password] {
 	margin-right:14px
 }
 .popup_event {
-	margin-bottom: 2px;
-	padding: 2px;
+
 	font-size: 16px;
-	width:100%;
+  width:100%;
+
 }
 .popup_event a {color: #000000 !important;}
 .packeg_box a {color: #F58220;float: right;}

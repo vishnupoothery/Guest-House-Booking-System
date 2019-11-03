@@ -168,12 +168,12 @@ function fixStepIndicator(n) {
 }
 
 function confirmBook(n)
-{ var details="<table class='table'><tr><td><b>Number of rooms required: </b>"+document.getElementsByName('roomsno')[0].value+" </td><td><b>  Purpose: </b>"+document.getElementsByName('purpose')[0].value+" </td><td><b>   Payment Method: </b>"+document.getElementsByName('payment')[0].value+"</td></tr><tr><td  colspan=3 align='center'><b>GUESTS</b></td></tr>";
+{ var details="<table class='table '><tr class='borderless'><td><b>Number of rooms required: </b>"+document.getElementsByName('roomsno')[0].value+" </td><td><b>  Purpose: </b>"+document.getElementsByName('purpose')[0].value+" </td><td><b>   Payment Method: </b>"+document.getElementsByName('payment')[0].value+"</td></tr><tr><td  colspan=3 align='center'><b>GUESTS</b></td></tr>";
 
  var i;
 
  for( i=0; i<n; ++i)
-     {details= details + "<tr> " + "<td> " + document.getElementsByName("name[]")[i].value + "</td> " +"<td> " + document.getElementsByName("rel[]")[i].value + "</td> " + "<td> " + document.getElementsByName("contact[]")[i].value + "</td> "  +"</tr> " ;}
+     {details= details + "<tr class='borderless'> " + "<td> " + document.getElementsByName("name[]")[i].value + "</td> " +"<td> " + document.getElementsByName("rel[]")[i].value + "</td> " + "<td> " + document.getElementsByName("contact[]")[i].value + "</td> "  +"</tr> " ;}
  document.getElementById("guests_info").innerHTML=details + "</table>";
 document.getElementById('confirm_modal').style.display='block';
 }

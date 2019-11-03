@@ -1,6 +1,6 @@
 <?php
 // Include calendar helper functions
-include '../header.php';
+include 'header.php';
 
 ?>
 
@@ -44,7 +44,7 @@ include '../header.php';
 
       $sql = "SELECT id,password FROM admin WHERE username = '$myusername'";
       $result = mysqli_query($db,$sql);
-      $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+      $row = mysqli_fetch_array($result);
 
       $count = mysqli_num_rows($result);
 
@@ -71,7 +71,7 @@ include '../header.php';
             <div class="imgcontainer">
                 <span onclick="document.getElementById('login_modal').style.display='none'" class="close"
                     title="Close Modal">&times;</span>
-                <img src="images/admin.jpeg" alt="Avatar" class="avatar">
+                <img src="../assets/image/admin.jpeg" alt="Avatar" class="avatar">
             </div>
 
             <div class="container">

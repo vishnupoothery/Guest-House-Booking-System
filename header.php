@@ -25,45 +25,8 @@ function display_header()
 <?php
 }
 
-function get_unalloted()
-{
-
-    include 'dbConfig.php';
-    $sql="SELECT COUNT(*) as total FROM booked WHERE booking_status='WAITING APPROVAL'";
-    if($res=mysqli_query($db,$sql))
-     return mysqli_fetch_assoc($res)['total'];
-    else
-        return $db->error;
-}
 
 
-
-function display_admin_navbar()
-{
-    ?>
-
-  <div class="container" >
-<nav class="navbar">
-<ul class="nav nav-bar">
-    <li><a id='home' class="navtab" href="admin.php">HOME</a></li>
-    <li><a id='upcoming' class="navtab" href="upcomingbookings_admin.php">UPCOMING BOOKINGS <span class="badge badge-primary"><?php echo get_unalloted(); ?></span> </a></li>
-    <li><a id='past' class="navtab"  href="past_bookings_admin.php">PAST BOOKINGS</a></li>
-    <li><a  id='rooms' class="navtab"  href="rooms.php">ROOMS</a></li>
-    </ul><ul class="nav navbar-right">
-    <li><div class="dropdown"><a  class="navtab" class="dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-   <span class= "glyphicon glyphicon-user" style="color:white;"></span>
- <span class= "glyphicon glyphicon-menu-down" style="color:white;"></span>
-
-  </a>
-  <div  class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="adminprofile.php">My Profile</a>
-    <a class="dropdown-item" href="addadmin.php">Add Admin</a>
-    <a class="dropdown-item" href="logout.php">Sign Out</a>
-  </div></div> </li>
-  </ul>
-      </nav>
-       <?php
-}
 
 
 function display_user_navbar()

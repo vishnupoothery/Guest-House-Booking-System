@@ -1,64 +1,86 @@
-          <?php
-// Include calendar helper functions
-include_once 'functions.php';
+<?php 
+include 'mail/mail.php';
+include 'dbConfig.php';
+
+$message = "<html>
+<div style='width:50%;text-align:center;position:relative;margin-left:auto;margin-right:auto'>
+
+
+<h3 style='color:#23aacc;'>NIT-C GUEST HOUSE BOOKING</h3>
+
+
+<h3><b>Your booking ID is </b></h3>
+<table border=0>
+  <tr>
+  <td style='height: 100px;
+   width: 25%;
+'>
+  <div style='font-size: 25px;
+font-weight:  bold;
+text-align: center;
+margin-left: auto;
+margin-right: auto;
+color: #00c434;
+border-style: dashed;
+border-color: #00c434;
+'>
+    ROOM ALLOTED
+      </div>
+    </td>
+    <td> <div style='margin-left:20px;'>
+    Checkin : <br>
+    Checkout : <br>
+      Rooms: <br>
+    </div>
+    </td>
+  </tr>
+  
+</table>
+
+</div>
+
+</html>";
+$toMail = "jyothsnashaji99@gmail.com";
+$subject = "Room Alloted";
+echo sendMail($toMail,$subject,$message);
 
 ?>
 
-
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-   <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-   <link rel="stylesheet" href="css/mystyles.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <title>NITC GH</title>
-  </head>
-  <body>
+<html>
+<div style='width:50%;text-align:center;position:relative;margin-left:auto;margin-right:auto'>
 
 
+<h3 style='color:#23aacc;'>NIT-C GUEST HOUSE BOOKING</h3>
 
 
-      <header class="page-header" id="header">
-      <div class="container-fluid" >
- <a class="admin_login"  onclick="document.getElementById('login_modal').style.display='block'" style="float:right;">Admin Login</a>
-          <div class="row">
-    <div class="col-sm-6">
-     <img  src="images/logo.jpg">
+<h3><b>Your booking ID is </b></h3>
+<table border=0>
+  <tr>
+  <td style='height: 100px;
+   width: 25%;
+'>
+  <div style='font-size: 25px;
+font-weight:  bold;
+text-align: center;
+margin-left: auto;
+margin-right: auto;
+color: #00c434;
+border-style: dashed;
+border-color: #00c434;
+'>
+    ROOM ALLOTED
+      </div>
+    </td>
+    <td> <div style='margin-left:20px;'>
+    Checkin : <br>
+    Checkout : <br>
+      Rooms: <br>
     </div>
-    <div class="col-sm-6" >
+    </td>
+  </tr>
+  
+</table>
 
-      <h3 style="color:#23aacc; float:right;">GUEST HOUSE BOOKING PORTAL</h3>
-    </div>
-  </div>
+</div>
 
-           </div>
-      </header>
-
-
-
-<br>
-          <div class='col-sm-3'></div>
-
-     <div id="calendar_div"  >
-            <?php echo getCalender(); ?>
-        </div>
-
-     <div class=".container-fluid">
-         <div style=" margin-top:25px;" align="center">            <a class="example_f" href="user.php" >
-             <span align="center" style="width: 90%;">BOOK NOW</span>
-          </a>
-         </div>
-
-    </div>
-
-
-  </body>
 </html>
-
