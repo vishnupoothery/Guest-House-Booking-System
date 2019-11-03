@@ -65,7 +65,7 @@ include('header.php');
              else
                 echo "<div class='status approved'>";
              echo $booking_data['booking_status'];
-             echo "<div>";
+             echo "</div>";
              echo "</td><td class=' booking-details'><b>Checkin: </b> ";
              echo date('F jS Y',strtotime($guest_data['checkin']));
              echo "<br><br><b>Checkout: </b>";

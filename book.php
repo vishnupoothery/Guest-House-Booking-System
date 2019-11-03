@@ -23,6 +23,10 @@ if ($db->query($sql) === TRUE) {
    $toMail = "pootherivishnu@gmail.com";
    $subject = "New Booking";
    echo sendMail($toMail,$subject,$message);
+
+
+   
+   
 } else {
     echo "Error: " . $sql . "<br>" . $db->error;
 }

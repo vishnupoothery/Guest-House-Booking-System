@@ -8,8 +8,8 @@ $password = "";
 $db = "guesthouse";
 
 ##### Google App Configuration #####
-$googleappid = ""; 
-$googleappsecret = ""; 
+$googleappid = "367847728683-bf0n56ht9muonn60mpkko96r89oe54n9.apps.googleusercontent.com"; 
+$googleappsecret = "FzxE759wqrhkTc23yp1u74dM";
 $redirectURL = "http://localhost/Guest-House-Booking-System/authenticate.php"; 
 //$redirectURL = "YourRedirectURL"; 
 
