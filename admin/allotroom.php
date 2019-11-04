@@ -1,7 +1,7 @@
 <?php
 $rooms=count($_POST['allotedrooms']);
 include 'dbConfig.php';
-include 'mail/mail.php';
+include '../mail/mail.php';
 $booking_id=$_GET['booking_id'];
 if ($rooms>1)
 $sql="UPDATE booked SET booking_status = '(".$rooms.") ROOMS ALLOTED' WHERE booking_id='".$_GET['booking_id']."'";
@@ -12,10 +12,11 @@ else
     $result = $db->query($sql2);
     $booked_by = $result->fetch_assoc();
     $booked_by = $booked_by['booked_by'];
-    $sql2 = "SELECT email FROM users WHERE id = $booked_by";
-    $result = $db->query($sql2);
-    $email = $result->fetch_assoc();;
-    $email = $email['email'];
+    //$sql2 = "SELECT email FROM users WHERE id = $booked_by";
+    //$result = $db->query($sql2);
+    //$email = $result->fetch_assoc();;
+    //$email = $email['email'];
+    $email = $booked_by;
 if($db->query($sql)===TRUE)
 {
     $sql="SELECT guest_id FROM guests WHERE booking_id=".$_GET['booking_id']."";
@@ -38,7 +39,7 @@ if($db->query($sql)===TRUE)
     $res=mysqli_query($db,$sql);
     $book=mysqli_fetch_assoc($res);
     $rooms_list='';
-    for($i=0;i<$rooms;++$i)
+    for($i=0;$i<$rooms;++$i)
     {
         $sql="SELECT room_num FROM rooms where room_id=".$_POST['allotedrooms'][$i]."";
         $res=mysqli_query($db,$sql);
