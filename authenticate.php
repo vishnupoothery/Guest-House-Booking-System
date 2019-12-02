@@ -24,24 +24,25 @@ if ($googleClient->getAccessToken()) {
 		header("Location: ./");
 		exit;
 	}
-	$_SESSION['userData'] = $userData;
-	$_SESSION['email'] = $email_id;
-	if(substr($email_id,-10) != 'nitc.ac.in'){
+	
 
-		$_SESSION['wrongemail']=true;
-		unset($_SESSION['userData']);
-		header("Location: index.php#showavailability");
-	}
 	############ Store data in database  ############
+	
 	$oauthpro = "google";
 	$oauthid = $gpUserProfile['id'] ?? '';
 	$f_name = $gpUserProfile['given_name'] ?? '';
 	$l_name = $gpUserProfile['family_name'];
 	$gender = $gpUserProfile['gender'] ??  '';
 	$email_id = $gpUserProfile['email'] ?? '';
-	echo substr($email_id,-10);
-	
 
+	
+	if(substr($email_id,-10) != 'nitc.ac.in'){
+
+		$_SESSION['wrongemail']=true;
+		header("Location: index.php#showavailability");
+	}
+   else
+   {
 	$locale = $gpUserProfile['locale'] ?? '';
 	$cover = '';
 	$picture = $gpUserProfile['picture'] ?? '';
@@ -55,8 +56,12 @@ if ($googleClient->getAccessToken()) {
 	}
 	$res = $conn->query($sql);
 	$userData = $res->fetch_assoc();
-
+	$_SESSION['userData'] = $userData;
+	$_SESSION['email'] = $email_id;
 	header("Location: user.php");
+
+   }
+	
 	
 
 } else {
