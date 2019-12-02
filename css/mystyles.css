@@ -1,6 +1,19 @@
 body{ font-family: sans-serif;
  }
 
+.carouselImg{
+ height:400px;
+ width: 90%;
+ display: block;
+ margin-left: auto;
+ margin-right: auto;
+}
+
+.heading{
+color:#23aacc;
+float: right;
+}
+
 .guest-details{
 
     width: 75%;
@@ -339,27 +352,27 @@ a:hover {color: #181919;text-decoration: underline;}
 #calender_section_bot ul li{ height:50px;}
 }
 /*---------index page----------------*/
-.example_f {
+.homeBtn {
 
-background:#23aacc;
+    background:#23aacc;
    border: none;
    color: #FFFFFF;
    text-align: center;
    text-transform: uppercase;
    padding-top: 20px;
    padding: 20px;
-
+  width:90%;
    transition: all 0.4s;
    cursor: pointer;
 
  }
- .example_f span {
+ .homeBtn span {
    cursor: pointer;
    display: inline-block;
    position: relative;
    transition: 0.4s;
  }
- .example_f span:after {
+ .homeBtn span:after {
    content: '\00bb';
    position: absolute;
    opacity: 0;
@@ -367,10 +380,10 @@ background:#23aacc;
    right:-20px;
    transition: 0.5s;
  }
- .example_f:hover span {
+ .homeBtn:hover span {
    padding-right: 25px;
  }
- .example_f:hover span:after {
+ .homeBtn:hover span:after {
    opacity: 1;
    right: 0;
  }
