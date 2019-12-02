@@ -6,7 +6,7 @@ function display_header()
     <div class="container-fluid">
       <div class="row align-items-end">
         <div class="col-6">
-          <img src="../images/logo.jpg">
+          <img src="images/logo.jpg">
         </div>
         <div class="col-6">
           <h3 class="heading">GUEST HOUSE BOOKING PORTAL</h3>
