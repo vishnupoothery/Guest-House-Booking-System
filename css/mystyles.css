@@ -69,13 +69,9 @@ border: none;
   background-color: #23accc; 
 
 }
-.nav-item{
-    padding-right: 20px ;
-
-}
 
 
-.navlink{
+.nav-link{
     color:white;
     text-decoration: none;
 }
@@ -84,7 +80,7 @@ border: none;
   float:right;
 }
 
-.navlink.active,.navlink:hover{
+.nav-link.active,.nav-link:hover{
   color:white;
   text-decoration: none;  
   font-weight: bold;
