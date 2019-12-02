@@ -4,7 +4,7 @@ include 'mail/mail.php';
 
 include('dbConfig.php');
 $booked_by = $_SESSION['email'];
-$sql = "INSERT INTO booked (booked_by,purpose,booking_status,payment_status,no_guests,no_rooms,no_groups) VALUES ('$booked_by','".$_POST['purpose']." - ".$_POST['purpose-desc']."','WAITING APPROVAL','".$_POST['payment']."', '".$_GET['guestsno']."','".$_POST['roomsno']."','1')";
+$sql = "INSERT INTO booked (booked_by,purpose,booking_status,payment_status,no_guests,no_rooms,no_groups) VALUES ('$booked_by','".$_POST['purpose']."  ".$_POST['purpose-desc']."','WAITING APPROVAL','".$_POST['payment']."', '".$_GET['guestsno']."','".$_POST['roomsno']."','1')";
 
 $name = $_SESSION['name'];
 

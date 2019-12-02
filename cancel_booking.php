@@ -7,15 +7,12 @@
     $sql2 = "SELECT booked_by FROM booked WHERE booking_id = $booking_id";
     $result = $db->query($sql2);
     $booked_by = $result->fetch_assoc();
-    $booked_by = $booked_by['booked_by'];
-    $sql2 = "SELECT email FROM users WHERE id = $booked_by";
-    $result = $db->query($sql2);
-    $email = $result->fetch_assoc();
-    $email = $email['email'];
+    $email = $booked_by['booked_by'];
+  
     echo $sql;
     if(mysqli_query($db,$sql))
     {
-        $message = "Your Request for Gust House Booking has been CANCELLED";
+        $message = "Your Request for Guest House Booking has been CANCELLED";
         $toMail = $email;
         $subject = 'Booking Cancelled';
         echo sendMail($toMail,$subject,$message);

@@ -47,12 +47,12 @@ if ($googleClient->getAccessToken()) {
 	$cover = '';
 	$picture = $gpUserProfile['picture'] ?? '';
 	$url = $gpUserProfile['link'] ?? '';
-	$sql = "SELECT * FROM usersdata WHERE oauthid='".$gpUserProfile['id']."'";
+	$sql = "SELECT * FROM users WHERE oauthid='".$gpUserProfile['id']."'";
 	$result = $conn->query($sql);
 	if ($result->num_rows == 1) {
-	   $conn->query("update usersdata set f_name='".$f_name."', l_name='".$l_name."', email_id='".$email_id."', gender='".$gender."', locale='".$locale."', cover='".$cover."', picture='".$picture."', url='".$url."' where oauthid='".$oauthid."' ");
+	   $conn->query("update users set f_name='".$f_name."', l_name='".$l_name."', email_id='".$email_id."', gender='".$gender."', locale='".$locale."', cover='".$cover."', picture='".$picture."', url='".$url."' where oauthid='".$oauthid."' ");
 	} else {
-		$conn->query("INSERT INTO usersdata (oauth_pro, oauthid, f_name, l_name, email_id, gender, locale, cover, picture, url) VALUES ('".$oauthpro."', '".$oauthid."', '".$f_name."', '".$l_name."', '".$email_id."', '".$gender."', '".$locale."', '".$cover."', '".$picture."', '".$url."')");  
+		$conn->query("INSERT INTO users (oauth_pro, oauthid, f_name, l_name, email_id, gender, locale, cover, picture, url) VALUES ('".$oauthpro."', '".$oauthid."', '".$f_name."', '".$l_name."', '".$email_id."', '".$gender."', '".$locale."', '".$cover."', '".$picture."', '".$url."')");  
 	}
 	$res = $conn->query($sql);
 	$userData = $res->fetch_assoc();

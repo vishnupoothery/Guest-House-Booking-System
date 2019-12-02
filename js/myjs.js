@@ -1,14 +1,12 @@
 function toggle_collapse(op)
           { var ele=document.getElementById("collapse"+op);
-              if (ele.classList.contains('out'))
+              if (ele.classList.contains('show'))
                   {
-                      ele.classList.add('in');
-                      ele.classList.remove('out');
+                      ele.classList.remove('show');
                   }
             else
                 {
-                    ele.classList.add('out');
-                    ele.classList.remove('in');
+                    ele.classList.add('show');
                 }
 
           }
