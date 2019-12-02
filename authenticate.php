@@ -56,7 +56,9 @@ if ($googleClient->getAccessToken()) {
 	}
 	else{
 		echo 'nein';
-		header("Location: logout.php");
+		$_SESSION['wrongemail']=true;
+		unset($_SESSION['userData']);
+		header("Location: index.php#showavailability");
 	}
 	
 

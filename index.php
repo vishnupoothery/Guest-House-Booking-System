@@ -2,12 +2,13 @@
 
 include_once 'functions.php'; // Include calendar helper functions
 include 'header.php';
-?>
-<?php
 require_once 'config.php';
+
+
 if (isset($_SESSION['userData'])) {
   header('location: user.php');
 }
+
 $loginURL = "";
 $authUrl = $googleClient->createAuthUrl();
 $loginURL = filter_var($authUrl, FILTER_SANITIZE_URL);
@@ -83,6 +84,18 @@ $loginURL = filter_var($authUrl, FILTER_SANITIZE_URL);
           <?php echo getCalender(); ?>
         </div>
       </div> <br>
+
+      <?php
+      if (isset($_SESSION['wrongemail']))
+      {
+
+        session_destroy();
+        echo "<div class='alert alert-danger' role='alert'>
+       Please login using <b> NIT-C email id</b>
+      </div>";
+      
+      }
+      ?>
 
       <div class=" row justify-content-center">
         <a class="homeBtn" href="<?= htmlspecialchars($loginURL); ?>">
