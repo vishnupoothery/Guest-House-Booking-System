@@ -24,6 +24,14 @@ if ($googleClient->getAccessToken()) {
 		header("Location: ./");
 		exit;
 	}
+	$_SESSION['userData'] = $userData;
+	$_SESSION['email'] = $email_id;
+	if(substr($email_id,-10) != 'nitc.ac.in'){
+
+		$_SESSION['wrongemail']=true;
+		unset($_SESSION['userData']);
+		header("Location: index.php#showavailability");
+	}
 	############ Store data in database  ############
 	$oauthpro = "google";
 	$oauthid = $gpUserProfile['id'] ?? '';
@@ -48,18 +56,7 @@ if ($googleClient->getAccessToken()) {
 	$res = $conn->query($sql);
 	$userData = $res->fetch_assoc();
 
-	$_SESSION['userData'] = $userData;
-	$_SESSION['email'] = $email_id;
-	if(substr($email_id,-10) == 'nitc.ac.in'){
-		echo 'yes';
-		header("Location: user.php");
-	}
-	else{
-		echo 'nein';
-		$_SESSION['wrongemail']=true;
-		unset($_SESSION['userData']);
-		header("Location: index.php#showavailability");
-	}
+	header("Location: user.php");
 	
 
 } else {
