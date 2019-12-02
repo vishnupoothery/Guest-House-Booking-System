@@ -49,7 +49,7 @@ function display_subdropdown()
     }
 function activateTab(current){
 
-    var all=document.getElementsByClassName("navtab");
+    var all=document.getElementsByClassName("navlink");
     for(var i=0;i<all.length;++i)
         {  if(all[i].classList.contains('active'))
             all[i].classList.remove('active');

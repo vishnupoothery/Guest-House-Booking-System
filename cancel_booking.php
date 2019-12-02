@@ -10,7 +10,7 @@
     $booked_by = $booked_by['booked_by'];
     $sql2 = "SELECT email FROM users WHERE id = $booked_by";
     $result = $db->query($sql2);
-    $email = $result->fetch_assoc();;
+    $email = $result->fetch_assoc();
     $email = $email['email'];
     echo $sql;
     if(mysqli_query($db,$sql))

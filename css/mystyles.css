@@ -66,21 +66,30 @@ border: none;
 
 }
 .navbar{
-  background-color: #23accc;
+  background-color: #23accc; 
+
+}
+.nav-item{
+    padding-right: 20px ;
 
 }
 
-.navtab.active,.navtab:hover{
 
-  
-    font-weight: bold;
-    background-color: #23accc !important;
-}
-
-.navtab{
+.navlink{
     color:white;
+    text-decoration: none;
 }
 
+.navnar-right{
+  float:right;
+}
+
+.navlink.active,.navlink:hover{
+  color:white;
+  text-decoration: none;  
+  font-weight: bold;
+ 
+}
 .collapserow:hover
 {
     cursor: pointer;
