@@ -164,6 +164,9 @@ border: none;
   border-radius: 50%;
 }
 
+.cursor:hover{
+  cursor: pointer;
+}
 .container {
  width:inherit;
   padding: 16px;

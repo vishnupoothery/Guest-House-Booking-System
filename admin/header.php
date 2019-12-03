@@ -28,7 +28,7 @@ function display_admin_navbar()
     <nav class="navbar navbar-expand-sm justify-content-center">
       <ul class="navbar-nav">
         <li class="nav-item"><a id='home' class="nav-link" href="admin.php">HOME</a></li>
-        <li class="nav-item"><a id='upcoming' class="nav-link" href="upcomingbookings_admin.php">UPCOMING BOOKINGS <span class="badge badge-primary"><?php echo get_unalloted(); ?></span> </a></li>
+        <li class="nav-item"><a id='upcoming' class="nav-link" href="upcomingbookings_admin.php">UPCOMING BOOKINGS <span class="badge badge-danger"><?php echo get_unalloted(); ?></span> </a></li>
         <li class="nav-item"><a id='past' class="nav-link" href="past_bookings_admin.php">PAST BOOKINGS</a></li>
         <li class="nav-item"><a id='rooms' class="nav-link" href="rooms.php">ROOMS</a></li>
         <li class="nav-item dropdown">
@@ -51,7 +51,7 @@ function display_admin_navbar()
   {
 
     include 'dbConfig.php';
-    $sql = "SELECT COUNT(*) as total FROM booked WHERE booking_status='WAITING APPROVAL'";
+    $sql = "SELECT COUNT(DISTINCT booking_id) as total FROM booked NATURAL join guests WHERE booking_status='WAITING APPROVAL' AND checkin>DATE_FORMAT(now(),'%Y%c%d')";
     if ($res = mysqli_query($db, $sql))
       return mysqli_fetch_assoc($res)['total'];
     else

@@ -126,7 +126,7 @@ include('dbConfig.php');
         $room_data_res = mysqli_query($db, $get_room_data);
         echo "The alloted room(s) are: ";
         while ($room_data = mysqli_fetch_array($room_data_res)) {
-          echo $room_data['room_num'];
+          echo $room_data['room_num']." ";
         }
       }
 
