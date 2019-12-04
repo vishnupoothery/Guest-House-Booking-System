@@ -12,7 +12,7 @@
     echo $sql;
     if(mysqli_query($db,$sql))
     {
-        $message = "Your Request for Gust House Booking has been REJECTED";
+        $message = "Your Request for Guest House Booking has been REJECTED";
         $toMail = $email;
         $subject = 'Booking Rejected';
         echo sendMail($toMail,$subject,$message);
@@ -20,10 +20,7 @@
 
         if(mysqli_query($db,$sql))
             {
-                if($_GET['booking_status']=='CANCELLED')
-                    header("Location: upcomingbookings_user.php");
-                else
-                    header("Location: upcomingbookings_admin.php"); }
+                header("Location: upcomingBookingsRegistrar.php"); }
         else
             echo $db->error;
     }
