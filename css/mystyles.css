@@ -21,8 +21,7 @@ float: right;
 .guest-details{
 
     width: 75%;
-
-}
+  }
 .table{
     border-collapse: collapse;
 }
@@ -90,10 +89,7 @@ border: none;
 {
     cursor: pointer;
 }
-.collapse
-{
-    background-color: none;
-}
+
 .form-tab
 {display: none;}
 input.invalid {

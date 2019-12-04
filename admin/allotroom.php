@@ -28,7 +28,7 @@ if ($db->query($sql) === TRUE) {
     }
     ++$i;
   }
-  $sql = "SELECT * FROM booked WHERE booking_id=" . $booking_id . " ";
+  $sql = "SELECT checkin,checkout FROM guests WHERE booking_id=" . $booking_id . " ";
   $res = mysqli_query($db, $sql);
   $book = mysqli_fetch_assoc($res);
   $rooms_list = '';

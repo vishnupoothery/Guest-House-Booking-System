@@ -95,36 +95,14 @@ include('dbConfig.php');
       echo "</table></div>";
 
       if ($booking_data['booking_status'] == 'WAITING APPROVAL') {
-        echo "<div class='row'><div class='col-sm-4'></div><div class='col-sm-2'><button class='btn btn-prim' onclick=\"document.getElementById('allotrooms";
+        echo "<button style='float:left;' type='button' class='btn btn-prim'><a style='color:white;text-decoration:none;' onclick=\"return confirm('Are you sure you want to approve');\" href='approveBooking.php?booking_id=";
         echo $rr['booking_id'];
-        echo "').style.display='block';this.style.display='none';\">Allot Rooms </button></div>";
-
-        $get_room_data =    "SELECT room_id, room_num FROM rooms WHERE room_id NOT IN (SELECT room_id FROM guests WHERE room_id!=0 AND DATE_FORMAT(checkin,'%d-%m-%y')< '" . $checkout . "' AND DATE_FORMAT(checkout,'%d-%m-%y') >'" . $checkin . "' )";
-
-
-
-
-        echo "<form action='allotroom.php?booking_id=";
-        echo $rr['booking_id'];
-        echo "' style='display:none;' id='allotrooms";
-        echo $rr['booking_id'];
-        echo "' method='post'><div class='col-sm-5'><label>Hold down Ctrl key to select multiple rooms</label><select multiple name='allotedrooms[]' class='form-control' >";
-        $room_data_res = mysqli_query($db, $get_room_data);
-        while ($room_data = mysqli_fetch_array($room_data_res)) {
-          echo "<option value='";
-          echo $room_data['room_id'];
-          echo "'>";
-          echo $room_data['room_num'];
-          echo "</option>";
-        }
-
-
-        echo "</select></div><div class='col-sm-1'><button class='btn btn-prim' type='submit'>Allot</button></div></form></div>";
+        echo "'>Approve </a></button>";
       }
       if ($booking_data['booking_status'] != 'CANCELLED') {
         echo "<button style='float:right;' type='button' class='btn btn-prim'><a style='color:white;text-decoration:none;' onclick=\"return confirm('Are you sure you want to cancel');\" href='cancel_booking.php?booking_id=";
         echo $rr['booking_id'];
-        echo "&booking_status=REJECTED'>Cancel Booking</a></button>";
+        echo "&booking_status=REJECTED'>Reject</a></button>";
       }
 
       if (strpos($booking_data['booking_status'], 'ALLOTED') !== false) {
