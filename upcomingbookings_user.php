@@ -44,37 +44,37 @@ include 'dbConfig.php';
       $get_guest_data = "SELECT checkin,checkout FROM guests WHERE booking_id=" . $rr['booking_id'] . "";
       $guest_data_res = mysqli_query($db, $get_guest_data);
       $guest_data = mysqli_fetch_assoc($guest_data_res);
-      echo "<tr class='collapserow' onclick='toggle_collapse(";
+      echo "<tr><td class='status-container'><div class='row justify-content-center collapserow' onclick='toggle_collapse(";
       echo $rr['booking_id'];
-      echo ")'><td class='status-container'>";
+      echo ")'>";
       if ($booking_data['booking_status'] == 'WAITING APPROVAL')
-        echo "<div class='status awaiting'>";
+        echo "<div class='col-2 status awaiting'>";
       else if ($booking_data['booking_status'] == 'REJECTED' || $booking_data['booking_status'] == 'CANCELLED')
-        echo "<div class='status cancelled'>";
+        echo "<div class='col-2 status cancelled'>";
       else
-        echo "<div class='status approved'>";
+        echo "<div class='col-2 status approved'>";
       echo $booking_data['booking_status'];
       echo "</div>";
-      echo "</td><td class=' booking-details'><b>Checkin: </b> ";
+      echo "<div class='col-3 booking-details'><b>Checkin: </b> ";
       echo date('F jS Y', strtotime($guest_data['checkin']));
       echo "<br><br><b>Checkout: </b>";
       echo date('F jS Y', strtotime($guest_data['checkout']));
       echo "<br><br><span style='opacity:0.5;'>Booking Date: ";
       echo date('F jS Y', strtotime($booking_data['booking_date']));
-      echo "</span><br></td></tr><tr id='collapse";
+      echo "</span><br></div></div><br><div id='collapse";
       echo $rr['booking_id'];
-      echo "' class='collapse out'><td align='middle' colspan=2><div  class='guest-details' >";
+      echo "' class='row  justify-content-center collapse out'><div class='col guest-details' align='middle'>";
 
       $get_guest_data = "SELECT * FROM guests WHERE booking_id=" . $rr['booking_id'] . "";
       $guest_data_res = mysqli_query($db, $get_guest_data);
 
-      echo "<table ><tr><td>Rooms Requested:    ";
+      echo "<table ><tr><td><b>Rooms Requested:</b>    ";
       echo $booking_data['roomsno'];
-      echo "</td><td>Purpose:    ";
+      echo "</td><td><b>Purpose:</b>    ";
       echo $booking_data['purpose'];
-      echo "</td><td>Payment Mode:   ";
+      echo "</td><td><b>Payment Mode:</b>   ";
       echo $booking_data['payment'];
-      echo "</td></tr><tr><td align='center' colspan=3>GUESTS</td>";
+      echo "</td></tr><tr><td align='center' colspan=3><b>GUESTS</b></td>";
 
       while ($guest_data = mysqli_fetch_array($guest_data_res)) {
         echo "<tr><td>";
@@ -89,7 +89,7 @@ include 'dbConfig.php';
 
       echo "</table>";
 
-      echo "<button style='float:right;' type='button' class='btn btn-prim'><a style='color:white;text-decoration:none;' onclick=\"return confirm('Are you sure you want to cancel');\" href='cancel_booking.php?booking_id=";
+      echo "<br><button type='button'  class='btn btn-prim'><a style='color:white;text-decoration:none;' onclick=\"return confirm('Are you sure you want to cancel');\" href='cancel_booking.php?booking_id=";
       echo $rr['booking_id'];
       echo "&booking_status=CANCELLED'>Cancel Booking</a></button>";
 

@@ -51,7 +51,7 @@ function display_admin_navbar()
   {
 
     include 'dbConfig.php';
-    $sql = "SELECT COUNT(DISTINCT booking_id) as total FROM booked NATURAL join guests WHERE booking_status='WAITING APPROVAL' AND checkin>DATE_FORMAT(now(),'%Y%c%d')";
+    $sql = "SELECT COUNT(DISTINCT booking_id) as total FROM booked NATURAL join guests WHERE booking_status='OFFICIALLY APPROVED' AND checkin>DATE_FORMAT(now(),'%Y%c%d')";
     if ($res = mysqli_query($db, $sql))
       return mysqli_fetch_assoc($res)['total'];
     else

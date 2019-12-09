@@ -94,7 +94,7 @@ include('dbConfig.php');
 
       echo "</table></div>";
 
-      if ($booking_data['booking_status'] == 'WAITING APPROVAL') {
+      if ($booking_data['booking_status'] == 'OFFICIALLY APPROVED') {
         echo "<div class='row'><div class='col-sm-4'></div><div class='col-sm-2'><button class='btn btn-prim' onclick=\"document.getElementById('allotrooms";
         echo $rr['booking_id'];
         echo "').style.display='block';this.style.display='none';\">Allot Rooms </button></div>";
