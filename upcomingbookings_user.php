@@ -44,21 +44,21 @@ include 'dbConfig.php';
       $get_guest_data = "SELECT checkin,checkout FROM guests WHERE booking_id=" . $rr['booking_id'] . "";
       $guest_data_res = mysqli_query($db, $get_guest_data);
       $guest_data = mysqli_fetch_assoc($guest_data_res);
+      $checkin = $guest_data['checkin'];
+      $checkout = $guest_data['checkout'];
       echo "<tr><td class='status-container'><div class='row justify-content-center collapserow' onclick='toggle_collapse(";
       echo $rr['booking_id'];
       echo ")'>";
       if ($booking_data['booking_status'] == 'WAITING APPROVAL')
         echo "<div class='col-2 status awaiting'>";
-      else if ($booking_data['booking_status'] == 'REJECTED' || $booking_data['booking_status'] == 'CANCELLED')
-        echo "<div class='col-2 status cancelled'>";
       else
         echo "<div class='col-2 status approved'>";
       echo $booking_data['booking_status'];
       echo "</div>";
       echo "<div class='col-3 booking-details'><b>Checkin: </b> ";
-      echo date('F jS Y', strtotime($guest_data['checkin']));
+      echo date('F jS Y', strtotime($checkin));
       echo "<br><br><b>Checkout: </b>";
-      echo date('F jS Y', strtotime($guest_data['checkout']));
+      echo date('F jS Y', strtotime($checkout));
       echo "<br><br><span style='opacity:0.5;'>Booking Date: ";
       echo date('F jS Y', strtotime($booking_data['booking_date']));
       echo "</span><br></div></div><br><div id='collapse";
