@@ -24,51 +24,84 @@ include('dbConfig.php');
   <title>NITC GH</title>
 </head>
 
-<body class="w3-light-grey">
+<body>
   <?php echo display_header();
   echo display_admin_navbar(); ?>
 
   <script>
     activateTab('past');
   </script>
+ <div class='container'>
+    <div class='row'>
+      <div class='col'>
+        <select class="form-control" id="searchby">
+          <option selected disabled>Search By</option>
+          <option value='booking_id'>Booking ID</option>
+          <option value='booking_status'>Booking Status</option>
+          <option value='booking_by'>Booking By</option>
+        </select>
+      </div>
+      <div class='col'>
+        <input class="form-control" id="searchfor" type="text" placeholder="Enter" onkeyup='displayTable();'>
+      </div>
+    </div>
+  </div>
   <?php
-
-
-  $sql = "SELECT DISTINCT `booking_id` FROM guests WHERE checkout<DATE_FORMAT(now(),'%Y%c%d') OR room_id=-1
-"; // and booked_by=user_id;
+  $sql = "SELECT DISTINCT `booking_id` FROM guests WHERE checkout<DATE_FORMAT(now(),'%Y%c%d') OR room_id=-1 ORDER BY booking_id DESC";
 
   $result = mysqli_query($db, $sql);
-  echo "<table class='table table-hover'> <tr><th>BOOKING DATE </th><th>BOOKED BY</th><th>CHECKIN</th><th>CHECKOUT</th><th>PURPOSE</th><th>  BOOKING STATUS</th><th></th></tr>";
+  echo "<table id='myTable' class='table table-hover'>";
   if ($result) {
     while ($rr = mysqli_fetch_array($result)) {
-      $get_booking_data = "SELECT DATE_FORMAT(booking_date,'%d-%m-%y') as booking_date,booked_by,purpose,booking_status FROM booked WHERE booking_id=" . $rr['booking_id'] . "";
+      $get_booking_data = "SELECT booked_by,purpose,payment_status as payment,no_rooms as roomsno,booking_date,booking_status FROM booked WHERE booking_id=" . $rr['booking_id'] . "";
       $booking_data_res = mysqli_query($db, $get_booking_data);
       $booking_data = mysqli_fetch_assoc($booking_data_res);
-      $get_guest_data = "SELECT DATE_FORMAT(checkin,'%d-%m-%y') as checkin,DATE_FORMAT(checkout,'%d-%m-%y') as checkout FROM guests WHERE booking_id=" . $rr['booking_id'] . "";
+      $get_guest_data = "SELECT checkin,checkout FROM guests WHERE booking_id=" . $rr['booking_id'] . "";
       $guest_data_res = mysqli_query($db, $get_guest_data);
       $guest_data = mysqli_fetch_assoc($guest_data_res);
-      echo "<tr class='collapserow' onclick='toggle_collapse(";
+      $checkin = $guest_data['checkin'];
+      $checkout = $guest_data['checkout'];
+      echo "<tr><td class='status-container'><div class='row justify-content-center collapserow' onclick='toggle_collapse(";
       echo $rr['booking_id'];
-      echo ")'><td>";
-      echo $booking_data['booking_date'];
-      echo "</td><td>";
-      echo $booking_data['booked_by'];
-      echo "</td><td>";
-      echo $guest_data['checkin'];
-      echo "</td><td>";
-      echo $guest_data['checkout'];
-      echo "</td><td>";
-      echo $booking_data['purpose'];
-      echo "</td><td>";
+      echo ")'>";
+      if ($booking_data['booking_status'] == 'WAITING APPROVAL')
+        echo "<div class='col-2 status awaiting'>";
+      else if ($booking_data['booking_status'] == 'OFFICIALLY APPROVED')
+      echo "<div class='col-2 status officially'>";
+      else if ($booking_data['booking_status'] == 'CANCELLED' || $booking_data['booking_status'] == 'REJECTED')
+      echo "<div class='col-2 status cancelled'>";
+      else
+        echo "<div class='col-2 status approved'>";
+      echo "<span class='booking_id'>";
+      echo $rr['booking_id'];
+      echo "</span><br><span class='booking_status'>";
       echo $booking_data['booking_status'];
-      echo "</td></tr><tr id='collapse";
+      echo "</span>";
+      echo "</div>";
+      echo "<div class='col-5 booking-details'><b>Booked By: </b><span class='booked_by'>";
+      echo $booking_data['booked_by'];
+      echo "</span><br><br><b>Checkin: </b> ";
+      echo date('F jS Y', strtotime($guest_data['checkin']));
+      echo "<br><br><b>Checkout: </b>";
+      echo date('F jS Y', strtotime($guest_data['checkout']));
+      echo "<br><br><span style='opacity:0.5;'>Booking Date: ";
+      echo date('F jS Y', strtotime($booking_data['booking_date']));
+      echo "</span><br></div><br>";
+      echo "</div><div id='collapse";
       echo $rr['booking_id'];
-      echo "' class='collapse out'><td colspan=4>";
+      echo "' class='collapse out'><div class='row justify-content-center'><div class='col guest-details' align='middle'>";
 
       $get_guest_data = "SELECT * FROM guests WHERE booking_id=" . $rr['booking_id'] . "";
       $guest_data_res = mysqli_query($db, $get_guest_data);
 
-      echo "<table class='table'>";
+      echo "<table ><tr><td><b>Rooms Requested:</b>    ";
+      echo $booking_data['roomsno'];
+      echo "</td><td><b>Purpose:</b>    ";
+      echo $booking_data['purpose'];
+      echo "</td><td><b>Payment Mode:</b>   ";
+      echo $booking_data['payment'];
+      echo "</td></tr><tr><td align='center' colspan=3><b>GUESTS</b></td>";
+
       while ($guest_data = mysqli_fetch_array($guest_data_res)) {
         echo "<tr><td>";
         echo $guest_data['name'];
@@ -76,26 +109,24 @@ include('dbConfig.php');
         echo $guest_data['relation'];
         echo "</td><td>";
         echo $guest_data['contact'];
-        echo "</td><td>";
-        $get_room_data = "SELECT room_num FROM rooms where room_id=" . $guest_data['room_id'] . "";
-        $room_data_res = mysqli_query($db, $get_room_data);
-        $room_data = mysqli_fetch_assoc($room_data_res);
-        echo $room_data['room_num'];
-        echo "</td><td></tr>";
+        echo "</td></tr>";
       }
 
 
-      echo "</table>";
+      echo "</table></div></div>";
 
-
-      echo "</td></tr>";
+   
+     echo "</div><br></td></tr>";
     }
   }
   echo "</table>";
 
-
+  /* SELECT room_id, room_num FROM rooms WHERE room_id NOT IN (SELECT room_id ,  DATE_FORMAT(checkin,'%d-%m-%y') as checkin,   DATE_FORMAT(checkout,'%d-%m-%y') as checkout FROM guests WHERE room_id!=0 AND DATE_FORMAT(checkin,'%d-%m-%y')<11-10-19 AND DATE_FORMAT(checkout,'%d-%m-%y') > 07-10-19) */
   ?>
   </div>
+
+
+
 </body>
 
 </html>

@@ -36,7 +36,7 @@
         }
         
         .status {
-            font-size: 25px;
+            font-size: 120%;
             font-weight: bold;
             text-align: center;
             border-style: dashed;
@@ -51,6 +51,11 @@
         .status.awaiting {
             color: #faee05;
             border-color: #faee05;
+        }
+
+        .status.officially{
+            color: #a37448;
+            border-color:#a37448;
         }
         
         .status.cancelled {
@@ -171,7 +176,7 @@
         }
         /* Full-width input fields */
         
-        input[type=text],
+        input[type=text], input[type=date],[type=time],
         input[type=password],
         input[type=email] {
             width: 100%;
@@ -181,6 +186,7 @@
             border: 1px solid #ccc;
             box-sizing: border-box;
         }
+
         /* The Modal (background) */
         
         .modal {
@@ -220,7 +226,7 @@
             right: 25px;
             top: 0;
             color: #000;
-            font-size: 35px;
+            font-size: 10%;
             font-weight: bold;
         }
         

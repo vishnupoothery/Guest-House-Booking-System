@@ -33,17 +33,18 @@ include('dbConfig.php');
     activateTab('upcoming');
   </script>
 
+
   <div class='container'>
     <div class='row'>
-    <div class='col'>
-        <select class="form-control" id="searchby" >
-        <option selected disabled>Search By</option>
+      <div class='col'>
+        <select class="form-control" id="searchby">
+          <option selected disabled>Search By</option>
           <option value='booking_id'>Booking ID</option>
           <option value='booking_status'>Booking Status</option>
           <option value='booking_by'>Booking By</option>
         </select>
       </div>
-      <div class='col'> 
+      <div class='col'>
         <input class="form-control" id="searchfor" type="text" placeholder="Enter" onkeyup='displayTable();'>
       </div>
     </div>
@@ -93,23 +94,23 @@ include('dbConfig.php');
       if ($booking_data['booking_status'] == 'OFFICIALLY APPROVED') {
         echo "<a class='dropdown-item'  onclick=\"document.getElementById('allotrooms";
         echo $rr['booking_id'];
-        echo "').style.display='block';\">Allot Rooms </a>";}
+        echo "').style.display='block';\">Allot Rooms </a>";
+      }
 
-        if (strpos($booking_data['booking_status'], 'ALLOTED') !== false){
-          echo "<a class='dropdown-item  href='checkin.php?booking_id=";
-          echo $rr['booking_id'];
-          echo "'>Check-in Guests</a>";
-        }
+      if (strpos($booking_data['booking_status'], 'ALLOTED') !== false) {
+        echo "<a class='dropdown-item  onclick=\"return prompt('Check-in Time');\" href='checkin.php?booking_id=";
+        echo $rr['booking_id'];
+        echo "'>Check-in Guests</a>";
+      }
 
-       
-        if (strpos($booking_data['booking_status'], 'CHECK') !== true)
-        {
-          echo "<a class='dropdown-item' onclick=\"return confirm('Are you sure you want to cancel');\" href='cancel_booking.php?booking_id=";
-          echo $rr['booking_id'];
-          echo "&booking_status=REJECTED'>Cancel Booking</a>";
-        }
-       
-     echo "</div>
+
+      if (strpos($booking_data['booking_status'], 'CHECK') !== true) {
+        echo "<a class='dropdown-item' onclick=\"return confirm('Are you sure you want to cancel');\" href='cancel_booking.php?booking_id=";
+        echo $rr['booking_id'];
+        echo "&booking_status=REJECTED'>Cancel Booking</a>";
+      }
+
+      echo "</div>
     </div></div><div id='collapse";
       echo $rr['booking_id'];
       echo "' class='row  justify-content-center collapse out'><div class='col guest-details' align='middle'>";
@@ -158,17 +159,16 @@ include('dbConfig.php');
 
         echo "</select></div><div class='col-sm-1'><button class='btn btn-prim' type='submit'>Allot</button></div></form></div>";
       }
-      if (strpos($booking_data['booking_status'], 'ALLOTED') !== false){
+      if (strpos($booking_data['booking_status'], 'ALLOTED') !== false) {
         $get_room_data = "SELECT room_num FROM rooms WHERE room_id IN (SELECT room_id FROM guests WHERE booking_id=" . $rr['booking_id'] . ")";
         $room_data_res = mysqli_query($db, $get_room_data);
         echo "The alloted room(s) are: ";
         while ($room_data = mysqli_fetch_array($room_data_res)) {
           echo $room_data['room_num'] . " ";
         }
+      }
 
-      }  
-
-      echo "</div></td></tr>";
+      echo "<br></div></td></tr>";
     }
   }
   echo "</table>";
@@ -177,6 +177,9 @@ include('dbConfig.php');
   ?>
   </div>
 
+
+
 </body>
 
 </html>
+

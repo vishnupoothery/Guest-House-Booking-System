@@ -35,7 +35,7 @@ include 'header.php';
         <div class="form-group">
           <label for="roomsno">Number of Rooms Required</label>
           <input type="number" class="form-control" min="1" max="5" name="roomsno" required>
-          <h5 id='roomnumwarning' style="color:red;display:none">Insuffient/Excess rooms </h5>
+          <h6 id='roomnumwarning' style="color:red;display:none"><br>Insuffient/Excess rooms </h6>
         </div>
         <div class="form-group">
           <label for="purpose">Purpose</label>

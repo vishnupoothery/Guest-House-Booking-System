@@ -51,6 +51,8 @@ include 'dbConfig.php';
       echo ")'>";
       if ($booking_data['booking_status'] == 'WAITING APPROVAL')
         echo "<div class='col-2 status awaiting'>";
+      else if ($booking_data['booking_status'] == 'OFFICIALLY APPROVED')
+        echo "<div class='col-2 status officially'>";
       else
         echo "<div class='col-2 status approved'>";
       echo $booking_data['booking_status'];
