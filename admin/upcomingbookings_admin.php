@@ -50,7 +50,7 @@ include('dbConfig.php');
     </div>
   </div>
   <?php
-  $sql = "SELECT DISTINCT `booking_id` FROM guests WHERE checkin>DATE_FORMAT(now(),'%Y%c%d') AND room_id!=-1";
+  $sql = "SELECT DISTINCT `booking_id` FROM guests WHERE checkout >DATE_FORMAT(now(),'%Y%c%d') AND room_id!=-1";
 
   $result = mysqli_query($db, $sql);
   echo "<table id='myTable' class='table table-hover'>";
@@ -69,6 +69,8 @@ include('dbConfig.php');
       echo ")'>";
       if ($booking_data['booking_status'] == 'WAITING APPROVAL')
         echo "<div class='col-2 status awaiting'>";
+      else if ($booking_data['booking_status'] == 'OFFICIALLY APPROVED')
+        echo "<div class='col-2 status officially'>";
       else
         echo "<div class='col-2 status approved'>";
       echo "<span class='booking_id'>";
@@ -98,9 +100,9 @@ include('dbConfig.php');
       }
 
       if (strpos($booking_data['booking_status'], 'ALLOTED') !== false) {
-        echo "<a class='dropdown-item  onclick=\"return prompt('Check-in Time');\" href='checkin.php?booking_id=";
+        echo "<span class='dropdown-item'  onclick='openCheckIn(";
         echo $rr['booking_id'];
-        echo "'>Check-in Guests</a>";
+        echo ");'>Check-in Guests</span>";
       }
 
 
@@ -179,7 +181,74 @@ include('dbConfig.php');
 
 
 
+  <!--------------------CHECK-IN MODAL-------------------->
+  <div id="mymodal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">CHECK-IN</h4>
+        <span class="close" onclick="document.getElementById('mymodal').style.display='none';">&times;</span>
+      </div>
+      <form method="post" id="checkin" action="checkin.php">
+        <div class="modal-body">
+          <div class='form-group'>
+            <label for='date'>DATE</label><br>
+            <input type="date" name='date' id='date'>
+          </div>
+          <div class='form-group'>
+            <label for='time'>TIME</label><br>
+            <input type="time" name='time' id='time'>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <input id='booking_id' name='booking_id' class='hidden'>
+          <input class='btn btn-prim' type="submit" value='CHECK IN'>
+        </div>
+      </form>
+    </div>
+
+    <script>
+       window.onbeforeunload = function() {
+        localStorage.setItem("searchby", $('#searchby').val());
+        localStorage.setItem("searchfor", $('#searchfor').val());
+
+      }
+      window.onload = function() {
+
+        var searchby = localStorage.getItem("searchby");
+        if (searchby !== null) $('#searchby').val(searchby);
+
+        var searchfor = localStorage.getItem("searchfor");
+        if (searchfor !== null) $('#searchfor').val(searchfor);
+
+        if (searchby !== null && searchfor !== null) displayTable();
+
+
+      }
+
+   /*   $(document).ready(function(e) {
+            $("#checkin").submit(function(e) {
+              e.preventDefault();
+              var values = $(this).serialize();
+              $.ajax({
+                url: "checkin.php",
+                type: "post",
+                data: values,
+                success:function(){
+                  $("#searchfor").val="done";
+                $("#mymodal").css('display', 'none');
+
+                }
+              });
+              
+
+            });
+
+
+          }
+
+        )*/
+    </script>
+
 </body>
 
 </html>
-

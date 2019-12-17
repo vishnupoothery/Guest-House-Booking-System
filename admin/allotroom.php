@@ -64,8 +64,8 @@ border-color: #00c434;
       </div>
     </td>
     <td> <div style='margin-left:20px;'>
-    Checkin :" . $book['checkin'] . " <br>
-    Checkout :" . $book['checkout'] . " <br>
+    Checkin :" .date('F jS Y', strtotime($book['checkin'])) . " <br>
+    Checkout :" .date('F jS Y', strtotime($book['checkout'])) . " <br>
       Rooms: " . $rooms_list . "<br>
     </div>
     </td>
