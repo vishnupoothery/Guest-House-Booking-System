@@ -100,13 +100,21 @@ include('dbConfig.php');
       }
 
       if (strpos($booking_data['booking_status'], 'ALLOTED') !== false) {
-        echo "<span class='dropdown-item'  onclick='openCheckIn(";
+        echo "<span class='dropdown-item'  onclick=\"openCheckModal('checkIn',";
         echo $rr['booking_id'];
-        echo ");'>Check-in Guests</span>";
+        echo ");\">Check-in Guests</span>";
+      }
+
+      if ($booking_data['booking_status'] == 'CHECKED IN') {
+        echo "<span class='dropdown-item'  onclick=\"openCheckModal('checkOut',";
+        echo $rr['booking_id'];
+        echo ");\">Check-out Guests</span>";
       }
 
 
-      if (strpos($booking_data['booking_status'], 'CHECK') !== true) {
+
+
+      if (strpos($booking_data['booking_status'], 'CHECK') === false) {
         echo "<a class='dropdown-item' onclick=\"return confirm('Are you sure you want to cancel');\" href='cancel_booking.php?booking_id=";
         echo $rr['booking_id'];
         echo "&booking_status=REJECTED'>Cancel Booking</a>";
@@ -161,7 +169,7 @@ include('dbConfig.php');
 
         echo "</select></div><div class='col-sm-1'><button class='btn btn-prim' type='submit'>Allot</button></div></form></div>";
       }
-      if (strpos($booking_data['booking_status'], 'ALLOTED') !== false) {
+      if (strpos($booking_data['booking_status'], 'APPROV') === false) {
         $get_room_data = "SELECT room_num FROM rooms WHERE room_id IN (SELECT room_id FROM guests WHERE booking_id=" . $rr['booking_id'] . ")";
         $room_data_res = mysqli_query($db, $get_room_data);
         echo "The alloted room(s) are: ";
@@ -182,32 +190,60 @@ include('dbConfig.php');
 
 
   <!--------------------CHECK-IN MODAL-------------------->
-  <div id="mymodal" class="modal">
+  <div id="checkInModal" class="modal">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">CHECK-IN</h4>
-        <span class="close" onclick="document.getElementById('mymodal').style.display='none';">&times;</span>
+        <span class="close" onclick="document.getElementById('checkInModal').style.display='none';">&times;</span>
       </div>
       <form method="post" id="checkin" action="checkin.php">
         <div class="modal-body">
           <div class='form-group'>
             <label for='date'>DATE</label><br>
-            <input type="date" name='date' id='date'>
+            <input type="date" name='date' id='checkIndate'>
           </div>
           <div class='form-group'>
             <label for='time'>TIME</label><br>
-            <input type="time" name='time' id='time'>
+            <input type="time" name='time' id='checkIntime'>
           </div>
         </div>
         <div class="modal-footer">
-          <input id='booking_id' name='booking_id' class='hidden'>
+          <input id='checkInbooking_id' name='booking_id' class='hidden'>
           <input class='btn btn-prim' type="submit" value='CHECK IN'>
         </div>
       </form>
     </div>
+  </div>
+
+  <!--------------------CHECK-OUT MODAL-------------------->
+
+  <div id="checkOutModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">CHECK-OUT</h4>
+        <span class="close" onclick="document.getElementById('checkOutModal').style.display='none';">&times;</span>
+      </div>
+      <form method="post" id="checkin" action="checkout.php">
+        <div class="modal-body">
+          <div class='form-group'>
+            <label for='date'>DATE</label><br>
+            <input type="date" name='date' id='checkOutdate'>
+          </div>
+          <div class='form-group'>
+            <label for='time'>TIME</label><br>
+            <input type="time" name='time' id='checkOuttime'>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <input id='checkOutbooking_id' name='booking_id' class='hidden'>
+          <input class='btn btn-prim' type="submit" value='GENERATE BILL'>
+        </div>
+      </form>
+    </div>
+  </div>
 
     <script>
-       window.onbeforeunload = function() {
+      window.onbeforeunload = function() {
         localStorage.setItem("searchby", $('#searchby').val());
         localStorage.setItem("searchfor", $('#searchfor').val());
 
@@ -225,28 +261,28 @@ include('dbConfig.php');
 
       }
 
-   /*   $(document).ready(function(e) {
-            $("#checkin").submit(function(e) {
-              e.preventDefault();
-              var values = $(this).serialize();
-              $.ajax({
-                url: "checkin.php",
-                type: "post",
-                data: values,
-                success:function(){
-                  $("#searchfor").val="done";
-                $("#mymodal").css('display', 'none');
+      /*   $(document).ready(function(e) {
+               $("#checkin").submit(function(e) {
+                 e.preventDefault();
+                 var values = $(this).serialize();
+                 $.ajax({
+                   url: "checkin.php",
+                   type: "post",
+                   data: values,
+                   success:function(){
+                     $("#searchfor").val="done";
+                   $("#mymodal").css('display', 'none');
 
-                }
-              });
-              
+                   }
+                 });
+                 
 
-            });
+               });
 
 
-          }
+             }
 
-        )*/
+           )*/
     </script>
 
 </body>

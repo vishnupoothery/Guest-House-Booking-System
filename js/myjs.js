@@ -8,21 +8,22 @@ function toggle_collapse(op) {
 
 }
 
-function setDatetime() {
+function setDatetime(op) {
     var now = new Date();
     var day = ("0" + now.getDate()).slice(-2);
     var month = ("0" + (now.getMonth() + 1)).slice(-2);
     var today = now.getFullYear() + "-" + (month) + "-" + (day);
-    document.getElementById('date').value = today;
+    document.getElementById(op+'date').value = today;
     var currentTime = ((now.getHours() < 10)?"0":"") + now.getHours() +":"+ ((now.getMinutes() < 10)?"0":"") + now.getMinutes();
-    document.getElementById('time').value = currentTime;
+    document.getElementById(op+'time').value = currentTime;
   }
 
-function openCheckIn(id) {
-    setDatetime();
-    document.getElementById('mymodal').style.display = 'block';
-    document.getElementById('booking_id').value=id;
+function openCheckModal(op,id) {
+    setDatetime(op);
+    document.getElementById(op+'Modal').style.display = 'block';
+    document.getElementById(op+'booking_id').value=id;
   }
+
 
 
 function display_subdropdown() {
