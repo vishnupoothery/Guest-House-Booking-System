@@ -32,7 +32,7 @@ include 'dbConfig.php';
   <?php
 
   $user_id = $_SESSION['email'];
-  $sql = "SELECT DISTINCT A.booking_id FROM guests A, booked B WHERE A.checkin>DATE_FORMAT(now(),'%Y%c%d') AND B.booked_by = '$user_id' AND A.room_id!=-1 AND A.booking_id=B.booking_id"; // and booked_by=user_id;
+  $sql = "SELECT DISTINCT A.booking_id FROM guests A, booked B WHERE A.expected_checkin>DATE_FORMAT(now(),'%Y%c%d') AND B.booking_status!='CHECKED OUT' AND B.booked_by = '$user_id' AND A.room_id!=-1 AND A.booking_id=B.booking_id"; // and booked_by=user_id;
 
   $result = mysqli_query($db, $sql);
   echo "<table class='table table-hover'>";
@@ -41,7 +41,7 @@ include 'dbConfig.php';
       $get_booking_data = "SELECT purpose,payment_status as payment,no_rooms as roomsno,booking_date,booking_status FROM booked WHERE booking_id=" . $rr['booking_id'] . "";
       $booking_data_res = mysqli_query($db, $get_booking_data);
       $booking_data = mysqli_fetch_assoc($booking_data_res);
-      $get_guest_data = "SELECT checkin,checkout FROM guests WHERE booking_id=" . $rr['booking_id'] . "";
+      $get_guest_data = "SELECT expected_checkin as checkin,expected_checkout as checkout FROM guests WHERE booking_id=" . $rr['booking_id'] . "";
       $guest_data_res = mysqli_query($db, $get_guest_data);
       $guest_data = mysqli_fetch_assoc($guest_data_res);
       $checkin = $guest_data['checkin'];
@@ -57,7 +57,10 @@ include 'dbConfig.php';
         echo "<div class='col-2 status approved'>";
       echo $booking_data['booking_status'];
       echo "</div>";
-      echo "<div class='col-3 booking-details'><b>Checkin: </b> ";
+      echo "<div class='col-3 booking-details'>";
+      echo"<b>Booking ID: </b> ";
+      echo $rr['booking_id'];
+      echo"<br><br><b>Checkin: </b> ";
       echo date('F jS Y', strtotime($checkin));
       echo "<br><br><b>Checkout: </b>";
       echo date('F jS Y', strtotime($checkout));

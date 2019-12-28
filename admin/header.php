@@ -5,11 +5,11 @@ function display_header()
   <header class="page-header" id="header"><br>
     <div class="container-fluid">
       <div class="row align-items-end">
-        <div class="col-6">
+        <div class="col">
           <img src="../images/logo.jpg">
         </div>
-        <div class="col-6">
-          <h3 class="heading">GUEST HOUSE BOOKING PORTAL</h3>
+        <div class="col">
+          <span class="heading">GUEST HOUSE BOOKING PORTAL</span>
         </div>
       </div><br>
     </div>
@@ -51,7 +51,7 @@ function display_admin_navbar()
   {
 
     include 'dbConfig.php';
-    $sql = "SELECT COUNT(DISTINCT booking_id) as total FROM booked NATURAL join guests WHERE booking_status='OFFICIALLY APPROVED' AND checkin>DATE_FORMAT(now(),'%Y%c%d')";
+    $sql = "SELECT COUNT(DISTINCT booking_id) as total FROM booked NATURAL join guests WHERE booking_status='OFFICIALLY APPROVED' AND expected_checkin>DATE_FORMAT(now(),'%Y%c%d')";
     if ($res = mysqli_query($db, $sql))
       return mysqli_fetch_assoc($res)['total'];
     else

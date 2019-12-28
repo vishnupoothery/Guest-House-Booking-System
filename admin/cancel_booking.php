@@ -12,7 +12,7 @@
     echo $sql;
     if(mysqli_query($db,$sql))
     {
-        $message = "Your Request for Gust House Booking has been REJECTED";
+        $message = "Your Request for Guest House Booking has been REJECTED";
         $toMail = $email;
         $subject = 'Booking Rejected';
         echo sendMail($toMail,$subject,$message);

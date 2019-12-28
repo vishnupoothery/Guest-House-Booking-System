@@ -50,7 +50,7 @@ include('dbConfig.php');
     </div>
   </div>
   <?php
-  $sql = "SELECT DISTINCT `booking_id` FROM guests WHERE checkout >now() AND room_id!=-1";
+  $sql = "SELECT DISTINCT `booking_id` FROM guests WHERE expected_checkout >now() AND room_id!=-1 AND actual_checkout is NULL ORDER BY booking_id DESC";
 
   $result = mysqli_query($db, $sql);
   echo "<table id='myTable' class='table table-hover'>";
@@ -59,7 +59,7 @@ include('dbConfig.php');
       $get_booking_data = "SELECT booked_by,purpose,payment_status as payment,no_rooms as roomsno,booking_date,booking_status FROM booked WHERE booking_id=" . $rr['booking_id'] . "";
       $booking_data_res = mysqli_query($db, $get_booking_data);
       $booking_data = mysqli_fetch_assoc($booking_data_res);
-      $get_guest_data = "SELECT checkin,checkout FROM guests WHERE booking_id=" . $rr['booking_id'] . "";
+      $get_guest_data = "SELECT expected_checkin as checkin,expected_checkout as checkout FROM guests WHERE booking_id=" . $rr['booking_id'] . "";
       $guest_data_res = mysqli_query($db, $get_guest_data);
       $guest_data = mysqli_fetch_assoc($guest_data_res);
       $checkin = $guest_data['checkin'];
@@ -151,7 +151,10 @@ include('dbConfig.php');
 
       if ($booking_data['booking_status'] == 'OFFICIALLY APPROVED') {
 
-        $get_room_data =    "SELECT room_id, room_num FROM rooms WHERE room_id NOT IN (SELECT room_id FROM guests WHERE room_id!=0 AND DATE_FORMAT(checkin,'%d-%m-%y')< '" . $checkout . "' AND DATE_FORMAT(checkout,'%d-%m-%y') >'" . $checkin . "' )";
+        $get_room_data =    "SELECT room_id, room_num FROM rooms WHERE room_id NOT IN 
+                            (SELECT room_id FROM guests WHERE room_id!=0 
+                            AND ((actual_checkout NOT NULL AND DATE_FORMAT(actual_checkin,'%d-%m-%y')< '" . $checkout . "' AND DATE_FORMAT(actual_checkout,'%d-%m-%y') >'" . $checkin . "' ) OR
+                                (DATE_FORMAT(expected_checkin,'%d-%m-%y')< '" . $checkout . "' AND DATE_FORMAT(expected_checkout,'%d-%m-%y') >'" . $checkin . "' ))";
         echo "<form action='allotroom.php?booking_id=";
         echo $rr['booking_id'];
         echo "' style='display:none;' id='allotrooms";

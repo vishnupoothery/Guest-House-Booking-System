@@ -8,7 +8,7 @@ $sql="UPDATE booked SET booking_status='CHECKED IN' WHERE booking_id=".$booking_
 $res=mysqli_query($db,$sql);
 if($res)
 {
-    $sql="UPDATE guests SET checkin=cast(concat('".$_POST['date']."', ' ','".$_POST['time']."') as datetime) WHERE booking_id=".$booking_id;
+    $sql="UPDATE guests SET actual_checkin=cast(concat('".$_POST['date']."', ' ','".$_POST['time']."') as datetime) WHERE booking_id=".$booking_id;
     $res=mysqli_query($db,$sql);
     if($res)
     {

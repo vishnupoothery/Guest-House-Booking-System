@@ -28,7 +28,7 @@ if ($db->query($sql) === TRUE) {
     }
     ++$i;
   }
-  $sql = "SELECT checkin,checkout FROM guests WHERE booking_id=" . $booking_id . " ";
+  $sql = "SELECT expected_checkin as checkin ,expected_checkout as checkout FROM guests WHERE booking_id=" . $booking_id . " ";
   $res = mysqli_query($db, $sql);
   $book = mysqli_fetch_assoc($res);
   $rooms_list = '';
@@ -38,44 +38,39 @@ if ($db->query($sql) === TRUE) {
     $rr = mysqli_fetch_array($res);
     $rooms_list = $rooms_list + " " + $rr['room_num'];
   }
-  $message = "<html>
-<div style='width:50%;text-align:center;position:relative;margin-left:auto;margin-right:auto'>
-
-
-<h3 style='color:#23aacc;'>NIT-C GUEST HOUSE BOOKING</h3>
-
-
-<h3><b>Your booking ID is " . $booking_id . " </b></h3>
-<table border=0>
-  <tr>
-  <td style='height: 100px;
-   width: 25%;
-'>
-  <div style='font-size: 25px;
-font-weight:  bold;
-text-align: center;
-margin-left: auto;
-margin-right: auto;
-color: #00c434;
-border-style: dashed;
-border-color: #00c434;
-'>
-    ROOM ALLOTED
-      </div>
-    </td>
-    <td> <div style='margin-left:20px;'>
-    Checkin :" .date('F jS Y', strtotime($book['checkin'])) . " <br>
-    Checkout :" .date('F jS Y', strtotime($book['checkout'])) . " <br>
-      Rooms: " . $rooms_list . "<br>
-    </div>
-    </td>
-  </tr>
+  $message = "
+  <html>
+  <div style='text-align:center;position:relative;'>
+      <h3 style='color:#23aacc;'>NIT-C GUEST HOUSE BOOKING</h3>
+      <h3><b>Your booking ID is " . $booking_id . " </b></h3>
+      <table style='margin-left:auto; margin-right:auto;' cellspacing='20%'>
+          <tr>
+              <td rowspan='3' style=' font-size: 120%;
+  font-weight:  bold;
+  text-align: center;
+  color: #00c434;
+  border-style: dashed;
+  border-color: #00c434;
+  padding-left:10%;
+  padding-right:10%;'>
   
-</table>
-
-</div>
-
-</html>";
+                  ROOM ALLOTED
+  
+              </td>
+              <td >Checkin </td>
+              <td>: " .date('F jS Y', strtotime($book['checkin'])) . " </td>
+          </tr>
+          <tr>
+              <td>Checkout </td>
+              <td>: " .date('F jS Y', strtotime($book['checkout'])) . "</td>
+          </tr>
+          <tr>
+              <td>Room(s)</td>
+              <td>: " . $rooms_list . "</td>
+          </tr>
+      </table>
+  </div>
+  </html>";
   $toMail = $email;
   $subject = "Room Alloted";
   echo sendMail($toMail, $subject, $message);

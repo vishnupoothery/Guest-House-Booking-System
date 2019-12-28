@@ -15,7 +15,7 @@ if ($db->query($sql) === TRUE) {
 }
 $booking_id=$db->insert_id;
 for($i=0;$i<$_GET['guestsno'];++$i)
-{$sql ="INSERT INTO  guests (booking_id,checkin,checkout,name,	relation,contact) VALUES ('".$booking_id."','".$_GET['checkin']."','".$_GET['checkout']."','".$_POST['name'][$i]."','".$_POST['rel'][$i]."','".$_POST['contact'][$i]."')";
+{$sql ="INSERT INTO  guests (booking_id,expected_checkin,expected_checkout,name,relation,contact) VALUES ('".$booking_id."','".$_GET['checkin']."','".$_GET['checkout']."','".$_POST['name'][$i]."','".$_POST['rel'][$i]."','".$_POST['contact'][$i]."')";
 
 if ($db->query($sql) === TRUE) {
    echo "New record created successfully";

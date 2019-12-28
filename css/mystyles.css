@@ -13,6 +13,8 @@
         .heading {
             color: #23aacc;
             float: right;
+            font-weight: bold;
+            font-size: large;
         }
         
         .alert {
@@ -42,7 +44,9 @@
             font-weight: bold;
             text-align: center;
             border-style: dashed;
-            padding: 2% 0;
+            padding-top: 5%;
+            padding-bottom: 5%;
+
         }
         
         .status.approved {

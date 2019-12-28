@@ -5,11 +5,11 @@ function display_header()
   <header class="page-header" id="header"><br>
     <div class="container-fluid">
       <div class="row align-items-end">
-        <div class="col-6">
+        <div class="col">
           <img src="images/logo.jpg">
         </div>
-        <div class="col-6">
-          <h3 class="heading">GUEST HOUSE BOOKING PORTAL</h3>
+        <div class="col">
+          <span class="heading">GUEST HOUSE BOOKING PORTAL</span>
         </div>
       </div><br>
     </div>

@@ -47,7 +47,7 @@ include('dbConfig.php');
     </div>
   </div>
   <?php
-  $sql = "SELECT DISTINCT `booking_id` FROM guests WHERE checkout<DATE_FORMAT(now(),'%Y%c%d') OR room_id=-1 ORDER BY booking_id DESC";
+  $sql = "SELECT DISTINCT `booking_id` FROM guests WHERE actual_checkout<now() OR room_id=-1 ORDER BY booking_id DESC";
 
   $result = mysqli_query($db, $sql);
   echo "<table id='myTable' class='table table-hover'>";
@@ -56,7 +56,7 @@ include('dbConfig.php');
       $get_booking_data = "SELECT booked_by,purpose,payment_status as payment,no_rooms as roomsno,booking_date,booking_status FROM booked WHERE booking_id=" . $rr['booking_id'] . "";
       $booking_data_res = mysqli_query($db, $get_booking_data);
       $booking_data = mysqli_fetch_assoc($booking_data_res);
-      $get_guest_data = "SELECT checkin,checkout FROM guests WHERE booking_id=" . $rr['booking_id'] . "";
+      $get_guest_data = "SELECT actual_checkin as checkin,actual_checkout as checkout FROM guests WHERE booking_id=" . $rr['booking_id'] . "";
       $guest_data_res = mysqli_query($db, $get_guest_data);
       $guest_data = mysqli_fetch_assoc($guest_data_res);
       $checkin = $guest_data['checkin'];
