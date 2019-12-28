@@ -50,7 +50,7 @@ include('dbConfig.php');
     </div>
   </div>
   <?php
-  $sql = "SELECT DISTINCT `booking_id` FROM guests WHERE checkout >DATE_FORMAT(now(),'%Y%c%d') AND room_id!=-1";
+  $sql = "SELECT DISTINCT `booking_id` FROM guests WHERE checkout >now() AND room_id!=-1";
 
   $result = mysqli_query($db, $sql);
   echo "<table id='myTable' class='table table-hover'>";
