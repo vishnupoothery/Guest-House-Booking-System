@@ -133,9 +133,9 @@ include('dbConfig.php');
       }
       echo "</div><div class='col-3'>";
       if ($booking_data['booking_status'] != 'CANCELLED') {
-        echo "<button style='float:right;' type='button' class='btn btn-prim'><a style='color:white;text-decoration:none;' onclick=\"return confirm('Are you sure you want to cancel');\" href='cancel_booking.php?booking_id=";
+        echo "<button style='float:right;' type='button' class='btn btn-prim' onclick='openCancelModal(";
         echo $rr['booking_id'];
-        echo "&booking_status=REJECTED'>Reject</a></button>";
+        echo ");'>Reject</button>";
       }
 
       echo "</div></div></div><br></td></tr>";
@@ -145,6 +145,25 @@ include('dbConfig.php');
 
   /* SELECT room_id, room_num FROM rooms WHERE room_id NOT IN (SELECT room_id ,  DATE_FORMAT(checkin,'%d-%m-%y') as checkin,   DATE_FORMAT(checkout,'%d-%m-%y') as checkout FROM guests WHERE room_id!=0 AND DATE_FORMAT(checkin,'%d-%m-%y')<11-10-19 AND DATE_FORMAT(checkout,'%d-%m-%y') > 07-10-19) */
   ?>
+  </div>
+<!-------------------CANCEL MODAL-------------------->
+<div id="cancelModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Are you sure you want to cancel?</h4>
+        <span class="close" onclick="document.getElementById('cancelModal').style.display='none';">&times;</span>
+      </div>
+      <form method="post" id="cancel">
+        <div class="modal-body">
+          <div class='form-group'>
+              <input type="text" name='remark' id='remark' placeholder='Remark' required>
+          </div>
+
+        <div class="modal-footer">
+          <input class='btn btn-prim' type="submit" value='Cancel Booking'>
+        </div>
+      </form>
+    </div>
   </div>
 
 

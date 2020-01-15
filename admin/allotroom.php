@@ -4,9 +4,9 @@ include 'dbConfig.php';
 include '../mail/mail.php';
 $booking_id = $_GET['booking_id'];
 if ($rooms > 1)
-  $sql = "UPDATE booked SET booking_status = '(" . $rooms . ") ROOMS ALLOTED' WHERE booking_id='" . $_GET['booking_id'] . "'";
+  $sql = "UPDATE booked SET booking_status = '" . $rooms . " ROOMS ALLOTED' WHERE booking_id='" . $_GET['booking_id'] . "'";
 else
-  $sql = "UPDATE booked SET booking_status = '(" . $rooms . ") ROOM ALLOTED' WHERE booking_id='" . $_GET['booking_id'] . "'";
+  $sql = "UPDATE booked SET booking_status = '" . $rooms . " ROOM ALLOTED' WHERE booking_id='" . $_GET['booking_id'] . "'";
 
 $sql2 = "SELECT booked_by FROM booked WHERE booking_id = '" . $_GET['booking_id'] . "'";
 $result = $db->query($sql2);

@@ -114,10 +114,10 @@ include('dbConfig.php');
 
 
 
-      if (strpos($booking_data['booking_status'], 'CHECK') === false) {
-        echo "<a class='dropdown-item' onclick=\"return confirm('Are you sure you want to cancel');\" href='cancel_booking.php?booking_id=";
+      if (strpos($booking_data['booking_status'], 'CHECK') === false AND $booking_data['booking_status']!='WAITING APPROVAL') {
+        echo "<span class='dropdown-item' onclick='openCancelModal(";
         echo $rr['booking_id'];
-        echo "&booking_status=REJECTED'>Cancel Booking</a>";
+        echo ");'>Cancel Booking</span>";
       }
 
       echo "</div>
@@ -153,8 +153,8 @@ include('dbConfig.php');
 
         $get_room_data =    "SELECT room_id, room_num FROM rooms WHERE room_id NOT IN 
                             (SELECT room_id FROM guests WHERE room_id!=0 
-                            AND ((actual_checkout NOT NULL AND DATE_FORMAT(actual_checkin,'%d-%m-%y')< '" . $checkout . "' AND DATE_FORMAT(actual_checkout,'%d-%m-%y') >'" . $checkin . "' ) OR
-                                (DATE_FORMAT(expected_checkin,'%d-%m-%y')< '" . $checkout . "' AND DATE_FORMAT(expected_checkout,'%d-%m-%y') >'" . $checkin . "' ))";
+                            AND ((actual_checkout != NULL AND actual_checkin< '" . $checkout . "' AND actual_checkout >'" . $checkin . "' ) OR
+                                (expected_checkin < '" . $checkout . "' AND expected_checkout >'" . $checkin . "' )))";
         echo "<form action='allotroom.php?booking_id=";
         echo $rr['booking_id'];
         echo "' style='display:none;' id='allotrooms";
@@ -188,6 +188,26 @@ include('dbConfig.php');
 
   /* SELECT room_id, room_num FROM rooms WHERE room_id NOT IN (SELECT room_id ,  DATE_FORMAT(checkin,'%d-%m-%y') as checkin,   DATE_FORMAT(checkout,'%d-%m-%y') as checkout FROM guests WHERE room_id!=0 AND DATE_FORMAT(checkin,'%d-%m-%y')<11-10-19 AND DATE_FORMAT(checkout,'%d-%m-%y') > 07-10-19) */
   ?>
+  </div>
+
+<!-------------------CANCEL MODAL-------------------->
+<div id="cancelModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Are you sure you want to cancel?</h4>
+        <span class="close" onclick="document.getElementById('cancelModal').style.display='none';">&times;</span>
+      </div>
+      <form method="post" id="cancel">
+        <div class="modal-body">
+          <div class='form-group'>
+              <input type="text" name='remark' id='remark' placeholder='Remark' required>
+          </div>
+
+        <div class="modal-footer">
+          <input class='btn btn-prim' type="submit" value='Cancel Booking'>
+        </div>
+      </form>
+    </div>
   </div>
 
 

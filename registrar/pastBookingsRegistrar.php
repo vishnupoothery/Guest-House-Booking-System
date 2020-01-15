@@ -56,11 +56,20 @@ include('dbConfig.php');
       $get_booking_data = "SELECT booked_by,purpose,payment_status as payment,no_rooms as roomsno,booking_date,booking_status FROM booked WHERE booking_id=" . $rr['booking_id'] . "";
       $booking_data_res = mysqli_query($db, $get_booking_data);
       $booking_data = mysqli_fetch_assoc($booking_data_res);
-      $get_guest_data = "SELECT actual_checkin as checkin,actual_checkout as checkout FROM guests WHERE booking_id=" . $rr['booking_id'] . "";
+      $get_guest_data = "SELECT actual_checkin,actual_checkout,expected_checkin,expected_checkout  FROM guests WHERE booking_id=" . $rr['booking_id'] . "";
       $guest_data_res = mysqli_query($db, $get_guest_data);
       $guest_data = mysqli_fetch_assoc($guest_data_res);
-      $checkin = $guest_data['checkin'];
-      $checkout = $guest_data['checkout'];
+      if($guest_data['actual_checkin'])
+        {
+          $checkin = $guest_data['actual_checkin'];
+          $checkout = $guest_data['actual_checkout'];
+        }
+      else
+      {
+        $checkin = $guest_data['expected_checkin'];
+        $checkout = $guest_data['expected_checkout'];
+
+      }
       echo "<tr><td class='status-container'><div class='row justify-content-center collapserow' onclick='toggle_collapse(";
       echo $rr['booking_id'];
       echo ")'>";
@@ -81,9 +90,9 @@ include('dbConfig.php');
       echo "<div class='col-5 booking-details'><b>Booked By: </b><span class='booked_by'>";
       echo $booking_data['booked_by'];
       echo "</span><br><br><b>Checkin: </b> ";
-      echo date('F jS Y', strtotime($guest_data['checkin']));
+      echo date('F jS Y', strtotime($checkin));
       echo "<br><br><b>Checkout: </b>";
-      echo date('F jS Y', strtotime($guest_data['checkout']));
+      echo date('F jS Y', strtotime($checkout));
       echo "<br><br><span style='opacity:0.5;'>Booking Date: ";
       echo date('F jS Y', strtotime($booking_data['booking_date']));
       echo "</span><br></div><br>";
@@ -114,6 +123,18 @@ include('dbConfig.php');
 
 
       echo "</table></div></div>";
+      if ($booking_data['booking_status'] == 'REJECTED')
+      {
+        $rejected_data_sql="SELECT * FROM rejectedBookings WHERE booking_id=".$rr['booking_id'];
+        $rejected_data_res = mysqli_query($db, $rejected_data_sql);
+        $rejected_data = mysqli_fetch_assoc($rejected_data_res);
+        
+        echo "<div class='row justify-content-center'><br><div class='col-2' align='middle'>Rejected By: ";
+        echo $rejected_data['rejectedBy'];
+        echo "</div><div class='col-4'>Remark: ";
+        echo $rejected_data['remark'];
+        echo "</div></div>";
+      }
 
    
      echo "</div><br></td></tr>";

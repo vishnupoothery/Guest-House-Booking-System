@@ -8,6 +8,13 @@ function toggle_collapse(op) {
 
 }
 
+function openCancelModal(op)
+{
+    document.getElementById('cancelModal').style.display = 'block';
+    document.getElementById('cancel').action='cancel_booking.php?booking_id='+op;
+
+}
+
 function setDatetime(op) {
     var now = new Date();
     var day = ("0" + now.getDate()).slice(-2);
