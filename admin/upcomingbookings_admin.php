@@ -50,7 +50,11 @@ include('dbConfig.php');
     </div>
   </div>
   <?php
+<<<<<<< HEAD
   $sql = "SELECT DISTINCT `booking_id` FROM guests WHERE expected_checkin >now() AND (room_id!=-1 OR room_id is NULL) AND actual_checkout is NULL ORDER BY booking_id DESC";
+=======
+  $sql = "SELECT DISTINCT `booking_id` FROM guests WHERE expected_checkout >now() AND room_id!=-1 AND actual_checkout is NULL ORDER BY booking_id DESC";
+>>>>>>> 1cbfd7227e7925a99c3b60cbd6b1c31030c5dc32
 
   $result = mysqli_query($db, $sql);
   echo "<table id='myTable' class='table table-hover'>";
@@ -190,6 +194,29 @@ include('dbConfig.php');
   ?>
   </div>
 
+<<<<<<< HEAD
+=======
+<!-------------------CANCEL MODAL-------------------->
+<div id="cancelModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Are you sure you want to cancel?</h4>
+        <span class="close" onclick="document.getElementById('cancelModal').style.display='none';">&times;</span>
+      </div>
+      <form method="post" id="cancel">
+        <div class="modal-body">
+          <div class='form-group'>
+              <input type="text" name='remark' id='remark' placeholder='Remark' required>
+          </div>
+
+        <div class="modal-footer">
+          <input class='btn btn-prim' type="submit" value='Cancel Booking'>
+        </div>
+      </form>
+    </div>
+  </div>
+
+>>>>>>> 1cbfd7227e7925a99c3b60cbd6b1c31030c5dc32
 
 
   <!--------------------CHECK-IN MODAL-------------------->
@@ -245,6 +272,7 @@ include('dbConfig.php');
     </div>
   </div>
 
+<<<<<<< HEAD
 
   <!-------------------CANCEL MODAL-------------------->
   <div id="cancelModal" class="modal">
@@ -268,6 +296,8 @@ include('dbConfig.php');
 
 
 
+=======
+>>>>>>> 1cbfd7227e7925a99c3b60cbd6b1c31030c5dc32
     <script>
       window.onbeforeunload = function() {
         localStorage.setItem("searchby", $('#searchby').val());
@@ -313,4 +343,8 @@ include('dbConfig.php');
 
 </body>
 
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> 1cbfd7227e7925a99c3b60cbd6b1c31030c5dc32
