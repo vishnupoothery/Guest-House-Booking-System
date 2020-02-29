@@ -47,7 +47,7 @@ include('dbConfig.php');
     </div>
   </div>
   <?php
-  $sql = "SELECT DISTINCT `booking_id` FROM guests WHERE actual_checkout<now() OR room_id=-1 ORDER BY booking_id DESC";
+  $sql = "SELECT DISTINCT `booking_id` FROM guests WHERE actual_checkout<now() OR expected_checkout<now() OR room_id=-1 ORDER BY booking_id DESC";
 
   $result = mysqli_query($db, $sql);
   echo "<table id='myTable' class='table table-hover'>";

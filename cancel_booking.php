@@ -20,10 +20,9 @@
 
         if(mysqli_query($db,$sql))
             {
-                if($_GET['booking_status']=='CANCELLED')
+            
                     header("Location: upcomingbookings_user.php");
-                else
-                    header("Location: upcomingbookings_admin.php"); }
+                
         else
             echo $db->error;
     }

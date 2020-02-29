@@ -31,14 +31,14 @@ include 'header.php' ;
   <?php
 
   $user_id = $_SESSION['email'];
-  $sql = "SELECT DISTINCT A.booking_id from guests A, booked B WHERE
-         B.booked_by = '" . $user_id . "'
-         AND (A.room_id=-1 
-              OR (A.booking_id = B.booking_id AND A.actual_checkout<now() ))
-        ORDER BY A.actual_checkout DESC";
+  $sql =  "SELECT B.booking_id from guests A, booked B WHERE
+        B.booked_by = '" . $user_id . "' AND A.booking_id = B.booking_id
+        AND (A.room_id=-1  OR A.actual_checkout<now() )
+ORDER BY B.booking_date DESC";
+ # echo $sql;
   //$sql="SELECT DISTINCT `booking_id` FROM guests WHERE checkout<DATE_FORMAT(now(),'%Y%c%d') OR room_id=-1";// and booked_by=user_id;
   $result = mysqli_query($db, $sql);
-  echo "<table class='table table-hover'>";
+  echo "<br><table class='table table-hover'>";
   if ($result) {
 
       while ($rr = mysqli_fetch_array($result)) {
