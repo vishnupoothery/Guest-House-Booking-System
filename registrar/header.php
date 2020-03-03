@@ -47,13 +47,9 @@ function display_admin_navbar()
 
   function get_unalloted()
   {
-
     include 'dbConfig.php';
-<<<<<<< HEAD
+
     $sql = "SELECT COUNT(DISTINCT booking_id) as total FROM booked NATURAL join guests WHERE booking_status='WAITING APPROVAL' AND expected_checkin>now()";
-=======
-    $sql = "SELECT COUNT(DISTINCT booking_id) as total FROM booked NATURAL join guests WHERE booking_status='WAITING APPROVAL' AND expected_checkin>DATE_FORMAT(now(),'%Y%c%d')";
->>>>>>> 1cbfd7227e7925a99c3b60cbd6b1c31030c5dc32
     if ($res = mysqli_query($db, $sql))
       return mysqli_fetch_assoc($res)['total'];
     else

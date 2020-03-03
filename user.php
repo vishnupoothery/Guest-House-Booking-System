@@ -1,8 +1,7 @@
 <?php
 include 'checkLogin.php';
-// Include calendar helper functions
-include_once 'functions.php';
-include('header.php');
+include 'functions.php';
+include 'header.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -72,3 +71,5 @@ include('header.php');
 </body>
 
 </html>
+
+

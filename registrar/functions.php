@@ -1,17 +1,7 @@
 <?php
-
-include 'header.php';
-require_once 'config.php';
-
-
-if (isset($_SESSION['userData'])) {
-  header('location: user.php');
-}
-
-$loginURL = "";
-$authUrl = $googleClient->createAuthUrl();
-$loginURL = filter_var($authUrl, FILTER_SANITIZE_URL);
-
+/*
+ * Function requested by Ajax
+ */
 if(isset($_POST['func']) && !empty($_POST['func'])){
 	switch($_POST['func']){
 		case 'getCalender':
@@ -75,32 +65,23 @@ function getCalender($year = '',$month = '')
 						$booked =$db->query("SELECT DISTINCT room_id FROM guests WHERE room_id>0 AND expected_checkin <='".$currentDate."' AND expected_checkout >='".$currentDate."'")->num_rows;
                         $free=$total-$booked;
                         $percent=($booked/$total)*100;
-                        global $loginURL;
 						//Define date cell color
-                        
-				        if(strtotime($currentDate)< strtotime(date("Y-m-d")))
+
+						if(strtotime($currentDate) == strtotime(date("Y-m-d"))){
+							echo '<li date="'.$currentDate.'" class="current date_cell"   >';
+						}
+                        elseif(strtotime($currentDate)< strtotime(date("Y-m-d")))
                         {
                             echo '<li date="'.$currentDate.'" class="date_cell">';
                         }
-                elseif(strtotime($currentDate) == strtotime(date("Y-m-d"))){
-                          echo '<li date="'.$currentDate.'" class="current date_cell"  >';
+                        elseif($percent >=80){
+							echo '<li date="'.$currentDate.'" class="red date_cell" >';
+						}elseif($percent >=40 ){
+							echo '<li date="'.$currentDate.'" class="yellow date_cell" >';
+						}
+                        else{
+                            echo '<li date="'.$currentDate.'" class="green date_cell" >';
                         }
-                else{
-                          echo "<a style='text-decoration:none;color:black;' href='";
-                          echo htmlspecialchars($loginURL);
-                          echo "'>";
-
-                          if($percent >=80){
-                            echo '<li date="'.$currentDate.'" class="red date_cell">';
-                          }elseif($percent >=40 ){
-                            echo '<li date="'.$currentDate.'" class="yellow date_cell">';
-                          }
-                          else{
-                                          echo '<li date="'.$currentDate.'" class="green date_cell">';
-                            }
-
-                        }
-                        
 						//Date cell
 						echo '<span>';
 						echo $dayCount;
@@ -112,12 +93,7 @@ function getCalender($year = '',$month = '')
 						echo (strtotime($currentDate)>strtotime(date("Y-m-d")))?'<div class="popup_event">Available:'.$free.' </div>':'';
 
 
-            echo '</li>';
-            if(strtotime($currentDate)> strtotime(date("Y-m-d")))
-            {
-              echo "</a>";
-            }
-
+						echo '</li>';
 						$dayCount++;
 			?>
 			<?php }else{ ?>
@@ -133,6 +109,7 @@ function getCalender($year = '',$month = '')
 
 	<script type="text/javascript">
 
+       
         function getNextday(date)
         {
                var tomorrow = new Date(date);
@@ -206,99 +183,3 @@ function getYearList($selected = ''){
 
 
 ?>
-
-
-
-
-<!doctype html>
-<html lang="en">
-
-<head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/mystyles.css">
-  <script src="js/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <title>NITC GH</title>
-</head>
-
-<body>
-  <?php echo display_header(); ?>
-  <div id="main">
-    <div class="container-fluid">
-
-      <div class="row justify-content-center">
-        <div class="col">
-          <div id="caraousel" class="carousel slide" data-ride="carousel">
-
-            <!-- Indicators -->
-            <ul class="carousel-indicators">
-              <li data-target="#caraousel" data-slide-to="0" class="active"></li>
-              <li data-target="#caraousel" data-slide-to="1"></li>
-              <li data-target="#caraousel" data-slide-to="2"></li>
-            </ul>
-
-            <!-- The slideshow -->
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img src="images\nitc1.jpeg" class="carouselImg" alt="Picture Unavailable">
-              </div>
-              <div class="carousel-item">
-                <img src="images\nitc2.jpeg" class="carouselImg" alt="Picture Unavailable">
-              </div>
-              <div class="carousel-item">
-                <img src="images\nitc3.jpeg" class="carouselImg" alt="Picture Unavailable">
-              </div>
-            </div>
-
-            <!-- Left and right controls -->
-            <a class="carousel-control-prev" href="#caraousel" data-slide="prev">
-              <span class="carousel-control-prev-icon"></span>
-            </a>
-            <a class="carousel-control-next" href="#caraousel" data-slide="next">
-              <span class="carousel-control-next-icon"></span>
-            </a>
-
-          </div>
-        </div>
-      </div> <br>
-
-      <div class="row justify-content-center">
-        <a class="homeBtn" href="#showavailability">
-          <span>CHECK AVAILABILITY</span>
-        </a>
-      </div> <br>
-
-      
-      <div class="row justify-content-center" id="showavailability">
-        <div id="calendar_div" class="col">
-          <?php echo getCalender(); ?>
-        </div>
-      </div> <br>
-
-      <?php
-      if (isset($_SESSION['wrongemail']))
-      {
-
-        session_destroy();
-        echo "<div class='alert alert-danger' role='alert'>
-       Please login using <b> NIT-C email id</b>
-      </div>";
-      
-      }
-      ?>
-
-      <div class=" row justify-content-center">
-        <a class="homeBtn" href="<?= htmlspecialchars($loginURL); ?>">
-          <span>BOOK NOW</span>
-        </a>
-      </div>
-    </div>
-
-</body>
-
-</html>
