@@ -82,10 +82,21 @@ function validateForm(currentTab) {
 
         var guests = document.getElementsByClassName("step").length - 1;
 
-        if (guests / rooms > 2 || guests / rooms < 1) {
+        if (guests / rooms > 2) 
+        {
             document.getElementById('roomnumwarning').style.display = 'block';
+            document.getElementById('roomnumwarning').innerHTML= 'Insufficient Rooms';
             return false;
+
+
         }
+        else if ( guests / rooms < 1) {
+            document.getElementById('roomnumwarning').style.display = 'block';
+            document.getElementById('roomnumwarning').innerHTML= 'Excess Rooms';
+            return false;
+
+        }
+      
     }
     var x, y, i, valid = true;
     x = document.getElementsByClassName("form-tab");
@@ -108,6 +119,16 @@ function validateForm(currentTab) {
     // If the valid status is true, mark the step as finished and valid:
 
 
+    if (currentTab)
+    {
+        var tel=document.getElementsByName('contact[]')[currentTab-1];
+     
+        if(!tel.value.match(/^\d{10}$/))
+        {
+            valid=false;
+            document.getElementsByName('contact[]')[currentTab-1].className+=" invalid";
+        }
+    }
     if (valid) {
         document.getElementsByClassName("step")[currentTab].className += " finish";
     }
@@ -128,16 +149,19 @@ function validateDates()
     today = yyyy + '-' + mm + '-' + dd;
 
     if (checkin <= today) {
-        alert("Invalid checkin date");
+        //alert("Invalid checkin date");
+        document.forms["book_form"]["checkin"].className+=' invalid';
         return false;
     }
     var checkout = document.forms["book_form"]["checkout"].value;
     if (checkout <= today) {
-        alert("Invalid checkout date");
+        //alert("Invalid checkout date");
+        document.forms["book_form"]["checkout"].className+=' invalid';
         return false;
     }
     if (checkin >= checkout) {
-        alert("Enter valid dates");
+        //alert("Enter valid dates");
+        document.forms["book_form"]["checkout"].className+=' invalid';
         return false;
 
     }

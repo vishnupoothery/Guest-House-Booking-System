@@ -42,7 +42,7 @@ include 'header.php';
                         </div>
                     </div>
                     <div class="col-4">
-                        <form action="newBooking.php" style="padding:120px 0;" onsubmit="validateDates();"
+                        <form action="newBooking.php" style="padding:120px 0;" onsubmit="return validateDates();"
                             id="book_form" method="post">
 
                             <div class="form-group">
