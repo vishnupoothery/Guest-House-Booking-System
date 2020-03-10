@@ -92,7 +92,7 @@ function validateForm(currentTab) {
         }
         else if ( guests / rooms < 1) {
             document.getElementsByName("roomsno")[0].className+=" is-invalid";
-            document.getElementById('roomnumwarning').innerHTML= 'Rooms are surplusbr';
+            document.getElementById('roomnumwarning').innerHTML= 'Rooms are surplus';
             return false;
 
         }
