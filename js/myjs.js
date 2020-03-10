@@ -84,15 +84,15 @@ function validateForm(currentTab) {
 
         if (guests / rooms > 2) 
         {
-            document.getElementById('roomnumwarning').style.display = 'block';
-            document.getElementById('roomnumwarning').innerHTML= 'Insufficient Rooms';
+            document.getElementsByName("roomsno")[0].className+=" is-invalid";
+            document.getElementById('roomnumwarning').innerHTML= 'Rooms are insufficient';
             return false;
 
 
         }
         else if ( guests / rooms < 1) {
-            document.getElementById('roomnumwarning').style.display = 'block';
-            document.getElementById('roomnumwarning').innerHTML= 'Excess Rooms';
+            document.getElementsByName("roomsno")[0].className+=" is-invalid";
+            document.getElementById('roomnumwarning').innerHTML= 'Rooms are surplusbr';
             return false;
 
         }
@@ -111,7 +111,7 @@ function validateForm(currentTab) {
             if (!currentTab && document.getElementsByName('purpose')[0].value == "Personal" && y[i].id == 'purpose-desc')
                 continue;
             // add an "invalid" class to the field:
-            y[i].className += " invalid";
+            y[i].className += " is-invalid";
             // and set the current valid status to false
             valid = false;
         }
@@ -126,7 +126,7 @@ function validateForm(currentTab) {
         if(!tel.value.match(/^\d{10}$/))
         {
             valid=false;
-            document.getElementsByName('contact[]')[currentTab-1].className+=" invalid";
+            document.getElementsByName('contact[]')[currentTab-1].className+=" is-invalid";
         }
     }
     if (valid) {
@@ -150,18 +150,18 @@ function validateDates()
 
     if (checkin <= today) {
         //alert("Invalid checkin date");
-        document.forms["book_form"]["checkin"].className+=' invalid';
+        document.forms["book_form"]["checkin"].className+=' is-invalid';
         return false;
     }
     var checkout = document.forms["book_form"]["checkout"].value;
     if (checkout <= today) {
         //alert("Invalid checkout date");
-        document.forms["book_form"]["checkout"].className+=' invalid';
+        document.forms["book_form"]["checkout"].className+=' is-invalid';
         return false;
     }
     if (checkin >= checkout) {
         //alert("Enter valid dates");
-        document.forms["book_form"]["checkout"].className+=' invalid';
+        document.forms["book_form"]["checkout"].className+=' is-invalid';
         return false;
 
     }

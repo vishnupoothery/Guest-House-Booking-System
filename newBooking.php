@@ -13,6 +13,8 @@ include 'header.php';
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/mystyles.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/jquery.min.js"></script>
   <script src="js/myjs.js"></script>
@@ -32,10 +34,10 @@ include 'header.php';
   <div class="row justify-content-center">
     <form action="book.php?guestsno=<?php echo $_POST['guestsno']; ?>&checkin=<?php echo $_POST['checkin']; ?>&checkout=<?php echo $_POST['checkout']; ?>" id="guests_form" method="post">
       <div class="tab form-tab">
-        <div class="form-group">
+        <div class="form-group position-relative">
           <label for="roomsno">Number of Rooms Required</label>
-          <input type="number" class="form-control" min="1" max="5" name="roomsno" required>
-          <h6 id='roomnumwarning' style="color:red;display:none"><br>Insuffient/Excess rooms </h6>
+          <input type="number" class="form-control position-relative" min="1" max="5" name="roomsno" required>
+          <div id='roomnumwarning' class="invalid-tooltip"> </div>
         </div>
         <div class="form-group">
           <label for="purpose">Purpose</label>
@@ -67,9 +69,11 @@ include 'header.php';
             <label for="rel">Relationship with Applicant</label>
             <input type="text" class="form-control" name="rel[]" required>
           </div>
-          <div class="form-group">
+          <div class="form-group position-relative">
             <label for="contact">Contact</label>
             <input type="text" class="form-control" name="contact[]" required>
+            <div class="invalid-tooltip">Please enter valid contact</div>
+
           </div>
         </div> <?php } ?>
       <div style="overflow:auto;">
