@@ -4,6 +4,8 @@ include 'mail/mail.php';
 
 include('dbConfig.php');
 $booked_by = $_SESSION['email'];
+$guests=$_GET['guestsno'];
+$rooms=$_POST['roomsno'];
 $sql = "INSERT INTO booked (booked_by,purpose,booking_status,payment_status,no_guests,no_rooms,no_groups) VALUES ('$booked_by','".$_POST['purpose']."  ".$_POST['purpose-desc']."','WAITING APPROVAL','".$_POST['payment']."', '".$_GET['guestsno']."','".$_POST['roomsno']."','1')";
 
 $name = $_SESSION['userData']['f_name'];
@@ -26,12 +28,34 @@ for($i=0;$i<$_GET['guestsno'];++$i)
         echo "Error: " . $sql . "<br>" . $db->error;
     }
 }
-    $message = "$name has created a request for Guest House"; //admin
-    $toMail = "pootherivishnu@gmail.com";
+$today=date('F jS Y',time());
+$message = "<div style='margin-left:auto;margin-right:auto;'>Your booking id is $booking_id.<hr>
+<table style='border:none;'>
+<tr>
+ 
+ <td>Date of Booking<td>
+ <td>:  $today</td>
+ </tr><tr>
+ <td>Number of Guests<td>
+ <td>:  $guests</td>
+ </tr><tr>
+ <td>Number of Rooms Required<td>
+ <td>:  $rooms</td>
+ </tr>
+</table>
+Your booking has been recieved and is being processed.<hr>
+</div>";
+    $toMail = $booked_by;
+    $subject = "Booking Recieved";
+    echo sendMail($toMail,$subject,$message);
+
+
+    $message = "$name has created a request for Guest House rooms"; //admin
+    $toMail = $booked_by;
     $subject = "New Booking";
     echo sendMail($toMail,$subject,$message);
 
-    $message = "$name has created a request for Guest House. Login to approve <a href='http://localhost/Guest-House-Booking-System/registrar/upcomingBookingsRegistrar.php'>http://localhost/Guest-House-Booking-System/registrar/upcomingBookingsRegistrar.php</a>"; //registrar
+    $message = "$name has created a request for Guest House.  <a href='https://guesthouse.nitc.ac.in/registrar'>Login</a> to approve"; //registrar
     $toMail = "jyothsnashaji99@gmail.com";
     $subject = "New Guest House Booking";
     echo sendMail($toMail,$subject,$message); 
