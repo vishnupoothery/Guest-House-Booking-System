@@ -104,7 +104,7 @@ function getCalender($year = '', $month = '')
 						//Hover event popup
 						echo  '<div id="date_popup_' . $currentDate . '" class="date_popup_wrap none">';
 						echo '<div class="date_window">';
-						echo (strtotime($currentDate) > strtotime(date("Y-m-d"))) ? '<div class="popup_event">Available:' . $free . ' </div>' : '';
+						echo (strtotime($currentDate) > strtotime(date("Y-m-d"))) ? '<div class="popup_event">Rooms Available:' . $free . ' </div>' : '';
 
 
 						echo '</li>';
