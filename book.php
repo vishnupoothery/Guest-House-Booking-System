@@ -51,7 +51,7 @@ Your booking has been recieved and is being processed.<hr>
 
 
     $message = "$name has created a request for Guest House rooms"; //admin
-    $toMail = $booked_by;
+    $toMail = "jyothsnashaji99@gmail.com";
     $subject = "New Booking";
     echo sendMail($toMail,$subject,$message);
 
