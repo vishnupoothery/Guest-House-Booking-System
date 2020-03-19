@@ -49,12 +49,12 @@ include 'header.php';
 
                             <div class="form-group position-relative">
                                 <label for="checkin">CHECK-IN</label>
-                                <input type="date" class="form-control" id="checkin" name="checkin" required>
+                                <input type="date" class="form-control" id="checkin" name="checkin" required onchange="validateCheckin();">
                                 <div class="invalid-tooltip">Please enter valid check-in date</div>
                             </div>
                             <div class="form-group position-relative">
                                 <label for="checkout">CHECK-OUT</label>
-                                <input type="date" class="form-control" id="checkout" name="checkout" required>
+                                <input type="date" class="form-control" id="checkout" name="checkout" required onchange="validateCheckout();">
                                 <div class="invalid-tooltip">Please enter valid check-out date</div>
                             </div>
                             <div class="form-group">

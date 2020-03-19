@@ -137,7 +137,7 @@ function validateForm(currentTab) {
     // return the valid status
 }
 
-function validateDates()
+function validateCheckin()
 
 {
     var checkin = document.forms["book_form"]["checkin"].value;
@@ -150,22 +150,54 @@ function validateDates()
 
     if (checkin <= today) {
         //alert("Invalid checkin date");
-        document.forms["book_form"]["checkin"].className+=' is-invalid';
+        if (!document.forms["book_form"]["checkin"].classList.contains('is-invalid'))
+            document.forms["book_form"]["checkin"].classList.add('is-invalid')
         return false;
     }
+
+    if (document.forms["book_form"]["checkin"].classList.contains('is-invalid'))
+        document.forms["book_form"]["checkin"].classList.remove('is-invalid')
+   
+    return true;
+}
+
+function validateCheckout()
+
+{
+    var checkin = document.forms["book_form"]["checkin"].value;
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = yyyy + '-' + mm + '-' + dd;
+
     var checkout = document.forms["book_form"]["checkout"].value;
     if (checkout <= today) {
-        //alert("Invalid checkout date");
-        document.forms["book_form"]["checkout"].className+=' is-invalid';
+        if (!document.forms["book_form"]["checkout"].classList.contains('is-invalid'))
+        document.forms["book_form"]["checkout"].classList.add('is-invalid')
         return false;
     }
     if (checkin >= checkout) {
-        //alert("Enter valid dates");
-        document.forms["book_form"]["checkout"].className+=' is-invalid';
+        if (!document.forms["book_form"]["checkout"].classList.contains('is-invalid'))
+        document.forms["book_form"]["checkout"].classList.add('is-invalid')
         return false;
 
     }
+    if (document.forms["book_form"]["checkout"].classList.contains('is-invalid'))
+        document.forms["book_form"]["checkout"].classList.remove('is-invalid')
+
     return true;
+}
+
+function validateDates()
+{
+    if (document.forms["book_form"]["checkin"].classList.contains('is-invalid') || 
+     (document.forms["book_form"]["checkout"].classList.contains('is-invalid')))
+     {
+        return false;
+     }
+     return true;
 }
 
 // Display the current tab
