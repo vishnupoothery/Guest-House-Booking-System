@@ -36,7 +36,7 @@ include 'header.php';
       <div class="tab form-tab">
         <div class="form-group position-relative">
           <label for="roomsno">Number of Rooms Required</label>
-          <input type="number" class="form-control position-relative" min="1" max="5" name="roomsno" required>
+          <input type="number" class="form-control position-relative" min="1" max="5" name="roomsno" required onchange="validateRooms();">
           <div id='roomnumwarning' class="invalid-tooltip"> </div>
         </div>
         <div class="form-group">
@@ -70,8 +70,8 @@ include 'header.php';
             <input type="text" class="form-control" name="rel[]" required>
           </div>
           <div class="form-group position-relative">
-            <label for="contact">Contact</label>
-            <input type="text" class="form-control" name="contact[]" required>
+            <label for="contact">Mobile Number</label>
+            <input type="text" class="form-control" name="contact[]" required onchange="validateContact(<?php echo $i ?>);">
             <div class="invalid-tooltip">Please enter valid contact</div>
 
           </div>

@@ -77,27 +77,7 @@ function activateTab(current) {
 
 function validateForm(currentTab) {
 
-    if (!currentTab) {
-        var rooms = document.getElementsByName("roomsno")[0].value;
 
-        var guests = document.getElementsByClassName("step").length - 1;
-
-        if (guests / rooms > 2) 
-        {
-            document.getElementsByName("roomsno")[0].className+=" is-invalid";
-            document.getElementById('roomnumwarning').innerHTML= 'Rooms are insufficient';
-            return false;
-
-
-        }
-        else if ( guests / rooms < 1) {
-            document.getElementsByName("roomsno")[0].className+=" is-invalid";
-            document.getElementById('roomnumwarning').innerHTML= 'Rooms are surplus';
-            return false;
-
-        }
-      
-    }
     var x, y, i, valid = true;
     x = document.getElementsByClassName("form-tab");
     y = x[currentTab].getElementsByTagName("input");
@@ -118,17 +98,18 @@ function validateForm(currentTab) {
     }
     // If the valid status is true, mark the step as finished and valid:
 
+    if(!currentTab)
+    {
+        if (document.getElementsByName("roomsno")[0].classList.contains("is-invalid"))
+           valid=false;
+    }
 
     if (currentTab)
     {
-        var tel=document.getElementsByName('contact[]')[currentTab-1];
-     
-        if(!tel.value.match(/^\d{10}$/))
-        {
+        if (document.getElementsByName('contact[]')[currentTab-1].classList.contains("is-invalid"))
             valid=false;
-            document.getElementsByName('contact[]')[currentTab-1].className+=" is-invalid";
-        }
     }
+    
     if (valid) {
         document.getElementsByClassName("step")[currentTab].className += " finish";
     }
@@ -137,6 +118,47 @@ function validateForm(currentTab) {
     // return the valid status
 }
 
+function validateRooms()
+{
+    var rooms = document.getElementsByName("roomsno")[0].value;
+
+    var guests = document.getElementsByClassName("step").length - 1;
+
+    if (guests / rooms > 2) 
+    {
+        if (!document.getElementsByName("roomsno")[0].classList.contains("is-invalid"))
+            document.getElementsByName("roomsno")[0].classList.add("is-invalid");
+        document.getElementById('roomnumwarning').innerHTML= 'Rooms are insufficient';
+        return false;
+    }
+    else if ( guests / rooms < 1) {
+        if (!document.getElementsByName("roomsno")[0].classList.contains("is-invalid"))
+            document.getElementsByName("roomsno")[0].classList.add("is-invalid");
+        document.getElementById('roomnumwarning').innerHTML= 'Rooms are surplus';
+        return false;
+    }
+
+    if (document.getElementsByName("roomsno")[0].classList.contains("is-invalid"))
+            document.getElementsByName("roomsno")[0].classList.remove("is-invalid");
+    return true;
+}
+
+function validateContact(currentTab)
+{
+    var tel=document.getElementsByName('contact[]')[currentTab];
+    if(!tel.value.match(/^(0|91)?[1-9][0-9]{9}$/))
+    {
+        if ( !document.getElementsByName('contact[]')[currentTab].classList.contains("is-invalid"))
+            document.getElementsByName('contact[]')[currentTab].classList.add("is-invalid");
+        return false;
+    }
+
+    if (document.getElementsByName('contact[]')[currentTab].classList.contains("is-invalid"))
+            document.getElementsByName('contact[]')[currentTab].classList.remove("is-invalid");
+    return true;
+
+    
+}
 function validateCheckin()
 
 {
