@@ -159,7 +159,20 @@ function validateContact(currentTab)
 
     
 }
-function validateCheckin()
+
+function parseDate(str) {
+    var mdy = str.split('-');
+    return new Date(mdy[0], mdy[1]-1, mdy[2]);
+}
+
+function dateDiff(first, second) {
+   
+
+    return Math.round((parseDate(second)-parseDate(first))/(1000*60*60*24));
+}
+
+
+function validateCheckin(prior)
 
 {
     var checkin = document.forms["book_form"]["checkin"].value;
@@ -170,12 +183,13 @@ function validateCheckin()
 
     today = yyyy + '-' + mm + '-' + dd;
 
-    if (checkin <= today) {
+    if (checkin <= today || dateDiff(today,checkin)>prior) {
         //alert("Invalid checkin date");
         if (!document.forms["book_form"]["checkin"].classList.contains('is-invalid'))
             document.forms["book_form"]["checkin"].classList.add('is-invalid')
         return false;
     }
+
 
     if (document.forms["book_form"]["checkin"].classList.contains('is-invalid'))
         document.forms["book_form"]["checkin"].classList.remove('is-invalid')
@@ -183,7 +197,7 @@ function validateCheckin()
     return true;
 }
 
-function validateCheckout()
+function validateCheckout(limit)
 
 {
     var checkin = document.forms["book_form"]["checkin"].value;
@@ -195,17 +209,12 @@ function validateCheckout()
     today = yyyy + '-' + mm + '-' + dd;
 
     var checkout = document.forms["book_form"]["checkout"].value;
-    if (checkout <= today) {
+    if (checkout <= today || checkin >= checkout || dateDiff(checkin,checkout) > limit ) {
         if (!document.forms["book_form"]["checkout"].classList.contains('is-invalid'))
         document.forms["book_form"]["checkout"].classList.add('is-invalid')
         return false;
     }
-    if (checkin >= checkout) {
-        if (!document.forms["book_form"]["checkout"].classList.contains('is-invalid'))
-        document.forms["book_form"]["checkout"].classList.add('is-invalid')
-        return false;
-
-    }
+    
     if (document.forms["book_form"]["checkout"].classList.contains('is-invalid'))
         document.forms["book_form"]["checkout"].classList.remove('is-invalid')
 

@@ -1,6 +1,7 @@
 <?php
 include 'checkLogin.php';
 include 'header.php';
+include 'dbConfig.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -30,13 +31,35 @@ include 'header.php';
   <script>
     activateTab('home');
   </script>
+<?php
+  $user = $_SESSION['email'];
+  $sql = "SELECT * FROM booked WHERE booked_by='" . $user . "' and  DATE_FORMAT(booking_date,'%M %Y') = DATE_FORMAT(now(),'%M %Y')";
+  $res = mysqli_query($db, $sql);
+  if ($res)
+  {
+      $num = $res->num_rows;
+      if ($num == $NUM_BOOKINGS_PER_MONTH)
+      {
+        $_SESSION['exceeded']=true;
+        header('location:user.php');
+      }
+      
+  }
+  else
+  {
+      echo $db->error;
+  }
+?>
+
+
+
   <br>
   <div class="row justify-content-center">
     <form action="book.php?guestsno=<?php echo $_POST['guestsno']; ?>&checkin=<?php echo $_POST['checkin']; ?>&checkout=<?php echo $_POST['checkout']; ?>" id="guests_form" method="post">
       <div class="tab form-tab">
         <div class="form-group position-relative">
           <label for="roomsno">Number of Rooms Required</label>
-          <input type="number" class="form-control position-relative" min="1" max="5" name="roomsno" required onchange="validateRooms();">
+          <input type="number" class="form-control position-relative" min="1" max=<?php echo $NUM_OF_ROOMS_PER_BOOKING;?> name="roomsno" required onchange="validateRooms();">
           <div id='roomnumwarning' class="invalid-tooltip"> </div>
         </div>
         <div class="form-group">

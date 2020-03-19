@@ -1,4 +1,18 @@
 <?php
+
+//CONSTANTS
+
+$NUM_OF_ROOMS_PER_BOOKING=5;
+$NUM_BOOKINGS_PER_MONTH=3;
+$NUM_OF_DAYS_PER_BOOKING=7;
+$NUM_OF_GUESTS_PER_BOOKING=10;
+$NUM_OF_DAYS_PRIOR=28;
+
+
+
+
+
+
 function display_header()
 {
   ?>
@@ -28,7 +42,7 @@ function display_user_navbar()
       <li class="nav-item"><a class="nav-link" id="home" href="user.php">HOME</a></li>
       <li class="nav-item"><a class="nav-link" id="upcoming" href="upcomingbookings_user.php">UPCOMING BOOKINGS</a></li>
       <li class="nav-item"><a class="nav-link" id="past" href="past_bookings.php">PAST BOOKINGS</a></li>
-      <li class="nav-item"><a class="nav-link" id="guide" href="#menu3">GUIDELINES</a></li>
+      <li class="nav-item"><a class="nav-link" id="guide" href="guidelines.php">GUIDELINES</a></li>
    </ul>
     <ul class="navbar-nav navbar-right">
       <li class="nav-item"><a class="nav-link" href="logout.php">SIGN OUT</a></li>
