@@ -68,7 +68,7 @@ function getCalender($year = '',$month = '')
 						//Define date cell color
 
 						if(strtotime($currentDate) == strtotime(date("Y-m-d"))){
-							echo '<li date="'.$currentDate.'" class="current date_cell" onclick="update(this)"  >';
+							echo '<li date="'.$currentDate.'" class="current date_cell >';
 						}
                         elseif(strtotime($currentDate)< strtotime(date("Y-m-d")))
                         {
