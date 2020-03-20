@@ -31,7 +31,7 @@ include 'header.php' ;
   <?php
 
   $user_id = $_SESSION['email'];
-  $sql =  "SELECT B.booking_id from guests A, booked B WHERE
+  $sql =  "SELECT DISTINCT B.booking_id,B.booking_date from guests A, booked B WHERE
         B.booked_by = '" . $user_id . "' AND A.booking_id = B.booking_id
         AND (A.room_id=-1  OR A.actual_checkout<now() )
 ORDER BY B.booking_date DESC";

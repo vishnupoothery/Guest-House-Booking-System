@@ -36,6 +36,7 @@ include 'dbConfig.php';
             <li>All bookings are provisional and subject to availabliity.</li>
             <li>A user can make atmost <?php echo $NUM_BOOKINGS_PER_MONTH ?> bookings per month.</li>
             <li>A user can book for atmost <?php echo $NUM_OF_DAYS_PER_BOOKING;?> days at a time with a maximum of <?php echo $NUM_OF_ROOMS_PER_BOOKING; ?> rooms.</li>
+            <li>The bookings can be made <?php echo $NUM_OF_DAYS_PRIOR; ?> days prior to check-in. </li>
         </ul>
 
     </div>
