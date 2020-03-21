@@ -118,25 +118,44 @@ function validateForm(currentTab) {
     // return the valid status
 }
 
-function validateRooms()
+function validateRooms(max_guests_per_room,max_rooms,free)
 {
+
     var rooms = document.getElementsByName("roomsno")[0].value;
 
     var guests = document.getElementsByClassName("step").length - 1;
 
-    if (guests / rooms > 2) 
+    if (guests / rooms > max_guests_per_room) 
     {
         if (!document.getElementsByName("roomsno")[0].classList.contains("is-invalid"))
             document.getElementsByName("roomsno")[0].classList.add("is-invalid");
         document.getElementById('roomnumwarning').innerHTML= 'Rooms are insufficient';
-        return false;
+        return;
     }
     else if ( guests / rooms < 1) {
         if (!document.getElementsByName("roomsno")[0].classList.contains("is-invalid"))
             document.getElementsByName("roomsno")[0].classList.add("is-invalid");
         document.getElementById('roomnumwarning').innerHTML= 'Rooms are surplus';
-        return false;
+        return;
     }
+    
+    if (rooms>free)
+    {
+        if (!document.getElementsByName("roomsno")[0].classList.contains("is-invalid"))
+            document.getElementsByName("roomsno")[0].classList.add("is-invalid");
+        document.getElementById('roomnumwarning').innerHTML= 'Rooms Unavailable';
+        return;
+
+    }
+    else if (rooms>max_rooms)
+    {
+        if (!document.getElementsByName("roomsno")[0].classList.contains("is-invalid"))
+            document.getElementsByName("roomsno")[0].classList.add("is-invalid");
+        document.getElementById('roomnumwarning').innerHTML= 'Limit Exceeded';
+        return;
+
+    }
+   
 
     if (document.getElementsByName("roomsno")[0].classList.contains("is-invalid"))
             document.getElementsByName("roomsno")[0].classList.remove("is-invalid");

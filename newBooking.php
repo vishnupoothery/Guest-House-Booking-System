@@ -49,6 +49,24 @@ include 'dbConfig.php';
   {
       echo $db->error;
   }
+
+  $checkin=$_POST['checkin'];
+  $checkout=$_POST['checkout'];
+
+  $sql="SELECT room_id FROM rooms WHERE room_id NOT IN 
+  (SELECT room_id FROM guests WHERE room_id!=0 
+  AND ((actual_checkout != NULL AND actual_checkin< '" . $checkout . "' AND actual_checkout >'" . $checkin . "' ) OR
+      (expected_checkin < '" . $checkout . "' AND expected_checkout >'" . $checkin . "' )))";
+  $res=mysqli_query($db,$sql);
+  if($res)
+  {
+    $free=$res->num_rows;
+  }
+  else
+  {
+    $db->error;
+  }
+
 ?>
 
 
@@ -59,7 +77,8 @@ include 'dbConfig.php';
       <div class="tab form-tab">
         <div class="form-group position-relative">
           <label for="roomsno">Number of Rooms Required</label>
-          <input type="number" class="form-control position-relative" min="1" max=<?php echo $NUM_OF_ROOMS_PER_BOOKING;?> name="roomsno" required onchange="validateRooms();">
+          <input type="number" class="form-control position-relative" min="1" max=<?php echo min($NUM_OF_ROOMS_PER_BOOKING,$free) ;?> name="roomsno" required 
+          onchange="validateRooms(<?php echo $NUM_OF_GUESTS_PER_ROOM ?>, <?php echo $NUM_OF_ROOMS_PER_BOOKING ?>, <?php echo $free ?>);">
           <div id='roomnumwarning' class="invalid-tooltip"> </div>
         </div>
         <div class="form-group">

@@ -22,6 +22,7 @@
             {
             
                     header("Location: upcomingbookings_user.php");
+            }
                 
         else
             echo $db->error;

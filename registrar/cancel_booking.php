@@ -7,25 +7,15 @@
     $rejectedBy=$_SESSION['admin'];
     $remark=$_POST['remark'];
 
-<<<<<<< HEAD
     $sql="UPDATE booked SET booking_status='REJECTED' WHERE booking_id='".$_GET['booking_id']."'";
     $sql2 = "SELECT booked_by FROM booked WHERE booking_id = $booking_id";
     $sql3="INSERT into rejectedBookings  VALUES(".$booking_id.",'".$rejectedBy."','".$remark."')";
-=======
-    $sql="UPDATE booked SET booking_status=REJECTED WHERE booking_id='".$_GET['booking_id']."'";
-    $sql2 = "SELECT booked_by FROM booked WHERE booking_id = $booking_id";
-    $sql3="INSERT into rejectedBookings VALUES(".$booking_id.",'".$rejectedBy."','".$remark."')";
->>>>>>> 1cbfd7227e7925a99c3b60cbd6b1c31030c5dc32
 
     $result = $db->query($sql2);
     $booked_by = $result->fetch_assoc();
     $email = $booked_by['booked_by'];
 
-<<<<<<< HEAD
  
-=======
-    echo $sql;
->>>>>>> 1cbfd7227e7925a99c3b60cbd6b1c31030c5dc32
     if(mysqli_query($db,$sql) && mysqli_query($db,$sql3))
     {
         $message = "Your Request for Guest House Booking has been REJECTED Remark :".$remark;
@@ -38,19 +28,11 @@
             {
                 header("Location: upcomingBookingsRegistrar.php"); }
         else
-<<<<<<< HEAD
-            echo $sql,$db->error;
-    }
-    else
-    {
-        echo $sql,$sql3, $db->error;
-=======
             echo $db->error;
     }
     else
     {
         echo $db->error;
->>>>>>> 1cbfd7227e7925a99c3b60cbd6b1c31030c5dc32
     }
 
 ?>
