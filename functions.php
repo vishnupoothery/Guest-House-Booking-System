@@ -7,8 +7,6 @@ if (isset($_POST['func']) && !empty($_POST['func'])) {
 
 	getCalender($_POST['year'], $_POST['month']);
 }
-
-
 /*
  * Get calendar full HTML
  */
@@ -101,162 +99,118 @@ function getCalender($year = '', $month = '')
 		function update(ele) {
 			var date = new Date();
 			date = ele.getAttribute("date", 0);
-
-			if (ele.classList.contains("selected")) 
-			{
-				var min = new Date(Math.min.apply(null, update.selectedDates));
-				var max = new Date(Math.max.apply(null, update.selectedDates))
-				nextDay=getNextday(date);
-				if (max.toJSON().slice(0, 10)==getNextday(min.toJSON().slice(0, 10)))
-				{
-					
-					document.getElementById(min.toJSON().slice(0, 10)).classList.remove("selected");
-					document.getElementById(max.toJSON().slice(0, 10)).classList.remove("selected");
-					update.selectedDates =[];
+			if (ele.classList.contains("selected")) {
+				nextDay = getNextday(date);
+				if (update.checkout == getNextday(update.checkin)) {
+					document.getElementById(update.checkin).classList.remove("selected");
+					document.getElementById(update.checkout).classList.remove("selected");
 					document.getElementById("checkin").value = null;
 					document.getElementById("checkout").value = null;
-				} 
-				else
-				{
-					date = new Date(date);
-					if (date.getTime() == min.getTime())
-					{
-						update.selectedDates = update.selectedDates.filter(function(value, index, arr) {
-						return value.getTime() != date.getTime() ;
-					});
-					document.getElementById(date.toJSON().slice(0, 10)).classList.remove("selected");
-					document.getElementById("checkin").value = nextDay;
-					update.selectedDates.push(new Date(nextDay));
-
-					}
-					else 
-					{
-						if(date.toJSON().slice(0, 10)==getNextday(min.toJSON().slice(0, 10)))
-						{
-							update.selectedDates =[];
+					update.checkin = null;
+					update.checkout = null;
+				} else {
+					if (date == update.checkin) {
+						update.checkin = nextDay;
+						document.getElementById(date).classList.remove("selected");
+						document.getElementById("checkin").value = nextDay;
+					} else {
+						if (date == getNextday(update.checkin)) {
 							document.getElementById("checkin").value = null;
 							document.getElementById("checkout").value = null;
-							document.getElementById(min.toJSON().slice(0, 10)).classList.remove("selected");
-					
-						}
-						else{
-							prevDay=getPrevday(date.toJSON().slice(0, 10));
-							document.getElementById("checkout").value = prevDay;
-							update.selectedDates = update.selectedDates.filter(function(value, index, arr) {
-							return value.getTime() != max.getTime() ;
-							});
-							update.selectedDates.push(new Date(prevDay));
-				
-						}
-						while (date <= max)
-						{
-							document.getElementById(date.toJSON().slice(0, 10)).classList.remove("selected");
-							date=new Date(getNextday(date.toJSON().slice(0, 10)));
-
-						}
-						
-					}
-				}
-
-			}
-			else {
-
-
-					if (typeof update.selectedDates == 'undefined' || update.selectedDates.length == 0) {
-						update.selectedDates = [];
-						nextDay = getNextday(date);
-						document.getElementById("checkin").value = date;
-						document.getElementById("checkout").value = nextDay;
-						update.selectedDates.push(new Date(date));
-						update.selectedDates.push(new Date(nextDay));
-						ele.classList.add("selected");
-						document.getElementById(nextDay).classList.add("selected");
-					} else {
-						var min = new Date(Math.min.apply(null, update.selectedDates));
-						var max = new Date(Math.max.apply(null, update.selectedDates))
-
-						date = new Date(date);
-						if (date < min) {
-							update.selectedDates = update.selectedDates.filter(function(value, index, arr) {
-								return value.getTime() != min.getTime();
-							});
-							update.selectedDates.push(date);
-							document.getElementById("checkin").value = date.toJSON().slice(0, 10);
-							nextDay = date;
-							while (nextDay < min) {
-								document.getElementById(nextDay.toJSON().slice(0, 10)).classList.add("selected");
-								nextDay = new Date(getNextday(nextDay.toJSON().slice(0, 10)));
-							}
-
+							document.getElementById(update.checkin).classList.remove("selected");
+							update.checkin = null;
+							prevDay = null;
 						} else {
-							update.selectedDates = update.selectedDates.filter(function(value, index, arr) {
-								return value.getTime() != max.getTime();
-							});
-							update.selectedDates.push(new Date(date));
-							document.getElementById("checkout").value = date.toJSON().slice(0, 10);
-							nextDay = new Date(getNextday(max.toJSON().slice(0, 10)));
-							date = new Date(date);
-							while (nextDay <= date) {
-								document.getElementById(nextDay.toJSON().slice(0, 10)).classList.add("selected");
-								nextDay = new Date(getNextday(nextDay.toJSON().slice(0, 10)));
-							}
-
+							prevDay = getPrevday(date);
+							document.getElementById("checkout").value = prevDay;
 
 						}
+						while (date <= update.checkout) {
+							document.getElementById(date).classList.remove("selected");
+							date = getNextday(date);
+
+						}
+						update.checkout = prevDay;
 					}
-
-
-
 				}
-				validateCheckin(28); ////////make variable
-				validateCheckout(7);
-			}
-
-			function getNextday(date) {
-				var tomorrow = new Date(date);
-				tomorrow.setDate(tomorrow.getDate() + 1);
-				return tomorrow.toJSON().slice(0, 10);
-			}
-			
-			function getPrevday(date) {
-				var yesterday = new Date(date);
-				yesterday.setDate(yesterday.getDate() - 1);
-				return yesterday.toJSON().slice(0, 10);
-			}
-
-			function getCalendar(target_div, year, month) {
-				$.ajax({
-					type: 'POST',
-					url: 'functions.php',
-					data: 'func=getCalender&year=' + year + '&month=' + month,
-					success: function(html) {
-						$('#' + target_div).html(html);
+			} else {
+				if (typeof update.checkin == 'undefined' || update.checkin == null) {
+					nextDay = getNextday(date);
+					document.getElementById("checkin").value = date;
+					document.getElementById("checkout").value = nextDay;
+					update.checkin = date;
+					update.checkout = nextDay;
+					ele.classList.add("selected");
+					document.getElementById(nextDay).classList.add("selected");
+				} else {
+					if (date < update.checkin) {
+						document.getElementById("checkin").value = date;
+						nextDay = date;
+						while (nextDay < update.checkin) {
+							document.getElementById(nextDay).classList.add("selected");
+							nextDay = getNextday(nextDay);
+						}
+						update.checkin = date;
+					} else {
+						document.getElementById("checkout").value = date;
+						nextDay = getNextday(update.checkout);
+						while (nextDay <= date) {
+							document.getElementById(nextDay).classList.add("selected");
+							nextDay = getNextday(nextDay);
+						}
+						update.checkout = date;
 					}
-				});
+				}
 			}
+			validateCheckin(28); ////////make variable
+			validateCheckout(7);
+		}
 
+		function getNextday(date) {
+			var tomorrow = new Date(date);
+			tomorrow.setDate(tomorrow.getDate() + 1);
+			return tomorrow.toJSON().slice(0, 10);
+		}
 
+		function getPrevday(date) {
+			var yesterday = new Date(date);
+			yesterday.setDate(yesterday.getDate() - 1);
+			return yesterday.toJSON().slice(0, 10);
+		}
 
-
-			$(document).ready(function() {
-				$('.date_cell').mouseenter(function() {
-					date = $(this).attr('date');
-					$(".date_popup_wrap").fadeOut();
-					$("#date_popup_" + date).fadeIn();
-				});
-				$('.date_cell').mouseleave(function() {
-					$(".date_popup_wrap").fadeOut();
-				});
-				$('.month_dropdown').on('change', function() {
-					getCalendar('calendar_div', $('.year_dropdown').val(), $('.month_dropdown').val());
-				});
-				$('.year_dropdown').on('change', function() {
-					getCalendar('calendar_div', $('.year_dropdown').val(), $('.month_dropdown').val());
-				});
-				$(document).click(function() {
-					$('#event_list').slideUp('slow');
-				});
+		function getCalendar(target_div, year, month) {
+			$.ajax({
+				type: 'POST',
+				url: 'functions.php',
+				data: 'func=getCalender&year=' + year + '&month=' + month,
+				success: function(html) {
+					$('#' + target_div).html(html);
+				}
 			});
+		}
+
+
+
+
+		$(document).ready(function() {
+			$('.date_cell').mouseenter(function() {
+				date = $(this).attr('date');
+				$(".date_popup_wrap").fadeOut();
+				$("#date_popup_" + date).fadeIn();
+			});
+			$('.date_cell').mouseleave(function() {
+				$(".date_popup_wrap").fadeOut();
+			});
+			$('.month_dropdown').on('change', function() {
+				getCalendar('calendar_div', $('.year_dropdown').val(), $('.month_dropdown').val());
+			});
+			$('.year_dropdown').on('change', function() {
+				getCalendar('calendar_div', $('.year_dropdown').val(), $('.month_dropdown').val());
+			});
+			$(document).click(function() {
+				$('#event_list').slideUp('slow');
+			});
+		});
 	</script>
 <?php
 }
