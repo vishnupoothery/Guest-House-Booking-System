@@ -4,16 +4,8 @@ include 'header.php';
  * Function requested by Ajax
  */
 if (isset($_POST['func']) && !empty($_POST['func'])) {
-	switch ($_POST['func']) {
-		case 'getCalender':
-			getCalender($_POST['year'], $_POST['month']);
-			break;
-		case 'getEvents':
-			getEvents($_POST['date']);
-			break;
-		default:
-			break;
-	}
+
+	getCalender($_POST['year'], $_POST['month']);
 }
 
 
@@ -69,15 +61,15 @@ function getCalender($year = '', $month = '')
 						//Define date cell color
 
 						if (strtotime($currentDate) == strtotime(date("Y-m-d"))) {
-							echo '<li date="' . $currentDate . '" class="current date_cell" >';
+							echo '<li date="' . $currentDate . '"  id="' . $currentDate . '" class="current date_cell" >';
 						} elseif (strtotime($currentDate) < strtotime(date("Y-m-d"))) {
-							echo '<li date="' . $currentDate . '" class="date_cell">';
+							echo '<li date="' . $currentDate . '"  id="' . $currentDate . '" class="date_cell">';
 						} elseif ($percent >= 80) {
-							echo '<li date="' . $currentDate . '" class="red date_cell" onclick="update(this)">';
+							echo '<li date="' . $currentDate . '"  id="' . $currentDate . '" class="red date_cell" onclick="update(this)">';
 						} elseif ($percent >= 40) {
-							echo '<li date="' . $currentDate . '" class="yellow date_cell" onclick="update(this)">';
+							echo '<li date="' . $currentDate . '"  id="' . $currentDate . '" class="yellow date_cell" onclick="update(this)">';
 						} else {
-							echo '<li date="' . $currentDate . '" class="green date_cell" onclick="update(this)">';
+							echo '<li date="' . $currentDate . '"  id="' . $currentDate . '" class="green date_cell" onclick="update(this)">';
 						}
 						//Date cell
 						echo '<span>';
@@ -109,90 +101,162 @@ function getCalender($year = '', $month = '')
 		function update(ele) {
 			var date = new Date();
 			date = ele.getAttribute("date", 0);
-			if (ele.classList.contains("selected")) {
-				ele.classList.remove("selected");
-				update.selectedDates = update.selectedDates.filter(function(value, index, arr) {
-					return value.toJSON().slice(0, 10) != date;
-				});
 
-				if (update.selectedDates.length == 1) {
-					document.getElementById("checkin").value = update.selectedDates[0].toJSON().slice(0, 10);
-					document.getElementById("checkout").value = getNextday(update.selectedDates[0].toJSON().slice(0, 10));
-				} else if (update.selectedDates.length == 0) {
+			if (ele.classList.contains("selected")) 
+			{
+				var min = new Date(Math.min.apply(null, update.selectedDates));
+				var max = new Date(Math.max.apply(null, update.selectedDates))
+				nextDay=getNextday(date);
+				if (max.toJSON().slice(0, 10)==getNextday(min.toJSON().slice(0, 10)))
+				{
+					
+					document.getElementById(min.toJSON().slice(0, 10)).classList.remove("selected");
+					document.getElementById(max.toJSON().slice(0, 10)).classList.remove("selected");
+					update.selectedDates =[];
 					document.getElementById("checkin").value = null;
 					document.getElementById("checkout").value = null;
-				} else {
-					var min = new Date(Math.min.apply(null, update.selectedDates));
-					var max = new Date(Math.max.apply(null, update.selectedDates))
-					document.getElementById("checkin").value = min.toJSON().slice(0, 10);
-					document.getElementById("checkout").value = max.toJSON().slice(0, 10);
+				} 
+				else
+				{
+					date = new Date(date);
+					if (date.getTime() == min.getTime())
+					{
+						update.selectedDates = update.selectedDates.filter(function(value, index, arr) {
+						return value.getTime() != date.getTime() ;
+					});
+					document.getElementById(date.toJSON().slice(0, 10)).classList.remove("selected");
+					document.getElementById("checkin").value = nextDay;
+					update.selectedDates.push(new Date(nextDay));
+
+					}
+					else 
+					{
+						if(date.toJSON().slice(0, 10)==getNextday(min.toJSON().slice(0, 10)))
+						{
+							update.selectedDates =[];
+							document.getElementById("checkin").value = null;
+							document.getElementById("checkout").value = null;
+							document.getElementById(min.toJSON().slice(0, 10)).classList.remove("selected");
+					
+						}
+						else{
+							prevDay=getPrevday(date.toJSON().slice(0, 10));
+							document.getElementById("checkout").value = prevDay;
+							update.selectedDates = update.selectedDates.filter(function(value, index, arr) {
+							return value.getTime() != max.getTime() ;
+							});
+							update.selectedDates.push(new Date(prevDay));
+				
+						}
+						while (date <= max)
+						{
+							document.getElementById(date.toJSON().slice(0, 10)).classList.remove("selected");
+							date=new Date(getNextday(date.toJSON().slice(0, 10)));
+
+						}
+						
+					}
 				}
-
-
-			} else {
-				ele.classList.add("selected");
-
-
-				if (typeof update.selectedDates == 'undefined' || update.selectedDates.length == 0) {
-					update.selectedDates = [];
-					document.getElementById("checkin").value = date;
-					document.getElementById("checkout").value = getNextday(date);
-					update.selectedDates.push(new Date(date));
-				} else {
-					update.selectedDates.push(new Date(date));
-
-					var min = new Date(Math.min.apply(null, update.selectedDates));
-					var max = new Date(Math.max.apply(null, update.selectedDates))
-					document.getElementById("checkin").value = min.toJSON().slice(0, 10);
-					document.getElementById("checkout").value = max.toJSON().slice(0, 10);
-				}
-
-
 
 			}
-			validateCheckin(28); ////////make variable
-			validateCheckout(7);
-		}
+			else {
 
-		function getNextday(date) {
-			var tomorrow = new Date(date);
-			tomorrow.setDate(tomorrow.getDate() + 1);
-			return tomorrow.toJSON().slice(0, 10);
-		}
 
-		function getCalendar(target_div, year, month) {
-			$.ajax({
-				type: 'POST',
-				url: 'functions.php',
-				data: 'func=getCalender&year=' + year + '&month=' + month,
-				success: function(html) {
-					$('#' + target_div).html(html);
+					if (typeof update.selectedDates == 'undefined' || update.selectedDates.length == 0) {
+						update.selectedDates = [];
+						nextDay = getNextday(date);
+						document.getElementById("checkin").value = date;
+						document.getElementById("checkout").value = nextDay;
+						update.selectedDates.push(new Date(date));
+						update.selectedDates.push(new Date(nextDay));
+						ele.classList.add("selected");
+						document.getElementById(nextDay).classList.add("selected");
+					} else {
+						var min = new Date(Math.min.apply(null, update.selectedDates));
+						var max = new Date(Math.max.apply(null, update.selectedDates))
+
+						date = new Date(date);
+						if (date < min) {
+							update.selectedDates = update.selectedDates.filter(function(value, index, arr) {
+								return value.getTime() != min.getTime();
+							});
+							update.selectedDates.push(date);
+							document.getElementById("checkin").value = date.toJSON().slice(0, 10);
+							nextDay = date;
+							while (nextDay < min) {
+								document.getElementById(nextDay.toJSON().slice(0, 10)).classList.add("selected");
+								nextDay = new Date(getNextday(nextDay.toJSON().slice(0, 10)));
+							}
+
+						} else {
+							update.selectedDates = update.selectedDates.filter(function(value, index, arr) {
+								return value.getTime() != max.getTime();
+							});
+							update.selectedDates.push(new Date(date));
+							document.getElementById("checkout").value = date.toJSON().slice(0, 10);
+							nextDay = new Date(getNextday(max.toJSON().slice(0, 10)));
+							date = new Date(date);
+							while (nextDay <= date) {
+								document.getElementById(nextDay.toJSON().slice(0, 10)).classList.add("selected");
+								nextDay = new Date(getNextday(nextDay.toJSON().slice(0, 10)));
+							}
+
+
+						}
+					}
+
+
+
 				}
-			});
-		}
+				validateCheckin(28); ////////make variable
+				validateCheckout(7);
+			}
+
+			function getNextday(date) {
+				var tomorrow = new Date(date);
+				tomorrow.setDate(tomorrow.getDate() + 1);
+				return tomorrow.toJSON().slice(0, 10);
+			}
+			
+			function getPrevday(date) {
+				var yesterday = new Date(date);
+				yesterday.setDate(yesterday.getDate() - 1);
+				return yesterday.toJSON().slice(0, 10);
+			}
+
+			function getCalendar(target_div, year, month) {
+				$.ajax({
+					type: 'POST',
+					url: 'functions.php',
+					data: 'func=getCalender&year=' + year + '&month=' + month,
+					success: function(html) {
+						$('#' + target_div).html(html);
+					}
+				});
+			}
 
 
 
 
-		$(document).ready(function() {
-			$('.date_cell').mouseenter(function() {
-				date = $(this).attr('date');
-				$(".date_popup_wrap").fadeOut();
-				$("#date_popup_" + date).fadeIn();
+			$(document).ready(function() {
+				$('.date_cell').mouseenter(function() {
+					date = $(this).attr('date');
+					$(".date_popup_wrap").fadeOut();
+					$("#date_popup_" + date).fadeIn();
+				});
+				$('.date_cell').mouseleave(function() {
+					$(".date_popup_wrap").fadeOut();
+				});
+				$('.month_dropdown').on('change', function() {
+					getCalendar('calendar_div', $('.year_dropdown').val(), $('.month_dropdown').val());
+				});
+				$('.year_dropdown').on('change', function() {
+					getCalendar('calendar_div', $('.year_dropdown').val(), $('.month_dropdown').val());
+				});
+				$(document).click(function() {
+					$('#event_list').slideUp('slow');
+				});
 			});
-			$('.date_cell').mouseleave(function() {
-				$(".date_popup_wrap").fadeOut();
-			});
-			$('.month_dropdown').on('change', function() {
-				getCalendar('calendar_div', $('.year_dropdown').val(), $('.month_dropdown').val());
-			});
-			$('.year_dropdown').on('change', function() {
-				getCalendar('calendar_div', $('.year_dropdown').val(), $('.month_dropdown').val());
-			});
-			$(document).click(function() {
-				$('#event_list').slideUp('slow');
-			});
-		});
 	</script>
 <?php
 }
@@ -223,7 +287,6 @@ function getYearList($selected = '')
 	}
 	return $options;
 }
-
 
 
 ?>

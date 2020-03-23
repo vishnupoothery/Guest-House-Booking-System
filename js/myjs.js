@@ -205,13 +205,13 @@ function validateCheckin(prior)
     if (checkin <= today || dateDiff(today,checkin)>prior) {
         //alert("Invalid checkin date");
         if (!document.forms["book_form"]["checkin"].classList.contains('is-invalid'))
-            document.forms["book_form"]["checkin"].classList.add('is-invalid')
+            document.forms["book_form"]["checkin"].classList.add('is-invalid');
         return false;
     }
 
 
     if (document.forms["book_form"]["checkin"].classList.contains('is-invalid'))
-        document.forms["book_form"]["checkin"].classList.remove('is-invalid')
+        document.forms["book_form"]["checkin"].classList.remove('is-invalid');
    
     return true;
 }
@@ -228,14 +228,26 @@ function validateCheckout(limit)
     today = yyyy + '-' + mm + '-' + dd;
 
     var checkout = document.forms["book_form"]["checkout"].value;
+
+    if(!checkout && !checkin)
+    {
+        if (document.forms["book_form"]["checkout"].classList.contains('is-invalid'))
+        document.forms["book_form"]["checkout"].classList.remove('is-invalid');
+
+        if (document.forms["book_form"]["checkin"].classList.contains('is-invalid'))
+        document.forms["book_form"]["checkin"].classList.remove('is-invalid');
+        return;
+
+    }
+
     if (checkout <= today || checkin >= checkout || dateDiff(checkin,checkout) > limit ) {
         if (!document.forms["book_form"]["checkout"].classList.contains('is-invalid'))
-        document.forms["book_form"]["checkout"].classList.add('is-invalid')
+        document.forms["book_form"]["checkout"].classList.add('is-invalid');
         return false;
     }
     
     if (document.forms["book_form"]["checkout"].classList.contains('is-invalid'))
-        document.forms["book_form"]["checkout"].classList.remove('is-invalid')
+        document.forms["book_form"]["checkout"].classList.remove('is-invalid');
 
     return true;
 }
