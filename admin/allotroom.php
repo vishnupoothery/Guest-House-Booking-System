@@ -36,8 +36,9 @@ if ($db->query($sql) === TRUE) {
     $sql = "SELECT room_num FROM rooms where room_id=" . $_POST['allotedrooms'][$i] . "";
     $res = mysqli_query($db, $sql);
     $rr = mysqli_fetch_array($res);
-    $rooms_list = $rooms_list + " " + $rr['room_num'];
+    $rooms_list = $rooms_list." ".$rr['room_num'];
   }
+
   $message = "
   <html>
   <div style='text-align:center;position:relative;'>
