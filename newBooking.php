@@ -178,9 +178,8 @@ include 'dbConfig.php';
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-prim" onclick="document.getElementById('confirm_modal').style.display='none'" style="float:left;">Edit</button>
-        <button type="button" class="btn btn-prim" onclick="document.getElementById('guests_form').submit();
-" style="float:right"> Confirm</button>
+        <button type="button" id="editButton" class="btn btn-prim" onclick="document.getElementById('confirm_modal').style.display='none'" style="float:left;">Edit</button>
+        <button type="button" class="btn btn-prim" onclick="confirmModal(this);" style="float:right"> Confirm</button>
       </div>
 
     </div>

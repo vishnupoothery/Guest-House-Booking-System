@@ -316,6 +316,13 @@ function confirmBook(n) {
     document.getElementById('confirm_modal').style.display = 'block';
 }
 
+function confirmModal(ele)
+{
+    document.getElementById('guests_form').submit();
+    ele.disabled=true;
+    document.getElementById('editButton').disabled=true;
+}
+
 function displayTable() {
 
     searchby = document.getElementById('searchby');
