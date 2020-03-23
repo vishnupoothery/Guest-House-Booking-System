@@ -2,7 +2,7 @@
 include 'checkLogin.php';
 include 'functions.php';
 include_once 'header.php';
-include 'dbConfig.php';
+include_once 'dbConfig.php';
 ?>
 <!doctype html>
 <html lang="en">

@@ -22,10 +22,10 @@ function getCalender($year = '', $month = '')
 ?>
 	<div id="calender_section">
 		<h2>
-			<a href="javascript:void(0);" onclick="getCalendar('calendar_div','<?php echo date("Y", strtotime($date . ' - 1 Month')); ?>','<?php echo date("m", strtotime($date . ' - 1 Month')); ?>');">&#8249</a>
+			<a href="javascript:void(0);" onclick="getCalendar('calendar_div','<?php echo date('Y', strtotime($date . ' - 1 Month')); ?>','<?php echo date('m', strtotime($date . ' - 1 Month')); ?>');">&#8249</a>
 			<select name="month_dropdown" class="month_dropdown dropdown_calendar"><?php echo getAllMonths($dateMonth); ?></select>
 			<select name="year_dropdown" class="year_dropdown dropdown_calendar"><?php echo getYearList($dateYear); ?></select>
-			<a href="javascript:void(0);" onclick="getCalendar('calendar_div','<?php echo date("Y", strtotime($date . ' + 1 Month')); ?>','<?php echo date("m", strtotime($date . ' + 1 Month')); ?>');">&#8250</a>
+			<a href="javascript:void(0);" onclick="getCalendar('calendar_div','<?php echo date('Y', strtotime($date . ' + 1 Month')); ?>','<?php echo date('m', strtotime($date . ' + 1 Month')); ?>');">&#8250</a>
 		</h2>
 
 		<div id="calender_section_top">
@@ -46,9 +46,12 @@ function getCalender($year = '', $month = '')
 				for ($cb = 1; $cb <= $boxDisplay; $cb++) {
 					if (($cb >= $currentMonthFirstDay + 1 || $currentMonthFirstDay == 7) && $cb <= ($totalDaysOfMonthDisplay)) {
 						//Current date
-						$currentDate = $dateYear . '-' . $dateMonth . '-' . $dayCount;
+						if ($dayCount<10)
+							$currentDate = $dateYear . '-' . $dateMonth . '-0' . $dayCount;
+						else
+							$currentDate = $dateYear . '-' . $dateMonth . '-' . $dayCount;
 
-						//Include db configuration file
+
 						include 'dbConfig.php';
 						//Get number of events based on the current date
 						$total = $db->query("SELECT *  FROM rooms")->num_rows;
