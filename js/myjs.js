@@ -202,10 +202,13 @@ function validateCheckin(prior)
 
     today = yyyy + '-' + mm + '-' + dd;
 
-    if (checkin <= today || dateDiff(today,checkin)>prior) {
+    datediff= dateDiff(today,checkin);
+    if (checkin <= today ||datediff>prior) {
         //alert("Invalid checkin date");
         if (!document.forms["book_form"]["checkin"].classList.contains('is-invalid'))
             document.forms["book_form"]["checkin"].classList.add('is-invalid');
+        if (datediff>prior)
+            document.getElementById("checkinInvalid").innerHTML="Bookings can be made only "+prior+" days prior";
         return false;
     }
 
@@ -239,10 +242,15 @@ function validateCheckout(limit)
         return;
 
     }
-
-    if (checkout <= today || checkin >= checkout || dateDiff(checkin,checkout) > limit ) {
+    datediff=dateDiff(checkin,checkout);
+    if (checkout <= today || checkin >= checkout || datediff > limit ) {
         if (!document.forms["book_form"]["checkout"].classList.contains('is-invalid'))
         document.forms["book_form"]["checkout"].classList.add('is-invalid');
+
+        if(datediff>limit)
+        document.getElementById("checkoutInvalid").innerHTML="Bookings can be made only for "+limit+" days";
+
+
         return false;
     }
     

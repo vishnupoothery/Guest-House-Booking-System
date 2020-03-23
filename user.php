@@ -62,12 +62,12 @@ include_once 'dbConfig.php';
                             <div class="form-group position-relative">
                                 <label for="checkin">CHECK-IN</label>
                                 <input type="date" class="form-control" id="checkin" name="checkin" required oninput="validateCheckin(<?php echo $NUM_OF_DAYS_PRIOR; ?>);">
-                                <div class="invalid-tooltip">Please enter valid check-in date</div>
+                                <div id="checkinInvalid" class="invalid-tooltip">Please enter valid check-in date</div>
                             </div>
                             <div class="form-group position-relative">
                                 <label for="checkout">CHECK-OUT</label>
                                 <input type="date" class="form-control" id="checkout" name="checkout" required oninput="validateCheckout(<?php echo $NUM_OF_DAYS_PER_BOOKING; ?>);">
-                                <div class="invalid-tooltip">Please enter valid check-out date</div>
+                                <div id="checkoutInvalid" class="invalid-tooltip">Please enter valid check-out date</div>
                             </div>
                             <div class="form-group">
                                 <label for="guestsno">Number of Guests</label>
