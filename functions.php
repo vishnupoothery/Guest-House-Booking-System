@@ -19,16 +19,17 @@ function getCalender($year = '', $month = '')
 	$totalDaysOfMonth = cal_days_in_month(CAL_GREGORIAN, $dateMonth, $dateYear);
 	$totalDaysOfMonthDisplay = ($currentMonthFirstDay == 7) ? ($totalDaysOfMonth) : ($totalDaysOfMonth + $currentMonthFirstDay);
 	$boxDisplay = ($totalDaysOfMonthDisplay <= 35) ? 35 : 42;
+
 ?>
 	<div id="calender_section">
-		<h2>
-			<a href="javascript:void(0);" onclick="getCalendar('calendar_div','<?php echo date('Y', strtotime($date . ' - 1 Month')); ?>','<?php echo date('m', strtotime($date . ' - 1 Month')); ?>');">&#8249</a>
-			<select name="month_dropdown" class="month_dropdown dropdown_calendar"><?php echo getAllMonths($dateMonth); ?></select>
-			<select name="year_dropdown" class="year_dropdown dropdown_calendar"><?php echo getYearList($dateYear); ?></select>
-			<a href="javascript:void(0);" onclick="getCalendar('calendar_div','<?php echo date('Y', strtotime($date . ' + 1 Month')); ?>','<?php echo date('m', strtotime($date . ' + 1 Month')); ?>');">&#8250</a>
-		</h2>
-
 		<div id="calender_section_top">
+			<h2>
+				<a href="javascript:void(0);" style="float:left;" onclick="getCalendar('calendar_div','<?php echo date('Y', strtotime($date . ' - 1 Month')); ?>','<?php echo date('m', strtotime($date . ' - 1 Month')); ?>');">&#8249</a>
+				<?php echo date("F", mktime(0, 0, 0, $dateMonth + 1, 0, 0));
+				echo " ".$dateYear; ?>
+				<a href="javascript:void(0);"  style="float:right;" onclick="getCalendar('calendar_div','<?php echo date('Y', strtotime($date . ' + 1 Month')); ?>','<?php echo date('m', strtotime($date . ' + 1 Month')); ?>');">&#8250</a>
+			</h2>
+
 			<ul>
 				<li>Sun</li>
 				<li>Mon</li>
@@ -46,7 +47,7 @@ function getCalender($year = '', $month = '')
 				for ($cb = 1; $cb <= $boxDisplay; $cb++) {
 					if (($cb >= $currentMonthFirstDay + 1 || $currentMonthFirstDay == 7) && $cb <= ($totalDaysOfMonthDisplay)) {
 						//Current date
-						if ($dayCount<10)
+						if ($dayCount < 10)
 							$currentDate = $dateYear . '-' . $dateMonth . '-0' . $dayCount;
 						else
 							$currentDate = $dateYear . '-' . $dateMonth . '-' . $dayCount;
@@ -204,46 +205,13 @@ function getCalender($year = '', $month = '')
 			$('.date_cell').mouseleave(function() {
 				$(".date_popup_wrap").fadeOut();
 			});
-			$('.month_dropdown').on('change', function() {
-				getCalendar('calendar_div', $('.year_dropdown').val(), $('.month_dropdown').val());
-			});
-			$('.year_dropdown').on('change', function() {
-				getCalendar('calendar_div', $('.year_dropdown').val(), $('.month_dropdown').val());
-			});
-			$(document).click(function() {
-				$('#event_list').slideUp('slow');
-			});
+
+
 		});
 	</script>
 <?php
 }
 
-/*
- * Get months options list.
- */
-function getAllMonths($selected = '')
-{
-	$options = '';
-	for ($i = 1; $i <= 12; $i++) {
-		$value = ($i < 10) ? '0' . $i : $i;
-		$selectedOpt = ($value == $selected) ? 'selected' : '';
-		$options .= '<option value="' . $value . '" ' . $selectedOpt . ' >' . date("F", mktime(0, 0, 0, $i + 1, 0, 0)) . '</option>';
-	}
-	return $options;
-}
-
-/*
- * Get years options list.
- */
-function getYearList($selected = '')
-{
-	$options = '';
-	for ($i = date('Y'); $i <= date('Y') + 10; $i++) {
-		$selectedOpt = ($i == $selected) ? 'selected' : '';
-		$options .= '<option value="' . $i . '" ' . $selectedOpt . ' >' . $i . '</option>';
-	}
-	return $options;
-}
 
 
 ?>

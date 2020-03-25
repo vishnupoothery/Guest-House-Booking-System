@@ -20,7 +20,7 @@ function display_header()
     <div class="container-fluid">
       <div class="row align-items-end">
         <div class="col">
-          <img src="images/logo.jpg">
+          <img  class="responsive" src="images/logo.jpg">
         </div>
         <div class="col">
           <span class="heading">GUEST HOUSE BOOKING PORTAL</span>

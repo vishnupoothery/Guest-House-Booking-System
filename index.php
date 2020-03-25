@@ -33,14 +33,15 @@ function getCalender($year = '', $month = '')
 	$boxDisplay = ($totalDaysOfMonthDisplay <= 35) ? 35 : 42;
 ?>
 	<div id="calender_section">
+	<div id="calender_section_top">
 		<h2>
 			<a href="javascript:void(0);" onclick="getCalendar('calendar_div','<?php echo date('Y', strtotime($date . ' - 1 Month')); ?>','<?php echo date('m', strtotime($date . ' - 1 Month')); ?>');">&#8249</a>
-			<select name="month_dropdown" class="month_dropdown dropdown_calendar"><?php echo getAllMonths($dateMonth); ?></select>
-			<select name="year_dropdown" class="year_dropdown dropdown_calendar"><?php echo getYearList($dateYear); ?></select>
+			<?php echo date("F", mktime(0, 0, 0, $dateMonth + 1, 0, 0));
+			echo " " . $dateYear; ?>
 			<a href="javascript:void(0);" onclick="getCalendar('calendar_div','<?php echo date('Y', strtotime($date . ' + 1 Month')); ?>','<?php echo date('m', strtotime($date . ' + 1 Month')); ?>');">&#8250</a>
 		</h2>
 
-		<div id="calender_section_top">
+
 			<ul>
 				<li>Sun</li>
 				<li>Mon</li>
@@ -120,11 +121,7 @@ function getCalender($year = '', $month = '')
 
 
 	<script type="text/javascript">
-		function getNextday(date) {
-			var tomorrow = new Date(date);
-			tomorrow.setDate(tomorrow.getDate() + 1);
-			return tomorrow.toJSON().slice(0, 10);
-		}
+		
 
 		function getCalendar(target_div, year, month) {
 			$.ajax({
@@ -151,41 +148,11 @@ function getCalender($year = '', $month = '')
 			$('.year_dropdown').on('change', function() {
 				getCalendar('calendar_div', $('.year_dropdown').val(), $('.month_dropdown').val());
 			});
-			$(document).click(function() {
-				$('#event_list').slideUp('slow');
-			});
+
 		});
 	</script>
 <?php
 }
-
-/*
- * Get months options list.
- */
-function getAllMonths($selected = '')
-{
-	$options = '';
-	for ($i = 1; $i <= 12; $i++) {
-		$value = ($i < 10) ? '0' . $i : $i;
-		$selectedOpt = ($value == $selected) ? 'selected' : '';
-		$options .= '<option value="' . $value . '" ' . $selectedOpt . ' >' . date("F", mktime(0, 0, 0, $i + 1, 0, 0)) . '</option>';
-	}
-	return $options;
-}
-
-/*
- * Get years options list.
- */
-function getYearList($selected = '')
-{
-	$options = '';
-	for ($i = date('Y'); $i <= date('Y') + 10; $i++) {
-		$selectedOpt = ($i == $selected) ? 'selected' : '';
-		$options .= '<option value="' . $i . '" ' . $selectedOpt . ' >' . $i . '</option>';
-	}
-	return $options;
-}
-
 
 
 ?>
@@ -213,16 +180,7 @@ function getYearList($selected = '')
 	<?php echo display_header(); ?>
 	<div id="main">
 		<div class="container-fluid">
-			<div class="row justify-content-center">
-				<div class="col">
-					<div id="caraousel" class="carousel slide" data-ride="carousel">
 
-						<!-- Indicators -->
-						<ul class="carousel-indicators">
-							<li data-target="#caraousel" data-slide-to="0" class="active"></li>
-							<li data-target="#caraousel" data-slide-to="1"></li>
-							<li data-target="#caraousel" data-slide-to="2"></li>
-						</ul>
 
 						<!-- The slideshow -->
 						<div class="carousel-inner">
@@ -268,7 +226,7 @@ function getYearList($selected = '')
 				?>
 
 				<div class="row justify-content-center">
-					<div id="calendar_div" class="col">
+					<div id="calendar_div" class="col-6">
 						<?php echo getCalender(); ?>
 					</div>
 				</div>

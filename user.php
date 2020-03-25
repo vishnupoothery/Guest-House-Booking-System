@@ -50,13 +50,11 @@ include_once 'dbConfig.php';
         <div class="tab-content">
             <div id="home">
                 <div class="row justify-content-center">
-                    <div class="col-7">
-                        <div id="calendar_div">
-                            <?php echo getCalender(); ?>
-                        </div>
+                    <div id="calendar_div" class="column">
+                        <?php echo getCalender(); ?>
                     </div>
-                    <div class="col-4">
-                        <form action="newBooking.php" style="padding:120px 0;" onsubmit="return validateDates();" id="book_form" method="post">
+                    <div class="column" >
+                        <form action="newBooking.php" style="padding:5vw 0;" onsubmit="return validateDates();" id="book_form" method="post">
 
                             <div class="form-group position-relative">
                                 <label for="checkin">CHECK-IN</label><br>
