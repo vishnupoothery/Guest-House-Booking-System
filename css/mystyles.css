@@ -173,7 +173,6 @@
         
         .container {
             width: inherit;
-            padding: 16px;
         }
         
         span.psw {
@@ -182,7 +181,7 @@
         }
         /* Full-width input fields */
         
-        input[type=text], input[type=date],[type=time],
+        input[type=text], input[type=date],[type=number],[type=time],
         input[type=password],
         input[type=email] {
             width: 100%;

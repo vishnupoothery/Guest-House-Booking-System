@@ -12,16 +12,16 @@ include 'dbConfig.php';
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
+
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/mystyles.css">
-
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="js/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
-  <script src="js/jquery.min.js"></script>
   <script src="js/myjs.js"></script>
+
   <title>NITC GH</title>
-
-
 
 </head>
 
@@ -31,43 +31,35 @@ include 'dbConfig.php';
   <script>
     activateTab('home');
   </script>
-<?php
+  <?php
   $user = $_SESSION['email'];
   $sql = "SELECT * FROM booked WHERE booked_by='" . $user . "' and  DATE_FORMAT(booking_date,'%M %Y') = DATE_FORMAT(now(),'%M %Y')";
   $res = mysqli_query($db, $sql);
-  if ($res)
-  {
-      $num = $res->num_rows;
-      if ($num == $NUM_BOOKINGS_PER_MONTH)
-      {
-        $_SESSION['exceeded']=true;
-        header('location:user.php');
-      }
-      
-  }
-  else
-  {
-      echo $db->error;
+  if ($res) {
+    $num = $res->num_rows;
+    if ($num == $NUM_BOOKINGS_PER_MONTH) {
+      $_SESSION['exceeded'] = true;
+      header('location:user.php');
+    }
+  } else {
+    echo $db->error;
   }
 
-  $checkin=$_POST['checkin'];
-  $checkout=$_POST['checkout'];
+  $checkin = $_POST['checkin'];
+  $checkout = $_POST['checkout'];
 
-  $sql="SELECT room_id FROM rooms WHERE room_id NOT IN 
+  $sql = "SELECT room_id FROM rooms WHERE room_id NOT IN 
   (SELECT room_id FROM guests WHERE room_id!=0 
   AND ((actual_checkout != NULL AND actual_checkin< '" . $checkout . "' AND actual_checkout >'" . $checkin . "' ) OR
       (expected_checkin < '" . $checkout . "' AND expected_checkout >'" . $checkin . "' )))";
-  $res=mysqli_query($db,$sql);
-  if($res)
-  {
-    $free=$res->num_rows;
-  }
-  else
-  {
+  $res = mysqli_query($db, $sql);
+  if ($res) {
+    $free = $res->num_rows;
+  } else {
     $db->error;
   }
 
-?>
+  ?>
 
 
 
@@ -77,8 +69,7 @@ include 'dbConfig.php';
       <div class="tab form-tab">
         <div class="form-group position-relative">
           <label for="roomsno">Number of Rooms Required</label>
-          <input type="number" class="form-control position-relative" min="1" max=<?php echo min($NUM_OF_ROOMS_PER_BOOKING,$free) ;?> name="roomsno" required 
-          onchange="validateRooms(<?php echo $NUM_OF_GUESTS_PER_ROOM ?>, <?php echo $NUM_OF_ROOMS_PER_BOOKING ?>, <?php echo $free ?>);">
+          <input type="number" class="form-control position-relative" min="1" max=<?php echo min($NUM_OF_ROOMS_PER_BOOKING, $free); ?> name="roomsno" required onchange="validateRooms(<?php echo $NUM_OF_GUESTS_PER_ROOM ?>, <?php echo $NUM_OF_ROOMS_PER_BOOKING ?>, <?php echo $free ?>);">
           <div id='roomnumwarning' class="invalid-tooltip"> </div>
         </div>
         <div class="form-group">

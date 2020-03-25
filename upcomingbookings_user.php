@@ -12,15 +12,18 @@ include 'dbConfig.php';
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+  <!-- Bootstrap CSS -->
+
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/mystyles.css">
-
-  <script src="js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script src="js/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
   <script src="js/myjs.js"></script>
 
-
   <title>NITC GH</title>
+
 </head>
 
 <body class="w3-light-grey">
@@ -57,9 +60,9 @@ include 'dbConfig.php';
       echo $booking_data['booking_status'];
       echo "</div>";
       echo "<div class='col-3 booking-details'>";
-      echo"<b>Booking ID: </b> ";
+      echo "<b>Booking ID: </b> ";
       echo $rr['booking_id'];
-      echo"<br><br><b>Checkin: </b> ";
+      echo "<br><br><b>Checkin: </b> ";
       echo date('F jS Y', strtotime($checkin));
       echo "<br><br><b>Checkout: </b>";
       echo date('F jS Y', strtotime($checkout));

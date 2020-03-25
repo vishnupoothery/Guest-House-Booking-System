@@ -16,8 +16,8 @@ include_once 'dbConfig.php';
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/mystyles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="js/jquery.min.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/myjs.js"></script>
@@ -36,17 +36,16 @@ include_once 'dbConfig.php';
         activateTab('home');
     </script>
     <?php
-     if(isset($_SESSION['exceeded']))
-     {
-         echo "<div class='alert alert-warning'>
+    if (isset($_SESSION['exceeded'])) {
+        echo "<div class='alert alert-warning'>
          You have exceeded the permitted number of bookings of current month.
             </div>";
         unset($_SESSION['exceeded']);
-     }
-     
+    }
+
 
     ?>
-   
+
     <div>
         <div class="tab-content">
             <div id="home">
@@ -60,25 +59,24 @@ include_once 'dbConfig.php';
                         <form action="newBooking.php" style="padding:120px 0;" onsubmit="return validateDates();" id="book_form" method="post">
 
                             <div class="form-group position-relative">
-                                <label for="checkin">CHECK-IN</label>
+                                <label for="checkin">CHECK-IN</label><br>
                                 <input type="date" class="form-control" id="checkin" name="checkin" required oninput="validateCheckin(<?php echo $NUM_OF_DAYS_PRIOR; ?>);">
                                 <div id="checkinInvalid" class="invalid-tooltip">Please enter valid check-in date</div>
                             </div>
                             <div class="form-group position-relative">
-                                <label for="checkout">CHECK-OUT</label>
+                                <label for="checkout">CHECK-OUT</label><br>
                                 <input type="date" class="form-control" id="checkout" name="checkout" required oninput="validateCheckout(<?php echo $NUM_OF_DAYS_PER_BOOKING; ?>);">
                                 <div id="checkoutInvalid" class="invalid-tooltip">Please enter valid check-out date</div>
                             </div>
                             <div class="form-group">
-                                <label for="guestsno">Number of Guests</label>
+                                <label for="guestsno">Number of Guests</label><br>
                                 <input type="number" min="1" max=<?php echo $NUM_OF_GUESTS_PER_BOOKING; ?> class="form-control" name="guestsno" required>
-                                <span style="font-size:80%;opacity:0.7;">Children above 12 years should be included </span>
+                                <br><span style="font-size:80%;opacity:0.7;">Children above 12 years should be included </span>
                             </div>
                             <button type="submit" id="book_now" name="book_now" class="btn btn-prim">Book Now </button>
                         </form>
 
                     </div>
-
                 </div>
             </div>
         </div>

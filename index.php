@@ -13,17 +13,10 @@ $authUrl = $googleClient->createAuthUrl();
 $loginURL = filter_var($authUrl, FILTER_SANITIZE_URL);
 
 if (isset($_POST['func']) && !empty($_POST['func'])) {
-	switch ($_POST['func']) {
-		case 'getCalender':
-			getCalender($_POST['year'], $_POST['month']);
-			break;
-		case 'getEvents':
-			getEvents($_POST['date']);
-			break;
-		default:
-			break;
-	}
+
+	getCalender($_POST['year'], $_POST['month']);
 }
+
 
 
 /*
@@ -41,10 +34,10 @@ function getCalender($year = '', $month = '')
 ?>
 	<div id="calender_section">
 		<h2>
-			<a href="javascript:void(0);" onclick="getCalendar('calendar_div','<?php echo date("Y", strtotime($date . ' - 1 Month')); ?>','<?php echo date("m", strtotime($date . ' - 1 Month')); ?>');">&#8249</a>
+			<a href="javascript:void(0);" onclick="getCalendar('calendar_div','<?php echo date('Y', strtotime($date . ' - 1 Month')); ?>','<?php echo date('m', strtotime($date . ' - 1 Month')); ?>');">&#8249</a>
 			<select name="month_dropdown" class="month_dropdown dropdown_calendar"><?php echo getAllMonths($dateMonth); ?></select>
 			<select name="year_dropdown" class="year_dropdown dropdown_calendar"><?php echo getYearList($dateYear); ?></select>
-			<a href="javascript:void(0);" onclick="getCalendar('calendar_div','<?php echo date("Y", strtotime($date . ' + 1 Month')); ?>','<?php echo date("m", strtotime($date . ' + 1 Month')); ?>');">&#8250</a>
+			<a href="javascript:void(0);" onclick="getCalendar('calendar_div','<?php echo date('Y', strtotime($date . ' + 1 Month')); ?>','<?php echo date('m', strtotime($date . ' + 1 Month')); ?>');">&#8250</a>
 		</h2>
 
 		<div id="calender_section_top">
@@ -143,10 +136,6 @@ function getCalender($year = '', $month = '')
 				}
 			});
 		}
-
-
-
-
 		$(document).ready(function() {
 			$('.date_cell').mouseenter(function() {
 				date = $(this).attr('date');
@@ -224,7 +213,6 @@ function getYearList($selected = '')
 	<?php echo display_header(); ?>
 	<div id="main">
 		<div class="container-fluid">
-
 			<div class="row justify-content-center">
 				<div class="col">
 					<div id="caraousel" class="carousel slide" data-ride="carousel">
