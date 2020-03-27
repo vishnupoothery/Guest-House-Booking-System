@@ -101,6 +101,7 @@
         
         .form-tab {
             display: none;
+            
         }
         
         input.invalid {
@@ -192,7 +193,6 @@
         input[type=email] {
             width: 100%;
             padding: 12px 20px;
-            margin: 8px 0;
             display: inline-block;
             border: 1px solid #ccc;
             box-sizing: border-box;
@@ -222,16 +222,39 @@
         }
         /* Modal Content/Box */
         
+        .modal-header
+        {
+           background-color: #23acc2;
+            color: white;
+            font-size: 120%;
+            text-transform: uppercase;
+        }
+
         .modal-content {
+            
             background-color: #fefefe;
-            margin: 5% auto 15% auto;
+            margin: 15% auto 15% auto;
             /* 5% from the top, 15% from the bottom and centered */
             border: 1px solid #888;
-            width: 50%;
-            /* Could be more or less, depending on screen size */
+            width: 80%;
+            font-size: 80%;
+            border-bottom-left-radius: 5%;
+            border-bottom-right-radius: 5%;
         }
-        /* The Close Button (x) */
+
+        @media screen and (min-width: 768px) {
+            .modal-content {
+              width: 50%;
+
+            }
+          }
+
+
         
+        .modal-lg
+        {
+            max-width: 100%;
+        }
         .close {
             position: absolute;
             right: 25px;
@@ -286,6 +309,8 @@
         .none {
             display: none;
         }
+
+     
 
 
         #calender_section h2 {

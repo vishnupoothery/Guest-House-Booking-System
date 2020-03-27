@@ -180,6 +180,16 @@ function getCalender($year = '', $month = '')
 	<?php echo display_header(); ?>
 	<div id="main">
 		<div class="container-fluid">
+		<div class="row justify-content-center">
+				<div class="col">
+					<div id="caraousel" class="carousel slide" data-ride="carousel">
+
+						<!-- Indicators -->
+						<ul class="carousel-indicators">
+							<li data-target="#caraousel" data-slide-to="0" class="active"></li>
+							<li data-target="#caraousel" data-slide-to="1"></li>
+							<li data-target="#caraousel" data-slide-to="2"></li>
+						</ul>
 
 
 						<!-- The slideshow -->
@@ -226,7 +236,7 @@ function getCalender($year = '', $month = '')
 				?>
 
 				<div class="row justify-content-center">
-					<div id="calendar_div" class="col-6">
+					<div id="calendar_div" class="column">
 						<?php echo getCalender(); ?>
 					</div>
 				</div>

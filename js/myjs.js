@@ -307,12 +307,29 @@ function fixStepIndicator(n) {
 }
 
 function confirmBook(n) {
-    var details = "<table class='table '><tr class='borderless'><td><b>Number of rooms required: </b>" + document.getElementsByName('roomsno')[0].value + " </td><td><b>  Purpose: </b>" + document.getElementsByName('purpose')[0].value + " </td><td><b>   Payment Method: </b>" + document.getElementsByName('payment')[0].value + "</td></tr><tr><td  colspan=3 align='center'><b>GUESTS</b></td></tr>";
+    var details = `<div class='row justify-content-center'>
+                     <div class='col'>
+                        <b>Number of rooms required: </b>
+                        ${document.getElementsByName('roomsno')[0].value}
+                     </div>
+                     <div class='col'>
+                        <b>  Purpose: </b>
+                        ${document.getElementsByName('purpose')[0].value} 
+                    </div>
+                    <div class='col'>
+                    <b>   Payment Method: </b>
+                    ${document.getElementsByName('payment')[0].value}
+                    </div>
+                </div>
+                <div class='row justify-content-center'>
+                        <b>GUESTS</b> 
+                </div>`;
 
     var i;
 
-    for (i = 0; i < n; ++i) { details = details + "<tr class='borderless'> " + "<td> " + document.getElementsByName("name[]")[i].value + "</td> " + "<td> " + document.getElementsByName("rel[]")[i].value + "</td> " + "<td> " + document.getElementsByName("contact[]")[i].value + "</td> " + "</tr> "; }
-    document.getElementById("guests_info").innerHTML = details + "</table>";
+    for (i = 0; i < n; ++i) 
+    { details = details + "<div  class='row justify-content-center'> " + "<div class='col'> " + document.getElementsByName("name[]")[i].value + "</div> " + "<div class='col'> " + document.getElementsByName("rel[]")[i].value + "</div> " + "<div class='col'> " + document.getElementsByName("contact[]")[i].value + "</div> " + "</div> "; }
+    document.getElementById("guests_info").innerHTML = details ;
     document.getElementById('confirm_modal').style.display = 'block';
 }
 

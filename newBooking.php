@@ -65,12 +65,13 @@ include 'dbConfig.php';
 
   <br>
   <div class="row justify-content-center">
-    <form action="book.php?guestsno=<?php echo $_POST['guestsno']; ?>&checkin=<?php echo $_POST['checkin']; ?>&checkout=<?php echo $_POST['checkout']; ?>" id="guests_form" method="post">
+    <div class="column">
+         <form action="book.php?guestsno=<?php echo $_POST['guestsno']; ?>&checkin=<?php echo $_POST['checkin']; ?>&checkout=<?php echo $_POST['checkout']; ?>" id="guests_form" method="post">
       <div class="tab form-tab">
         <div class="form-group position-relative">
           <label for="roomsno">Number of Rooms Required</label>
           <input type="number" class="form-control position-relative" min="1" max=<?php echo min($NUM_OF_ROOMS_PER_BOOKING, $free); ?> name="roomsno" required onchange="validateRooms(<?php echo $NUM_OF_GUESTS_PER_ROOM ?>, <?php echo $NUM_OF_ROOMS_PER_BOOKING ?>, <?php echo $free ?>);">
-          <div id='roomnumwarning' class="invalid-tooltip"> </div>
+          <div id='roomnumwarning' class="invalid-tooltip"> PLease enter valid number of rooms </div>
         </div>
         <div class="form-group">
           <label for="purpose">Purpose</label>
@@ -80,7 +81,7 @@ include 'dbConfig.php';
           </select>
         </div>
         <div class='form-group' id='official-purpose'>
-          <input type="text" name="purpose-desc" id="purpose-desc" placeholder="If Official, specify ">
+          <input type="text" class="form-control" name="purpose-desc" id="purpose-desc" placeholder="If Official, specify ">
         </div>
         <div class="form-group">
           <label for="payment">Payment Method</label>
@@ -92,7 +93,7 @@ include 'dbConfig.php';
         </div>
       </div>
       <?php for ($i = 0; $i < $_POST['guestsno']; $i++) { ?>
-        <div class="tab form-tab guests">
+        <div class="tab form-tab">
           <h3> Guest <?php echo $i + 1 ?></h3>
           <div class="form-group">
             <label for="name">Name</label>
@@ -151,30 +152,24 @@ include 'dbConfig.php';
       </script>
     </form>
 
+    </div>
+ 
+
   </div>
 
-  <div class="modal" id="confirm_modal">
-
-
-    <!-- Modal content-->
+  <div class="modal modal-lg" id="confirm_modal">
     <div class="modal-content">
-      <div class="modal-header">
-        <span onclick="document.getElementById('confirm_modal').style.display='none'" class="close" title="Close Modal">&times;</span>
-        <h4 class="modal-title">Booking for <?php echo date('F jS Y', strtotime($_POST['checkin'])); ?> to <?php echo date('F jS Y', strtotime($_POST['checkout'])); ?></h4>
+      <div class="modal-header  justify-content-center">
+       <b> Booking for <?php echo date('F jS Y', strtotime($_POST['checkin'])); ?> to <?php echo date('F jS Y', strtotime($_POST['checkout'])); ?></b>
       </div>
-
       <div class="modal-body">
-
         <div id="guests_info"> </div>
       </div>
-
       <div class="modal-footer">
         <button type="button" id="editButton" class="btn btn-prim" onclick="document.getElementById('confirm_modal').style.display='none'" style="float:left;">Edit</button>
         <button type="button" class="btn btn-prim" onclick="confirmModal(this);" style="float:right"> Confirm</button>
       </div>
-
     </div>
-
   </div>
 
 
