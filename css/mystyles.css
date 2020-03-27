@@ -30,6 +30,12 @@
         .guest-details {
             width: 75%;
         }
+
+        .booking{
+            width:75%;
+            font-size: 80%;
+
+        }
         
         .table {
             border-collapse: collapse;
@@ -50,8 +56,9 @@
             font-weight: bold;
             text-align: center;
             border-style: dashed;
-            padding-top: 5%;
-            padding-bottom: 5%;
+            padding-top:8vh;
+            padding-bottom: 8vh;
+            width: 50%;
 
         }
         

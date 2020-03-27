@@ -31,6 +31,7 @@ include('dbConfig.php');
   <script>
     activateTab('past');
   </script>
+  <br>
  <div class='container'>
     <div class='row'>
       <div class='col'>
@@ -50,7 +51,7 @@ include('dbConfig.php');
   $sql = "SELECT DISTINCT `booking_id` FROM guests WHERE actual_checkout<now() OR expected_checkout<now() OR room_id=-1 ORDER BY booking_id DESC";
 
   $result = mysqli_query($db, $sql);
-  echo "<table id='myTable' class='table table-hover'>";
+  echo "<div class='row justify-content-center'><div class='booking'><table id='myTable' class='table table-hover'>";
   if ($result) {
     while ($rr = mysqli_fetch_array($result)) {
       $get_booking_data = "SELECT booked_by,purpose,payment_status as payment,no_rooms as roomsno,booking_date,booking_status FROM booked WHERE booking_id=" . $rr['booking_id'] . "";
@@ -74,20 +75,20 @@ include('dbConfig.php');
       echo $rr['booking_id'];
       echo ")'>";
       if ($booking_data['booking_status'] == 'WAITING APPROVAL')
-        echo "<div class='col-2 status awaiting'>";
+        echo "<div class='col status awaiting'>";
       else if ($booking_data['booking_status'] == 'OFFICIALLY APPROVED')
-      echo "<div class='col-2 status officially'>";
+      echo "<div class='col status officially'>";
       else if ($booking_data['booking_status'] == 'CANCELLED' || $booking_data['booking_status'] == 'REJECTED')
-      echo "<div class='col-2 status cancelled'>";
+      echo "<div class='col status cancelled'>";
       else
-        echo "<div class='col-2 status approved'>";
+        echo "<div class='col status approved'>";
       echo "<span class='booking_id'>";
       echo $rr['booking_id'];
       echo "</span><br><span class='booking_status'>";
       echo $booking_data['booking_status'];
       echo "</span>";
       echo "</div>";
-      echo "<div class='col-5 booking-details'><b>Booked By: </b><span class='booked_by'>";
+      echo "<div class='col booking-details'><b>Booked By: </b><span class='booked_by'>";
       echo $booking_data['booked_by'];
       echo "</span><br><br><b>Checkin: </b> ";
       echo date('F jS Y', strtotime($checkin));
@@ -140,7 +141,7 @@ include('dbConfig.php');
      echo "</div><br></td></tr>";
     }
   }
-  echo "</table>";
+  echo "</table></div></div>";
 
   /* SELECT room_id, room_num FROM rooms WHERE room_id NOT IN (SELECT room_id ,  DATE_FORMAT(checkin,'%d-%m-%y') as checkin,   DATE_FORMAT(checkout,'%d-%m-%y') as checkout FROM guests WHERE room_id!=0 AND DATE_FORMAT(checkin,'%d-%m-%y')<11-10-19 AND DATE_FORMAT(checkout,'%d-%m-%y') > 07-10-19) */
   ?>

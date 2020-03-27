@@ -1,5 +1,6 @@
 <?php
-include 'checkLogin.php';
+//include 'checkLogin.php';
+$user_id="jyothsna_b160901cs@nitc.ac.in";
 include 'header.php';
 include 'dbConfig.php';
 
@@ -34,10 +35,10 @@ include 'dbConfig.php';
   </script>
   <?php
 
-  $user_id = $_SESSION['email'];
+  //$user_id = $_SESSION['email'];
   $sql = "SELECT DISTINCT A.booking_id FROM guests A, booked B WHERE A.expected_checkin>now() AND B.booking_status!='CHECKED OUT' AND B.booked_by = '$user_id' AND (A.room_id!=-1 OR A.room_id is NULL) AND A.booking_id=B.booking_id"; // and booked_by=user_id;
   $result = mysqli_query($db, $sql);
-  echo "<table class='table table-hover'>";
+  echo "<div class='row justify-content-center'><div class='booking'><table class='table table-hover'>";
   if ($result) {
     while ($rr = mysqli_fetch_array($result)) {
       $get_booking_data = "SELECT purpose,payment_status as payment,no_rooms as roomsno,booking_date,booking_status FROM booked WHERE booking_id=" . $rr['booking_id'] . "";
@@ -48,18 +49,18 @@ include 'dbConfig.php';
       $guest_data = mysqli_fetch_assoc($guest_data_res);
       $checkin = $guest_data['checkin'];
       $checkout = $guest_data['checkout'];
-      echo "<tr><td class='status-container'><div class='row justify-content-center collapserow' onclick='toggle_collapse(";
+      echo "<tr><td><div class='row justify-content-center collapserow' onclick='toggle_collapse(";
       echo $rr['booking_id'];
       echo ")'>";
       if ($booking_data['booking_status'] == 'WAITING APPROVAL')
-        echo "<div class='col-2 status awaiting'>";
+        echo "<div class='col status awaiting'>";
       else if ($booking_data['booking_status'] == 'OFFICIALLY APPROVED')
-        echo "<div class='col-2 status officially'>";
+        echo "<div class='col status officially'>";
       else
-        echo "<div class='col-2 status approved'>";
+        echo "<div class='col status approved'>";
       echo $booking_data['booking_status'];
       echo "</div>";
-      echo "<div class='col-3 booking-details'>";
+      echo "<div class='col booking-details'>";
       echo "<b>Booking ID: </b> ";
       echo $rr['booking_id'];
       echo "<br><br><b>Checkin: </b> ";
@@ -104,7 +105,7 @@ include 'dbConfig.php';
       echo "</div></td></tr>";
     }
   }
-  echo "</table>";
+  echo "</table></div></div>";
 
 
   ?>

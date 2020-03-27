@@ -33,7 +33,7 @@ include('dbConfig.php');
     activateTab('upcoming');
   </script>
 
-
+<br>
   <div class='container'>
     <div class='row'>
       <div class='col'>
@@ -53,7 +53,7 @@ include('dbConfig.php');
   $sql = "SELECT DISTINCT `booking_id` FROM guests WHERE expected_checkin >now() AND (room_id!=-1 OR room_id is NULL) AND actual_checkout is NULL ORDER BY booking_id DESC";
 
   $result = mysqli_query($db, $sql);
-  echo "<table id='myTable' class='table table-hover'>";
+  echo "<div class='row justify-content-center'><div class='booking'><table id='myTable' class='table table-hover'>";
   if ($result) {
     while ($rr = mysqli_fetch_array($result)) {
       $get_booking_data = "SELECT booked_by,purpose,payment_status as payment,no_rooms as roomsno,booking_date,booking_status FROM booked WHERE booking_id=" . $rr['booking_id'] . "";
@@ -64,22 +64,22 @@ include('dbConfig.php');
       $guest_data = mysqli_fetch_assoc($guest_data_res);
       $checkin = $guest_data['checkin'];
       $checkout = $guest_data['checkout'];
-      echo "<tr><td class='status-container'><div class='row justify-content-center collapserow' onclick='toggle_collapse(";
+      echo "<tr><td><div class='row justify-content-center collapserow' onclick='toggle_collapse(";
       echo $rr['booking_id'];
       echo ")'>";
       if ($booking_data['booking_status'] == 'WAITING APPROVAL')
-        echo "<div class='col-2 status awaiting'>";
+        echo "<div class='col status awaiting'>";
       else if ($booking_data['booking_status'] == 'OFFICIALLY APPROVED')
-        echo "<div class='col-2 status officially'>";
+        echo "<div class='col status officially'>";
       else
-        echo "<div class='col-2 status approved'>";
+        echo "<div class='col status approved'>";
       echo "<span class='booking_id'>";
       echo $rr['booking_id'];
       echo "</span><br><span class='booking_status'>";
       echo $booking_data['booking_status'];
       echo "</span>";
       echo "</div>";
-      echo "<div class='col-5 booking-details'><b>Booked By: </b><span class='booked_by'>";
+      echo "<div class='col booking-details'><b>Booked By: </b><span class='booked_by'>";
       echo $booking_data['booked_by'];
       echo "</span><br><br><b>Checkin: </b> ";
       echo date('F jS Y', strtotime($guest_data['checkin']));
@@ -87,7 +87,7 @@ include('dbConfig.php');
       echo date('F jS Y', strtotime($guest_data['checkout']));
       echo "<br><br><span style='opacity:0.5;'>Booking Date: ";
       echo date('F jS Y', strtotime($booking_data['booking_date']));
-      echo "</span><br></div><br><div class='col-1'>
+      echo "</span><br></div><div class='col' >
       <a  href='#' data-toggle='dropdown' >
        <i class='material-icons'>more_vert</i>
       </a>
@@ -170,7 +170,7 @@ include('dbConfig.php');
         }
 
 
-        echo "</select></div><div class='col-sm-1'><button class='btn btn-prim' type='submit'>Allot</button></div></form></div>";
+        echo "</select></div><div class='col'><button class='btn btn-prim' type='submit'>Allot</button></div></form></div>";
       }
       if (strpos($booking_data['booking_status'], 'APPROV') === false) {
         $get_room_data = "SELECT room_num FROM rooms WHERE room_id IN (SELECT room_id FROM guests WHERE booking_id=" . $rr['booking_id'] . ")";

@@ -44,7 +44,7 @@ ORDER BY B.booking_date DESC";
   # echo $sql;
   //$sql="SELECT DISTINCT `booking_id` FROM guests WHERE checkout<DATE_FORMAT(now(),'%Y%c%d') OR room_id=-1";// and booked_by=user_id;
   $result = mysqli_query($db, $sql);
-  echo "<br><table class='table table-hover'>";
+  echo "<div class='row justify-content-center'><div class='booking'><table class='table table-hover'>";
   if ($result) {
 
     while ($rr = mysqli_fetch_array($result)) {
@@ -61,18 +61,18 @@ ORDER BY B.booking_date DESC";
         $checkin = $guest_data['expected_checkin'];
         $checkout = $guest_data['expected_checkout'];
       }
-      echo "<tr><td class='status-container'><div class='row justify-content-center collapserow' onclick='toggle_collapse(";
+      echo "<tr><td><div class='row justify-content-center collapserow' onclick='toggle_collapse(";
       echo $rr['booking_id'];
       echo ")'>";
       if ($booking_data['booking_status'] == 'WAITING APPROVAL')
-        echo "<div class='col-2 status awaiting'>";
+        echo "<div class='col status awaiting'>";
       else if ($booking_data['booking_status'] == 'REJECTED' || $booking_data['booking_status'] == 'CANCELLED')
-        echo "<div class='col-2 status cancelled'>";
+        echo "<div class='col status cancelled'>";
       else
-        echo "<div class='col-2 status approved'>";
+        echo "<div class='col status approved'>";
       echo $booking_data['booking_status'];
       echo "</div>";
-      echo "<div class='col-3 booking-details'>";
+      echo "<div class='col booking-details'>";
       echo "<b>Booking ID: </b> ";
       echo $rr['booking_id'];
       echo "<br><br><b>Checkin: </b> ";
@@ -113,7 +113,7 @@ ORDER BY B.booking_date DESC";
       echo "</div></td></tr>";
     }
   }
-  echo "</table>";
+  echo "</table></div></div>";
 
   ?>
 
