@@ -139,7 +139,7 @@ include('dbConfig.php');
 
     <form class="modal-content animate" method="post" action="rooms.php">
       <div class="imgcontainer">
-        <span class="cursor" onclick="document.getElementById('addroom_modal').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <span class="cursor close" onclick="document.getElementById('addroom_modal').style.display='none'"  title="Close Modal">&times;</span>
         <img src="../images/admin.jpeg" alt="Avatar" class="avatar">
       </div>
 
@@ -189,7 +189,7 @@ include('dbConfig.php');
 
     <form class="modal-content animate" method="post" action="editrooms.php">
       <div class="imgcontainer">
-        <span class="cursor" onclick="document.getElementById('editroom_modal').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <span class="cursor close" onclick="document.getElementById('editroom_modal').style.display='none'" title="Close Modal">&times;</span>
         <img src="../images/admin.jpeg" alt="Avatar" class="avatar">
       </div>
 
