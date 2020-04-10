@@ -79,7 +79,7 @@ include('dbConfig.php');
       echo $booking_data['booking_status'];
       echo "</span>";
       echo "</div>";
-      echo "<div class='col booking-details'><b>Booked By: </b><span class='booked_by'>";
+      echo "<div class='col booking-details'><b>Booked By: </b><span class='booking_by'>";
       echo $booking_data['booked_by'];
       echo "</span><br><br><b>Checkin: </b> ";
       echo date('F jS Y', strtotime($guest_data['checkin']));
