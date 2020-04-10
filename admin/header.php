@@ -39,7 +39,7 @@ function display_admin_navbar()
             <i class="material-icons">person</i>
           </a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="adminprofile.php">My Profile</a>
+            <a class="dropdown-item" href="adminprofile.php">Change Password</a>
             <a class="dropdown-item" href="addadmin.php">Add Admin</a>
             <a class="dropdown-item" href="logout.php">Sign Out</a>
           </div>
